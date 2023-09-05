@@ -4,6 +4,8 @@ import morgan from 'morgan'
 import ViteExpress from 'vite-express'
 import Sequelize from 'sequelize'
 
+import { helloWorldHandler } from './controllers/helloworld.js'
+
 //middleware
 const app = express()
 
@@ -22,9 +24,7 @@ app.use(
 ViteExpress.config({ printViteDevServerHost: true })
 
 //routes
-app.get('/api', (req, res) => {
-  res.send('Hello World!')
-})
+app.get('/api', helloWorldHandler)
 
 //open server
 ViteExpress.listen(app, 8000, () => {
