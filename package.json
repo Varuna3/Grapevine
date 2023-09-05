@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "nodemon app.js -w app.js",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -26,6 +26,7 @@
     "react-router-dom": "^6.15.0",
     "sass": "^1.66.1",
     "sequelize": "^6.32.1",
+    "session": "^0.1.0",
     "socket.io": "^4.7.2",
     "url": "^0.11.1",
     "util": "^0.12.5",
