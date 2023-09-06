@@ -3,6 +3,8 @@ import session from 'express-session'
 import morgan from 'morgan'
 import ViteExpress from 'vite-express'
 import Sequelize from 'sequelize'
+import http from 'http'
+import { Server } from 'socket.io'
 
 //middleware
 const app = express()
@@ -19,6 +21,8 @@ app.use(
   })
 )
 
+const server = http.createServer(app)
+const io = new Server(server)
 ViteExpress.config({ printViteDevServerHost: true })
 
 //routes
@@ -26,7 +30,16 @@ app.get('/api', (req, res) => {
   res.send('Hello World!')
 })
 
-//open server
-ViteExpress.listen(app, 8000, () => {
+io.on('connection', socket => {
+  console.log('a user connected')
+  socket.on('disconnect', () => {
+    console.log('a user disconnected')
+  })
+})
+
+server.listen(8000, () => {
   console.log(`Hold ctrl and click this: http://localhost:8000/`)
 })
+
+//open server
+ViteExpress.bind(app, server)
