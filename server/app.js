@@ -6,6 +6,10 @@ import Sequelize from 'sequelize'
 import http from 'http'
 import { Server } from 'socket.io'
 
+import { helloWorldHandler } from './controllers/helloworld.js'
+import createAccount from './controllers/createAccount.js'
+import deleteAccount from './controllers/deleteAccount.js'
+
 //middleware
 const app = express()
 
@@ -26,9 +30,9 @@ const io = new Server(server)
 ViteExpress.config({ printViteDevServerHost: true })
 
 //routes
-app.get('/api', (req, res) => {
-  res.send('Hello World!')
-})
+app.get('/api', helloWorldHandler)
+app.put('/api/account/', createAccount);
+app.delete('/api/account/', deleteAccount);
 
 io.on('connection', socket => {
   console.log('a user connected')
