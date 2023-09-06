@@ -83,7 +83,7 @@ Server.init(
       allowNull: false,
       type: DataTypes.STRING,
     },
-    private: {
+    isPrivate: {
       allowNull: false,
       type: DataTypes.BOOLEAN,
     },

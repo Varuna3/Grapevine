@@ -13,6 +13,7 @@ import createAccount from './controllers/createAccount.js'
 import deleteAccount from './controllers/deleteAccount.js'
 import getAllMessages from './controllers/getAllMessages.js'
 import logoutAccount from './controllers/logoutAccount.js'
+import handleCreateServer from './controllers/createServer.js'
 
 //middleware
 const app = express()
@@ -35,11 +36,12 @@ ViteExpress.config({ printViteDevServerHost: true })
 
 //routes
 app.get('/api', helloWorldHandler)
+app.get('/api/messages/:serverId', getAllMessages)
 app.put('/api/account/', createAccount)
+app.put('/api/server', handleCreateServer)
 app.delete('/api/account/', deleteAccount)
 app.post('/api/login', login)
 app.post('/api/logout/', logoutAccount)
-app.get('/api/messages/:serverId', getAllMessages)
 
 io.on('connection', socket => {
   socket.on('disconnect', () => {})
