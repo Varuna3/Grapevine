@@ -3,6 +3,8 @@ import session from 'express-session'
 import morgan from 'morgan'
 import ViteExpress from 'vite-express'
 import Sequelize from 'sequelize'
+import http from 'http'
+import { Server } from 'socket.io'
 
 import { helloWorldHandler } from './controllers/helloworld.js'
 import createAccount from './controllers/createAccount.js'
@@ -23,6 +25,8 @@ app.use(
   })
 )
 
+const server = http.createServer(app)
+const io = new Server(server)
 ViteExpress.config({ printViteDevServerHost: true })
 
 //routes
@@ -30,7 +34,19 @@ app.get('/api', helloWorldHandler)
 app.put('/api/account/', createAccount);
 app.delete('/api/account/', deleteAccount);
 
-//open server
-ViteExpress.listen(app, 8000, () => {
+io.on('connection', socket => {
+  console.log('a user connected')
+  socket.on('disconnect', () => {
+    console.log('a user disconnected')
+  })
+  socket.on('custom', data => {
+    console.log(data)
+  })
+})
+
+server.listen(8000, () => {
   console.log(`Hold ctrl and click this: http://localhost:8000/`)
 })
+
+//open server
+ViteExpress.bind(app, server)
