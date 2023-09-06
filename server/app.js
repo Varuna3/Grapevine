@@ -3,13 +3,16 @@ import session from 'express-session'
 import morgan from 'morgan'
 import ViteExpress from 'vite-express'
 import Sequelize from 'sequelize'
+import bcrypt from 'bcrypt'
 import http from 'http'
 import { Server } from 'socket.io'
 
 import { helloWorldHandler } from './controllers/helloworld.js'
+import { login } from './controllers/login.js'
 import createAccount from './controllers/createAccount.js'
 import deleteAccount from './controllers/deleteAccount.js'
 import getAllMessages from './controllers/getAllMessages.js'
+import logoutAccount from './controllers/logoutAccount.js'
 
 //middleware
 const app = express()
@@ -32,9 +35,11 @@ ViteExpress.config({ printViteDevServerHost: true })
 
 //routes
 app.get('/api', helloWorldHandler)
-app.put('/api/account/', createAccount);
-app.delete('/api/account/', deleteAccount);
-app.get('/api/messages/:serverId', getAllMessages);
+app.put('/api/account/', createAccount)
+app.delete('/api/account/', deleteAccount)
+app.post('/api/login', login)
+app.post('/api/logout/', logoutAccount)
+app.get('/api/messages/:serverId', getAllMessages)
 
 io.on('connection', socket => {
   console.log('a user connected')
