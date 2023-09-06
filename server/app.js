@@ -11,6 +11,7 @@ import { helloWorldHandler } from './controllers/helloworld.js'
 import { login } from './controllers/login.js'
 import createAccount from './controllers/createAccount.js'
 import deleteAccount from './controllers/deleteAccount.js'
+import logoutAccount from './controllers/logoutAccount.js'
 
 //middleware
 const app = express()
@@ -36,6 +37,7 @@ app.get('/api', helloWorldHandler)
 app.put('/api/account/', createAccount)
 app.delete('/api/account/', deleteAccount)
 app.post('/api/login', login)
+app.post('/api/logout/', logoutAccount);
 
 io.on('connection', socket => {
   console.log('a user connected')
