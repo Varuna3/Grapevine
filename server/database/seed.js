@@ -172,4 +172,4 @@ if (process.argv[1] === url.fileURLToPath(import.meta.url)) {
   await sequelize.close()
 }
 
-export {}
+export { User }
