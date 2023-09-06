@@ -83,7 +83,7 @@ Server.init(
       allowNull: false,
       type: DataTypes.STRING,
     },
-    private: {
+    isPrivate: {
       allowNull: false,
       type: DataTypes.BOOLEAN,
     },
@@ -172,4 +172,4 @@ if (process.argv[1] === url.fileURLToPath(import.meta.url)) {
   await sequelize.close()
 }
 
-export { User, Message }
+export { User, Message, Server }
