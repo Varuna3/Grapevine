@@ -8,7 +8,7 @@ import http from 'http'
 import { Server } from 'socket.io'
 
 import { helloWorldHandler } from './controllers/helloworld.js'
-import { loginHandler } from './controllers/userHandlers.js'
+import { login } from './controllers/login.js'
 import createAccount from './controllers/createAccount.js'
 import deleteAccount from './controllers/deleteAccount.js'
 
