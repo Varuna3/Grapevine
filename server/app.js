@@ -12,6 +12,9 @@ import { login } from './controllers/login.js'
 import createAccount from './controllers/createAccount.js'
 import deleteAccount from './controllers/deleteAccount.js'
 
+import { User, Invite, Message, ServerUser } from './database/seed.js'
+import createMessage from './controllers/createMessage.js'
+
 //middleware
 const app = express()
 
@@ -36,6 +39,7 @@ app.get('/api', helloWorldHandler)
 app.put('/api/account/', createAccount)
 app.delete('/api/account/', deleteAccount)
 app.post('/api/login', login)
+app.put('/api/message', createMessage)
 
 io.on('connection', socket => {
   console.log('a user connected')
