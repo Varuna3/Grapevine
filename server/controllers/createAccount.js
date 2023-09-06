@@ -2,20 +2,20 @@
 
 import bcrypt from "bcrypt";
 
-import User from "../database/seed.js";
+import { User } from "../database/seed.js";
 
 export default async function createAccount(req, res) {
 	// Get all new user data from request body:
 	let { username, password, email, imageURL } = req.body;
 
-	// Create password hash using data with whitespace trimmed:
-	const passwordHash = bcrypt.hashSync(password.trim(), 10);
-
-	// Create placeholder image using first character of username when imageURL is falsy:
-	imageURL ||= "https://placehold.co/256x256?text=" + username.charAt(0);
-
 	// Try to create a new user:
 	try {
+		// Create password hash using data with whitespace trimmed:
+		const passwordHash = bcrypt.hashSync(password.trim(), 10);
+
+		// Create placeholder image using first character of username when imageURL is falsy:
+		imageURL ||= "https://placehold.co/256x256?text=" + username.charAt(0);
+
 		// Create new user in the database table:
 		await User.create({
 			username: username.trim(),
