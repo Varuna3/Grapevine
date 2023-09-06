@@ -1,6 +1,7 @@
 // App: Component containing the entire application.
 
 import { useEffect } from 'react'
+import Home from './Mock_Homepage/Home'
 
 export default function App() {
   const customShenanigansHandler = () => {
@@ -20,6 +21,8 @@ export default function App() {
           custom event shenanigans
         </button>
       </div>
+      <hr></hr>
+      <Home />
     </>
   )
 }
