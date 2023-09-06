@@ -35,6 +35,9 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
     console.log('a user disconnected')
   })
+  socket.on('custom', data => {
+    console.log(data)
+  })
 })
 
 server.listen(8000, () => {
