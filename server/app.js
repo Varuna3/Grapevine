@@ -40,12 +40,10 @@ app.post('/api/login', login)
 app.post('/api/logout/', logoutAccount);
 
 io.on('connection', socket => {
-  console.log('a user connected')
-  socket.on('disconnect', () => {
-    console.log('a user disconnected')
-  })
+  socket.on('disconnect', () => {})
   socket.on('custom', data => {
-    console.log(data)
+    io.emit('custom', 'custom event hit (frontend message)')
+    console.log('custom event hit (backend message)')
   })
 })
 
