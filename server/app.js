@@ -9,6 +9,7 @@ import { Server } from 'socket.io'
 import { helloWorldHandler } from './controllers/helloworld.js'
 import createAccount from './controllers/createAccount.js'
 import deleteAccount from './controllers/deleteAccount.js'
+import getAllMessages from './controllers/getAllMessages.js'
 
 //middleware
 const app = express()
@@ -33,6 +34,7 @@ ViteExpress.config({ printViteDevServerHost: true })
 app.get('/api', helloWorldHandler)
 app.put('/api/account/', createAccount);
 app.delete('/api/account/', deleteAccount);
+app.get('/api/messages/:serverId', getAllMessages);
 
 io.on('connection', socket => {
   console.log('a user connected')
