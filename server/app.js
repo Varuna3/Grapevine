@@ -3,8 +3,10 @@ import session from 'express-session'
 import morgan from 'morgan'
 import ViteExpress from 'vite-express'
 import Sequelize from 'sequelize'
+import bcrypt from 'bcrypt'
 
 import { helloWorldHandler } from './controllers/helloworld.js'
+import { loginHandler } from './controllers/userHandlers.js'
 
 //middleware
 const app = express()
@@ -25,6 +27,8 @@ ViteExpress.config({ printViteDevServerHost: true })
 
 //routes
 app.get('/api', helloWorldHandler)
+
+app.post('/api/login', loginHandler)
 
 //open server
 ViteExpress.listen(app, 8000, () => {
