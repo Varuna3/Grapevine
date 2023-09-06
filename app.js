@@ -36,7 +36,8 @@ io.on('connection', socket => {
     console.log('a user disconnected')
   })
   socket.on('custom', data => {
-    console.log(data)
+    io.emit('custom', 'custom event hit')
+    console.log('custom event hit')
   })
 })
 
