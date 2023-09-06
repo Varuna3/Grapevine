@@ -31,13 +31,10 @@ app.get('/api', (req, res) => {
 })
 
 io.on('connection', socket => {
-  console.log('a user connected')
-  socket.on('disconnect', () => {
-    console.log('a user disconnected')
-  })
+  socket.on('disconnect', () => {})
   socket.on('custom', data => {
-    io.emit('custom', 'custom event hit')
-    console.log('custom event hit')
+    io.emit('custom', 'custom event hit (frontend message)')
+    console.log('custom event hit (backend message)')
   })
 })
 
