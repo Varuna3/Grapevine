@@ -13,5 +13,7 @@ export async function login(req, res) {
         res.send({ Error: 'Error: Authentication failed.' })
       }
     })
+  } else {
+    res.send({ Error: "User doesn't exist." })
   }
 }

@@ -15,6 +15,9 @@ import getAllMessages from './controllers/getAllMessages.js'
 import logoutAccount from './controllers/logoutAccount.js'
 import handleCreateServer from './controllers/createServer.js'
 
+import { User, Invite, Message, ServerUser } from './database/seed.js'
+import createMessage from './controllers/createMessage.js'
+
 //middleware
 const app = express()
 
@@ -39,6 +42,7 @@ app.get('/api', helloWorldHandler)
 app.get('/api/messages/:serverId', getAllMessages)
 app.put('/api/account/', createAccount)
 app.put('/api/server', handleCreateServer)
+app.put('/api/message', createMessage)
 app.delete('/api/account/', deleteAccount)
 app.post('/api/login', login)
 app.post('/api/logout/', logoutAccount)
