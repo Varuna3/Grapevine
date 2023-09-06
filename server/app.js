@@ -5,6 +5,8 @@ import ViteExpress from 'vite-express'
 import Sequelize from 'sequelize'
 
 import { helloWorldHandler } from './controllers/helloworld.js'
+import createAccount from './controllers/createAccount.js'
+import deleteAccount from './controllers/deleteAccount.js'
 
 //middleware
 const app = express()
@@ -25,6 +27,8 @@ ViteExpress.config({ printViteDevServerHost: true })
 
 //routes
 app.get('/api', helloWorldHandler)
+app.put('/api/account/', createAccount);
+app.delete('/api/account/', deleteAccount);
 
 //open server
 ViteExpress.listen(app, 8000, () => {
