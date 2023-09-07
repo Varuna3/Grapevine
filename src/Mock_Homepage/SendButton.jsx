@@ -2,7 +2,8 @@ const SendButton = ({ message }) => {
   return (
     <>
       <button
-        onClick={() => {
+        onClick={e => {
+          e.preventDefault()
           socket.emit('client message', { message })
         }}
       >

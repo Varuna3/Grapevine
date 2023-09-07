@@ -49,9 +49,8 @@ app.post('/api/logout/', logoutAccount)
 
 io.on('connection', socket => {
   socket.on('disconnect', () => {})
-  socket.on('custom', data => {
-    io.emit('custom', 'custom event hit (frontend message)')
-    console.log('custom event hit (backend message)')
+  socket.on('client message', data => {
+    io.emit('new message', data.message)
   })
 })
 

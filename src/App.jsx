@@ -1,28 +1,24 @@
 // App: Component containing the entire application.
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Home from './Mock_Homepage/Home'
 
 export default function App() {
-  const customShenanigansHandler = () => {
-    socket.emit('custom', 'custom text')
-  }
+  const [messages, setMessages] = useState([])
+
   useEffect(() => {
     socket.connect()
-    socket.on('custom', data => {
-      console.log(data)
-    })
-  }, [])
+    socket.on('new message', data => handleNewMessage(data))
+    return () => socket.disconnect()
+  }, [messages])
+
+  function handleNewMessage(data) {
+    setMessages([...messages, data])
+  }
 
   return (
     <>
-      <div>
-        <button onClick={customShenanigansHandler}>
-          custom event shenanigans
-        </button>
-      </div>
-      <hr></hr>
-      <Home />
+      <Home messages={messages} />
     </>
   )
 }
