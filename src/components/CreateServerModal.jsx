@@ -4,7 +4,7 @@ import axios from 'axios'
 const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
   const [name, setServerName] = useState('')
   const [imageURL, setImageURL] = useState('')
-  const [isPrivate, setIsPrivate] = useState()
+  const [isPrivate, setIsPrivate] = useState(false)
 
   const modalRef = useRef()
 
@@ -18,10 +18,10 @@ const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
     }
   }, [showServerModal])
 
-  const submitHandler = e => {
+  const submitHandler = async e => {
     e.preventDefault()
 
-    axios.put('/api/server', { name, imageURL, isPrivate }).then(res => {
+    await axios.put('/api/server', { name, imageURL, isPrivate }).then(res => {
       if (res.data.Success) {
         // setServerName('')
         setImageURL('')
@@ -31,7 +31,7 @@ const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
         console.log(res.data.Error)
       }
     })
-    axios
+    await axios
       .post('/api/server/addUser', { serverName: name, isAdmin: true })
       .then(({ data }) => {
         if (data.Success) {
