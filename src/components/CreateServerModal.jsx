@@ -2,47 +2,55 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
 
-const LoginModal = ({ showModal, setShowModal }) => {
-    const [serverName, setServerName] = useState('')
+const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
+    const [name, setServerName] = useState('')
     const [imageURL, setImageURL] = useState('')
-    const [isPrivate, setIsPrivate] = useState('')
+    const [isPrivate, setIsPrivate] = useState()
 
     const modalRef = useRef();
 
     useEffect(() => {
         if (!modalRef.current) return;
      
-        if (showModal) {
+        if (showServerModal) {
           modalRef.current.showModal();
         } else {
           modalRef.current.close();
         }
-      }, [showModal]);
+      }, [showServerModal]);
 
     const submitHandler = e => {
         e.preventDefault()
 
-        axios.post('/api/server', {serverName, imageURL, isPrivate})
+        axios.put('/api/server', {name, imageURL, isPrivate})
         .then(res => {
-            console.log('response', res.data)
-            if(res.data.Success === true){
-                setShowModal(false)
+            if(res.data.Success){
+                setServerName('')
+                setImageURL('')
+                setIsPrivate(false)
+                setShowServerModal(false)
             } else {
-                console.log('Error in submithandler')
+                console.log(res.data.Error)
             }
         })
+    }
+
+    const handleCancel = () => {
+        modalRef.current.close()
+        setShowServerModal(false)
+
     }
  
   return (
     <dialog ref={modalRef}>
         <form onSubmit={submitHandler}>
-                <label htmlFor="serverName">Server Name:</label>
+                <label htmlFor="name">Server Name:</label>
                     <input 
                         onChange={e => setServerName(e.target.value)} 
                         type="text" 
-                        id="serverName" 
-                        name="serverName"
-                        value={serverName}
+                        id="name" 
+                        name="name"
+                        value={name}
                     />
                 <label htmlFor="imageURL">Image URL:</label>
                     <input
@@ -54,17 +62,17 @@ const LoginModal = ({ showModal, setShowModal }) => {
                     />
                     <label htmlFor="isPrivate">Is the server private?:</label>
                     <input
-                        onChange={e => setIsPrivate(e.target.value)}  
+                        onChange={e => setIsPrivate(!isPrivate)}  
                         type="checkbox" 
                         id="isPrivate" 
                         name="isPrivate"
                         value={isPrivate}
                     />
-                <button onClick={() => {modalRef.current.close()}}>Cancel</button>
-                <button type="submit">Login</button>
+                <button type="submit">Create Server</button>
             </form>
+            <button onClick={handleCancel}>Cancel</button>
     </dialog>
   );
 };
 
-export default LoginModal;
+export default CreateServerModal;

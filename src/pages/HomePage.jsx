@@ -5,12 +5,14 @@ import axios from 'axios'
 import InputArea from '../components/InputArea'
 import Messages from '../components/Messages'
 import LoginModal from '../components/LoginModal'
+import CreateServerModal from '../components/CreateServerModal'
 
 import '../styles/home-page.scss'
 
 export default function HomePage({ messages }) {
   const [username, setUsername] = useState('')
   const [showModal, setShowModal] = useState(false);
+  const [showServerModal, setShowServerModal] = useState(false);
 
 
   useEffect(() => {
@@ -28,7 +30,9 @@ export default function HomePage({ messages }) {
 
   return (
     <main className='home-page'>
-      <LoginModal showModal={showModal} setShowModal={setShowModal} setUsername={setUsername}/>
+      <button onClick={() => {setShowServerModal(true)}}>Create Server</button>
+      <CreateServerModal showServerModal={showServerModal} setShowServerModal={setShowServerModal}/>
+      <LoginModal showModal={showModal} setShowModal={setShowModal} />
       <Messages messages={messages} />
       <InputArea
         callback={message => {

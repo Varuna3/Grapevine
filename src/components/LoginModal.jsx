@@ -23,7 +23,6 @@ const LoginModal = ({ showModal, setShowModal }) => {
 
         axios.post('/api/login', {username, password})
         .then(res => {
-            console.log('response', res.data)
             if(res.data.Success === true){
                 setShowModal(false)
             } else {
