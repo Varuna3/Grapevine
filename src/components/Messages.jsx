@@ -9,19 +9,19 @@ export default function Messages({ messages }) {
   const [messageDivs, setMessageDivs] = useState([])
   let ids = 0
 
-  // use tmp because messageDivs will NOT actually change until re-render
   // use hard-code server id 1, because we haven't implemented "servers" yet
   // **should only run once, because we only want to pull from server one time every time the page loads
   let tmpMessages = []
   useEffect(() => {
     axios
-      .get(`/api/messages/1` /*make this dynamic when we implement servers*/)
+      .get(
+        `/api/messages/1` /*TODO: make this dynamic when we implement servers*/
+      )
       .then(({ data }) => {
-        let tmp = []
+        let tmp = [] // --> use this because messageDivs will NOT actually change until end of useEffect
         data.forEach(e => {
           ids++
           let message = { username: e.user.username, message: e.message }
-          console.log(message)
           tmp = [...tmp, createMessageDiv(message, ids)]
           setMessageDivs(tmp)
         })
