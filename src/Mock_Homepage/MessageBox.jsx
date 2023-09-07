@@ -10,7 +10,9 @@ const MessageBox = ({ messages }) => {
         ids++
         return (
           <div key={ids}>
-            <p>{e}</p>
+            <p>
+              {e.username}: {e.message}
+            </p>
           </div>
         )
       })

@@ -1,6 +1,8 @@
 // App: Component containing the entire application.
 
 import { useEffect, useState } from 'react'
+import axios from 'axios'
+
 import Home from './Mock_Homepage/Home'
 
 export default function App() {
@@ -13,7 +15,10 @@ export default function App() {
   }, [messages])
 
   function handleNewMessage(data) {
-    setMessages([...messages, data])
+    setMessages([
+      ...messages,
+      { username: data.username, message: data.message },
+    ])
   }
 
   return (

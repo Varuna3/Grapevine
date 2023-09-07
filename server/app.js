@@ -52,7 +52,7 @@ app.post('/api/logout/', logoutAccount)
 io.on('connection', socket => {
   socket.on('disconnect', () => {})
   socket.on('client message', data => {
-    io.emit('new message', data.message)
+    io.emit('new message', { username: data.username, message: data.message })
   })
 })
 
