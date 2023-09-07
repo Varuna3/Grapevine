@@ -45,6 +45,7 @@ export default function HomePage({ messages }) {
         showModal={showModal}
         setShowModal={setShowModal}
         setUsername={setUsername}
+        username={username}
       />
       <Messages messages={messages} />
       <InputArea
