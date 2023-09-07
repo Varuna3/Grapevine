@@ -12,7 +12,6 @@ export default function HomePage({ messages }) {
   const [username, setUsername] = useState('')
   const [showModal, setShowModal] = useState(false);
 
-  console.log('username', username)
 
   useEffect(() => {
     axios.get('/api/username')
@@ -21,6 +20,7 @@ export default function HomePage({ messages }) {
           setUsername(data.Success)
         } else if(data.Error) {
           // Alert user there was an error
+          setShowModal(true)
           console.log(data.Error)
         }
       })
