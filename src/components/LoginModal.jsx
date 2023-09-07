@@ -8,35 +8,10 @@ const LoginModal = ({ showModal, setShowModal, setUsername, username }) => {
 
   useEffect(() => {
     if (!modalRef.current) return
-
-<<<<<<< HEAD
     if (showModal) {
       modalRef.current.showModal()
     } else {
       modalRef.current.close()
-=======
-    useEffect(() => {
-        if (!modalRef.current) return;
-     
-        if (showModal) {
-          modalRef.current.showModal();
-        } else {
-          modalRef.current.close();
-        }
-      }, [showModal]);
-
-    const submitHandler = e => {
-        e.preventDefault()
-
-        axios.post('/api/login', {username, password})
-        .then(res => {
-            if(res.data.Success === true){
-                setShowModal(false)
-            } else {
-                console.log('Error in submithandler')
-            }
-        })
->>>>>>> create-server-modal
     }
   }, [showModal])
 
@@ -44,7 +19,6 @@ const LoginModal = ({ showModal, setShowModal, setUsername, username }) => {
     e.preventDefault()
 
     axios.post('/api/login', { username, password }).then(res => {
-      console.log('response', res.data)
       if (res.data.Success === true) {
         setShowModal(false)
       } else {
