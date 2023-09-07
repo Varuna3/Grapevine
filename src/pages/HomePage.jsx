@@ -5,12 +5,14 @@ import axios from 'axios'
 import InputArea from '../components/InputArea'
 import Messages from '../components/Messages'
 import LoginModal from '../components/LoginModal'
+import CreateServerModal from '../components/CreateServerModal'
 
 import '../styles/home-page.scss'
 
 export default function HomePage({ messages }) {
   const [username, setUsername] = useState('')
   const [showModal, setShowModal] = useState(false)
+  const [showServerModal, setShowServerModal] = useState(false)
 
   useEffect(() => {
     axios.get('/api/username').then(({ data }) => {
@@ -46,6 +48,17 @@ export default function HomePage({ messages }) {
         setShowModal={setShowModal}
         setUsername={setUsername}
         username={username}
+      />
+      <button
+        onClick={() => {
+          setShowServerModal(true)
+        }}
+      >
+        Create Server
+      </button>
+      <CreateServerModal
+        showServerModal={showServerModal}
+        setShowServerModal={setShowServerModal}
       />
       <Messages messages={messages} />
       <InputArea
