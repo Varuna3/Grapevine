@@ -18,6 +18,7 @@ import getUsername from './controllers/getUsername.js'
 
 import { User, Invite, Message, ServerUser } from './database/seed.js'
 import createMessage from './controllers/createMessage.js'
+import addUserToServer from './controllers/addUserToServer.js'
 
 //middleware
 const app = express()
@@ -48,6 +49,7 @@ app.put('/api/message', createMessage)
 app.delete('/api/account/', deleteAccount)
 app.post('/api/login', login)
 app.post('/api/logout/', logoutAccount)
+app.post('/api/server/addUser', addUserToServer)
 
 io.on('connection', socket => {
   socket.on('disconnect', () => {})
