@@ -1,9 +1,8 @@
 // App: Component containing the entire application.
 
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 
-import Home from './Mock_Homepage/Home'
+import HomePage from './pages/HomePage'
 
 export default function App() {
   const [messages, setMessages] = useState([])
@@ -22,8 +21,8 @@ export default function App() {
   }
 
   return (
-    <>
-      <Home messages={messages} />
-    </>
+    <div>
+      <HomePage messages={messages} />
+    </div>
   )
 }
