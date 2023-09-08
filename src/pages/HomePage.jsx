@@ -17,6 +17,8 @@ export default function HomePage({ messages }) {
   const [serverList, setServerList] = useState([])
   const [currentServer, setCurrentServer] = useState({})
 
+  console.log('curre', currentServer)
+
 
   useEffect(() => {
     axios.get('/api/username').then(({ data }) => {
@@ -77,7 +79,7 @@ export default function HomePage({ messages }) {
         showServerModal={showServerModal}
         setShowServerModal={setShowServerModal}
       />
-      <ServerList serverList={serverList}/>
+      <ServerList serverList={serverList} setCurrentServer={setCurrentServer}/>
       <Messages messages={messages} server={currentServer}/>
       <InputArea
         callback={message => {

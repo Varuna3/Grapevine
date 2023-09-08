@@ -1,4 +1,4 @@
-const ServerList = ({serverList}) => {
+const ServerList = ({serverList, setCurrentServer}) => {
 
     return (
         <>
@@ -6,7 +6,7 @@ const ServerList = ({serverList}) => {
             <>
                 {serverList.map((server) => {
                     return (
-                        <div key={server.id}>{server.name}</div>
+                        <div key={server.id} onClick={() => {setCurrentServer(server)}}>{server.name}</div>
                     )
                 })}
             </>

@@ -13,9 +13,10 @@ export default function Messages({ messages, server }) {
   // **should only run once, because we only want to pull from server one time every time the page loads
   let tmpMessages = []
   useEffect(() => {
-    axios
+    if(server.id){
+      axios
       .get(
-        `/api/messages/${server.id}`
+        `/api/messages/${server.id}` 
       )
       .then(({ data }) => {
         let tmp = [] // --> use this because messageDivs will NOT actually change until end of useEffect
@@ -26,6 +27,7 @@ export default function Messages({ messages, server }) {
           setMessageDivs(tmp)
         })
       })
+    }
   }, [])
 
   // every time someone sends a message, our "messages" state variable should change, and this useEffect should run again.
