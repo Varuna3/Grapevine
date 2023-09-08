@@ -12,8 +12,10 @@ export default function InputArea({ callback }) {
   const inputId = useId()
 
   function submitHander(event) {
+    console.log(message)
     event.preventDefault()
     callback(message)
+    setMessage('')
   }
 
   return (

@@ -36,7 +36,7 @@ export default function Messages({ messages }) {
       tmpMessageDivs = [...tmpMessageDivs, createMessageDiv(e, ids)]
     })
 
-    setMessageDivs([...messageDivs, tmpMessageDivs])
+    setMessageDivs([tmpMessageDivs])
   }, [messages])
 
   // given an object formatted like this: {username, message} spit out a "message div" that we can display
