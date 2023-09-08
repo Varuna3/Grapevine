@@ -8,6 +8,7 @@ import LoginModal from '../components/LoginModal'
 import CreateServerModal from '../components/CreateServerModal'
 
 import '../styles/home-page.scss'
+import Logout from '../components/Logout'
 
 export default function HomePage({ messages, setMessages }) {
   const [username, setUsername] = useState('')
@@ -60,6 +61,7 @@ export default function HomePage({ messages, setMessages }) {
         showServerModal={showServerModal}
         setShowServerModal={setShowServerModal}
       />
+      <Logout setShowModal={setShowModal} />
       <Messages messages={messages} setMessages={setMessages} />
       <InputArea
         callback={message => {
