@@ -9,7 +9,7 @@ import CreateServerModal from '../components/CreateServerModal'
 
 import '../styles/home-page.scss'
 
-export default function HomePage({ messages }) {
+export default function HomePage({ messages, setMessages }) {
   const [username, setUsername] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [showServerModal, setShowServerModal] = useState(false)
@@ -60,7 +60,7 @@ export default function HomePage({ messages }) {
         showServerModal={showServerModal}
         setShowServerModal={setShowServerModal}
       />
-      <Messages messages={messages} />
+      <Messages messages={messages} setMessages={setMessages} />
       <InputArea
         callback={message => {
           handleSubmit(message)

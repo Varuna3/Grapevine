@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 import '../styles/messages.scss'
 
-export default function Messages({ messages }) {
+export default function Messages({ messages, setMessages }) {
   const [messageDivs, setMessageDivs] = useState([])
   let ids = 0
 
@@ -19,12 +19,15 @@ export default function Messages({ messages }) {
       )
       .then(({ data }) => {
         let tmp = [] // --> use this because messageDivs will NOT actually change until end of useEffect
+        let tmpMessages = []
         data.forEach(e => {
           ids++
           let message = { username: e.user.username, message: e.message }
+          tmpMessages = [...tmpMessages, message]
           tmp = [...tmp, createMessageDiv(message, ids)]
-          setMessageDivs(tmp)
         })
+        setMessageDivs(tmp)
+        setMessages(tmpMessages)
       })
   }, [])
 
@@ -33,10 +36,10 @@ export default function Messages({ messages }) {
     let tmpMessageDivs = []
     messages.forEach(e => {
       ids++
-      tmpMessageDivs = [...tmpMessageDivs, createMessageDiv(e, ids)]
+      tmpMessageDivs.push(createMessageDiv(e, ids))
     })
 
-    setMessageDivs([...messageDivs, tmpMessageDivs])
+    setMessageDivs([tmpMessageDivs])
   }, [messages])
 
   // given an object formatted like this: {username, message} spit out a "message div" that we can display

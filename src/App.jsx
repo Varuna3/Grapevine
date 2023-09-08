@@ -22,7 +22,7 @@ export default function App() {
 
   return (
     <div>
-      <HomePage messages={messages} />
+      <HomePage messages={messages} setMessages={setMessages} />
     </div>
   )
 }
