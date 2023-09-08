@@ -5,9 +5,8 @@ import { useEffect, useRef, useState } from 'react'
 
 import '../styles/messages.scss'
 
-export default function Messages({ messages, setMessages }) {
+export default function Messages({ messages, setMessages, server }) {
     const [messageDivs, setMessageDivs] = useState([])
-    const [selectedServer, setSelectedServer] = useState(1)
     let ids = 0
 
     const ref = useRef(null)
@@ -15,11 +14,8 @@ export default function Messages({ messages, setMessages }) {
     // use hard-code server id 1, because we haven't implemented "servers" yet
     // **should only run once, because we only want to pull from server one time every time the page loads
     useEffect(() => {
-        axios
-            .get(
-                `/api/messages/${selectedServer}` /*TODO: change this state variable when user selects new server*/,
-            )
-            .then(({ data }) => {
+        if (server.id) {
+            axios.get(`/api/messages/${server.id}`).then(({ data }) => {
                 let tmp = [] // --> use this because messageDivs will NOT actually change until end of useEffect
                 let tmpMessages = []
                 data.forEach((e) => {
@@ -34,7 +30,8 @@ export default function Messages({ messages, setMessages }) {
                 setMessageDivs(tmp)
                 setMessages(tmpMessages)
             })
-    }, [])
+        }
+    }, [server])
 
     // every time someone sends a message, our "messages" state variable should change, and this useEffect should run again.
     useEffect(() => {
