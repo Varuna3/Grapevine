@@ -47,6 +47,12 @@ export default function Messages({ messages, setMessages }) {
         setMessageDivs([tmpMessageDivs])
     }, [messages])
 
+    // must fire this every time we create a new message div. Can't be put inside the above useEffect
+    // because the state wont actually change until the end of the useeffect.
+    useEffect(() => {
+        ref.current.scrollTo(0, ref.current.scrollHeight)
+    }, [messageDivs])
+
     // given an object formatted like this: {username, message} spit out a "message div" that we can display
     function createMessageDiv(e, id) {
         return (
