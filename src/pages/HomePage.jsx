@@ -6,6 +6,7 @@ import InputArea from '../components/InputArea'
 import Messages from '../components/Messages'
 import LoginModal from '../components/LoginModal'
 import CreateServerModal from '../components/CreateServerModal'
+import ServerList from '../components/ServerList'
 
 import '../styles/home-page.scss'
 
@@ -13,11 +14,14 @@ export default function HomePage({ messages }) {
   const [username, setUsername] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [showServerModal, setShowServerModal] = useState(false)
+  const [serverList, setServerList] = useState([])
+  const [currentServer, setCurrentServer] = useState({})
 
   useEffect(() => {
     axios.get('/api/username').then(({ data }) => {
       if (data.Success) {
         setUsername(data.Success)
+        getAllServers()
       } else if (data.Error) {
         // Alert user there was an error
         setShowModal(true)
@@ -25,6 +29,17 @@ export default function HomePage({ messages }) {
       }
     })
   }, [])
+
+  async function getAllServers() {
+    await axios.get('/api/server/getall')
+      .then((res) => {
+        setServerList(res.data.Success)
+        if(res.data.Success[0]){
+          setCurrentServer(res.data.Success[0])
+        }
+      })
+  }
+
 
   async function handleSubmit(message) {
     const { data } = await axios.put('/api/message', {
@@ -60,6 +75,7 @@ export default function HomePage({ messages }) {
         showServerModal={showServerModal}
         setShowServerModal={setShowServerModal}
       />
+      <ServerList serverList={serverList}/>
       <Messages messages={messages} />
       <InputArea
         callback={message => {
