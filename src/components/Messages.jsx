@@ -31,7 +31,7 @@ export default function Messages({ messages, setMessages, server }) {
                 setMessages(tmpMessages)
             })
         }
-    }, [])
+    }, [server])
 
     // every time someone sends a message, our "messages" state variable should change, and this useEffect should run again.
     useEffect(() => {

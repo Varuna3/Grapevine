@@ -18,8 +18,6 @@ export default function HomePage({ messages, setMessages }) {
     const [serverList, setServerList] = useState([])
     const [currentServer, setCurrentServer] = useState({})
 
-    console.log('curre', currentServer)
-
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
             if (data.Success) {
@@ -31,13 +29,12 @@ export default function HomePage({ messages, setMessages }) {
                 console.log(data.Error)
             }
         })
-        console.log('new log')
     }, [showModal])
 
     async function getAllServers() {
         await axios.get('/api/server/getall').then((res) => {
-            setServerList(res.data.Success)
             if (res.data.Success[0]) {
+                setServerList(res.data.Success)
                 setCurrentServer(res.data.Success[0])
             }
         })
