@@ -28,7 +28,8 @@ export default function HomePage({ messages }) {
         console.log(data.Error)
       }
     })
-  }, [])
+    console.log('new log')
+  }, [showModal])
 
   async function getAllServers() {
     await axios.get('/api/server/getall')
