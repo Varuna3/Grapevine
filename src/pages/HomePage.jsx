@@ -17,6 +17,7 @@ export default function HomePage({ messages }) {
   const [serverList, setServerList] = useState([])
   const [currentServer, setCurrentServer] = useState({})
 
+
   useEffect(() => {
     axios.get('/api/username').then(({ data }) => {
       if (data.Success) {
@@ -44,7 +45,7 @@ export default function HomePage({ messages }) {
 
   async function handleSubmit(message) {
     const { data } = await axios.put('/api/message', {
-      server: 'test1',
+      server: currentServer.name,
       message,
     })
     if (data.Success) {
@@ -77,7 +78,7 @@ export default function HomePage({ messages }) {
         setShowServerModal={setShowServerModal}
       />
       <ServerList serverList={serverList}/>
-      <Messages messages={messages} />
+      <Messages messages={messages} server={currentServer}/>
       <InputArea
         callback={message => {
           handleSubmit(message)

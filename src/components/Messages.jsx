@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 import '../styles/messages.scss'
 
-export default function Messages({ messages }) {
+export default function Messages({ messages, server }) {
   const [messageDivs, setMessageDivs] = useState([])
   let ids = 0
 
@@ -15,7 +15,7 @@ export default function Messages({ messages }) {
   useEffect(() => {
     axios
       .get(
-        `/api/messages/1` /*TODO: make this dynamic when we implement servers*/
+        `/api/messages/${server.id}`
       )
       .then(({ data }) => {
         let tmp = [] // --> use this because messageDivs will NOT actually change until end of useEffect
