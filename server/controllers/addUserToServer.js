@@ -6,10 +6,8 @@ export default async function addUserToServer(req, res) {
     const { serverName, isAdmin } = req.body
     try {
       const user = await User.findOne({ where: { username } })
-      console.log('user')
 
       const server = await Server.findOne({ where: { name: serverName } })
-      console.log('server')
 
       await server.addUser(user, { through: { isAdmin } })
       res.json({ Success: "Nothin' went askew. 'Grats." })
