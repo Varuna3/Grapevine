@@ -14,7 +14,7 @@
 	width: 100%;
 	height: 100%;
 	font-family: $sans-serif;
-	overflow: hidden;
+	// overflow: hidden; --> re-enable when styling allows to keep sending messages after messages container is full
 }
 
 @include color-schemes using ($color) {
