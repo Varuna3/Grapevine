@@ -28,11 +28,11 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(express.static('public'))
 app.use(
-  session({
-    secret: 'L3TM30UT-1MSTUCK1NY0URP0CK3T',
-    resave: false,
-    saveUninitialized: false,
-  })
+    session({
+        secret: 'L3TM30UT-1MSTUCK1NY0URP0CK3T',
+        resave: false,
+        saveUninitialized: false,
+    }),
 )
 
 const server = http.createServer(app)
@@ -51,15 +51,18 @@ app.post('/api/login', login)
 app.post('/api/logout/', logoutAccount)
 app.post('/api/server/addUser', addUserToServer)
 
-io.on('connection', socket => {
-  socket.on('disconnect', () => {})
-  socket.on('client message', data => {
-    io.emit('new message', { username: data.username, message: data.message })
-  })
+io.on('connection', (socket) => {
+    socket.on('disconnect', () => {})
+    socket.on('client message', (data) => {
+        io.emit('new message', {
+            username: data.username,
+            message: data.message,
+        })
+    })
 })
 
 server.listen(8000, () => {
-  console.log(`Hold ctrl and click this: http://localhost:8000/`)
+    console.log(`Hold ctrl and click this: http://localhost:8000/`)
 })
 
 //open server
