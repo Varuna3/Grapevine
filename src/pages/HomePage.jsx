@@ -29,7 +29,7 @@ export default function HomePage({ messages, setMessages }) {
                 console.log(data.Error)
             }
         })
-    }, [showModal])
+    }, [showModal, showServerModal])
 
     async function getAllServers() {
         await axios.get('/api/server/getall').then((res) => {
