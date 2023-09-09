@@ -5,47 +5,58 @@ import { useEffect, useRef, useState } from 'react'
 
 import '../styles/messages.scss'
 
+// Container displays messages for a given server
 export default function Messages({ messages, setMessages, server }) {
+    //state array for all current "message" elements (user image, username, message)
     const [messageDivs, setMessageDivs] = useState([])
+    
+    // create increment variable for "key" for message elements
     let ids = 0
 
+    // reference
     const ref = useRef(null)
 
-    // use hard-code server id 1, because we haven't implemented "servers" yet
-    // **should only run once, because we only want to pull from server one time every time the page loads
+    // every time the selected server changes, fetch list of messages for the selected server
     useEffect(() => {
+        // if the current user is in ANY servers
         if (server.id) {
+            // fetch messages for currently selected server
             axios.get(`/api/messages/${server.id}`).then(({ data }) => {
-                let tmp = [] // --> use this because messageDivs will NOT actually change until end of useEffect
-                let tmpMessages = []
+                // use tmp and tmpMessages because messageDivs will NOT actually change until end of useEffect
+                let tmp = [] // --> message div array
+                let tmpMessages = [] // --> message array
+                // add each message to the message div array and the messages array
                 data.forEach((e) => {
                     ids++
+                    // format messages properly
                     let message = {
                         username: e.user.username,
                         message: e.message,
                     }
+                    // add message 'e' to messages array
                     tmpMessages = [...tmpMessages, message]
+                    // use createMessageDiv() function to add a message element to the message div array
                     tmp = [...tmp, createMessageDiv(message, ids)]
                 })
+                // update both state arrays accordingly
                 setMessageDivs(tmp)
                 setMessages(tmpMessages)
             })
         }
-    }, [server])
+    }, [server]) // --> update on change of selected server
 
-    // every time someone sends a message, our "messages" state variable should change, and this useEffect should run again.
+    // every time we receive new messages and "messages" state updates, add it to the state array of message divs
     useEffect(() => {
-        let tmpMessageDivs = []
+        let tmpMessageDivs = [] // --> use this so we can .push()
         messages.forEach((e) => {
             ids++
             tmpMessageDivs.push(createMessageDiv(e, ids))
         })
-
+        // set state message div array accordingly
         setMessageDivs([tmpMessageDivs])
     }, [messages])
 
-    // must fire this every time we create a new message div. Can't be put inside the above useEffect
-    // because the state wont actually change until the end of the useeffect.
+    // every time the state array for message elements changes, scroll the 'messages' container
     useEffect(() => {
         ref.current.scrollTo(0, ref.current.scrollHeight)
     }, [messageDivs])
@@ -56,18 +67,19 @@ export default function Messages({ messages, setMessages, server }) {
             <article key={id} className="messages-chat">
                 <picture className="messages-pfp">
                     <img
-                        src={`https://placehold.co/128?text=${e.username[0]}`}
+                        src={`https://placehold.co/128?text=${e.username[0]}`} // --> use first char of username to get image
                         alt="Mary Grapevine"
                     />
                 </picture>
                 <div className="messages-content">
-                    <h4 className="messages-username">{e.username}</h4>
-                    <span className="messages-text">{e.message}</span>
+                    <h4 className="messages-username">{e.username}</h4> {/*--> object.username */}
+                    <span className="messages-text">{e.message}</span> {/*--> object.message */}
                 </div>
             </article>
         )
     }
 
+// return a "messages" container holding out "messageDivs" state array filled with message elements
     return (
         <div ref={ref} className="messages">
             {messageDivs}
