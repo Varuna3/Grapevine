@@ -4,14 +4,17 @@ import { useEffect, useState } from 'react'
 
 import HomePage from './pages/HomePage'
 
-import "./styles/app.scss";
+import './styles/app.scss'
 
 export default function App() {
     const [messages, setMessages] = useState([])
+    const [currentServer, setCurrentServer] = useState({})
 
     useEffect(() => {
         socket.connect()
-        socket.on('new message', (data) => handleNewMessage(data))
+        socket.on('new message', (data) => {
+            if (data.server === currentServer.id) handleNewMessage(data)
+        })
         return () => socket.disconnect()
     }, [messages])
 
@@ -24,7 +27,12 @@ export default function App() {
 
     return (
         <div>
-            <HomePage messages={messages} setMessages={setMessages} />
+            <HomePage
+                messages={messages}
+                setMessages={setMessages}
+                currentServer={currentServer}
+                setCurrentServer={setCurrentServer}
+            />
         </div>
     )
 }
