@@ -10,7 +10,7 @@ export default async function getAllServers(req, res) {
                 where: { username },
                 include: Server,
             })
-            if (user) {
+            if (user.servers) {
                 res.json({ Success: user.servers })
             } else {
                 res.json({ Error: 'User does not exist.' })
