@@ -2,8 +2,6 @@ import express from 'express'
 import session from 'express-session'
 import morgan from 'morgan'
 import ViteExpress from 'vite-express'
-import Sequelize from 'sequelize'
-import bcrypt from 'bcrypt'
 import http from 'http'
 import { Server } from 'socket.io'
 
@@ -16,11 +14,10 @@ import logoutAccount from './controllers/logoutAccount.js'
 import handleCreateServer from './controllers/createServer.js'
 import getUsername from './controllers/getUsername.js'
 import getAllServers from './controllers/getAllServers.js'
-
-import { User, Invite, Message, ServerUser } from './database/seed.js'
 import createMessage from './controllers/createMessage.js'
 import addUserToServer from './controllers/addUserToServer.js'
 import createInvite from './controllers/createInvite.js'
+import handleJoinServer from './controllers/handleJoinServer.js'
 
 //middleware
 const app = express()
@@ -53,6 +50,7 @@ app.delete('/api/account/', deleteAccount)
 app.post('/api/login', login)
 app.post('/api/logout/', logoutAccount)
 app.post('/api/server/addUser', addUserToServer)
+app.post('/api/server/join', handleJoinServer)
 app.get('/api/server/getall', getAllServers)
 
 io.on('connection', (socket) => {
