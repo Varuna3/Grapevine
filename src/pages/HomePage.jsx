@@ -35,7 +35,6 @@ export default function HomePage({ messages, setMessages }) {
         await axios.get('/api/server/getall').then((res) => {
             if (res.data.Success[0]) {
                 setServerList(res.data.Success)
-                setCurrentServer(res.data.Success[0])
             }
         })
     }
