@@ -84,7 +84,7 @@ export default function HomePage({
                 showServerModal={showServerModal}
                 setShowServerModal={setShowServerModal}
             />
-            <Logout setShowModal={setShowModal} />
+            <Logout setShowModal={setShowModal} setMessages={setMessages} />
             <ServerList
                 serverList={serverList}
                 setCurrentServer={setCurrentServer}
