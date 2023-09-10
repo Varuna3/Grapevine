@@ -1,6 +1,8 @@
 // Members: Sass packages configured and forwarded.
 
-@forward "precolor";
+@forward "precolor" with (
+	$primary: #6f2799 !default
+);
 @forward "presized";
 
 @import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap');

@@ -1,0 +1,26 @@
+// Button: Styles for the clickable action element.
+
+@forward "text-field";
+@use "members" as *;
+
+.button {
+	display: inline-block;
+	width: auto;
+	font-weight: bold;
+	border-radius: size(0);
+	padding: size(-4) size(2);
+	margin: 0;
+	overflow: hidden;
+	cursor: pointer;
+	@extend .text-field-input, .primary;
+	@include color-schemes using ($bg) {
+		@each $name, $color in $color-palette {
+			&.#{$name} {
+				border-color: contrast-color($color, $bg, a11y(aa ui)) !important;
+				@include contrast using ($ratio) {
+					color: contrast-color($color, $bg, $ratio);
+				}
+			}
+		}
+	}
+}
