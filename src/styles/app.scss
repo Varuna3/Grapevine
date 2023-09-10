@@ -12,16 +12,20 @@
 	inset: 0;
 	display: block;
 	width: 100%;
+	min-width: $xs;
+	max-width: none;
 	height: 100%;
+	line-height: 1.5;
 	font-family: $sans-serif;
-	// overflow: hidden; --> re-enable when styling allows to keep sending messages after messages container is full
+	word-break: break-word;
+	color-scheme: light dark;
+	overflow: hidden;
 }
 
 @include color-schemes using ($color) {
 	:root {
 		background-color: $color;
 		background: linear-gradient(123deg, $purple, $indigo, $fuchsia);
-		
 	}
 	#root {
 		background-color: rgba($color, 0.8);
@@ -32,6 +36,7 @@
 h1, h2, h3, h4, h5, h6 {
 	display: block;
 	font-family: $display;
+	line-height: 1.33;
 	margin: size(-3) 0;
 }
 

@@ -1,55 +1,64 @@
 import { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 
+import TextField from './TextField';
+import Button from "./Button"
+
+import "../styles/login-modal.scss";
+
 const LoginModal = ({ showModal, setShowModal, setUsername, username }) => {
-  const [password, setPassword] = useState('')
+	const [password, setPassword] = useState('')
 
-  const modalRef = useRef()
+	const modalRef = useRef()
 
-  useEffect(() => {
-    if (!modalRef.current) return
-    if (showModal) {
-      modalRef.current.showModal()
-    } else {
-      modalRef.current.close()
-    }
-  }, [showModal])
+	useEffect(() => {
+		if (!modalRef.current) return
+		if (showModal) {
+			modalRef.current.showModal()
+		} else {
+			modalRef.current.close()
+		}
+	}, [showModal])
 
-  const submitHandler = e => {
-    e.preventDefault()
+	const submitHandler = e => {
+		e.preventDefault()
 
-    axios.post('/api/login', { username, password }).then(res => {
-      if (res.data.Success === true) {
-        setShowModal(false)
-      } else {
-        console.log('Error in submithandler')
-      }
-    })
-  }
+		axios.post('/api/login', { username, password }).then(res => {
+			if (res.data.Success === true) {
+				setShowModal(false)
+			} else {
+				console.log('Error in submithandler')
+			}
+		})
+	}
 
-  return (
-    <dialog ref={modalRef}>
-      <form onSubmit={submitHandler}>
-        <label htmlFor='username'>Username:</label>
-        <input
-          onChange={e => setUsername(e.target.value)}
-          type='text'
-          id='username'
-          name='username'
-          value={username}
-        />
-        <label htmlFor='password'>Password:</label>
-        <input
-          onChange={e => setPassword(e.target.value)}
-          type='password'
-          id='password'
-          name='password'
-          value={password}
-        />
-        <button type='submit'>Login</button>
-      </form>
-    </dialog>
-  )
+	return (
+		<dialog ref={modalRef} className='login-modal'>
+			<div className="login-modal-wrapper">
+				<form onSubmit={submitHandler} className='login-modal-form'>
+					<h2 className='login-modal-heading'>Welcome to Grapevine!</h2>
+					<fieldset className='login-modal-fields'>
+						<TextField
+							type="text"
+							label="Enter Username:"
+							placeholder="Lord of Grapes"
+							value={username}
+							callback={setUsername}
+							required={true}
+						/>
+						<TextField
+							type="password"
+							label="Enter Password:"
+							value={password}
+							callback={setPassword}
+							required={true}
+						/>
+					</fieldset>
+					<Button variant="success">Login</Button>
+				</form>
+			</div>
+		</dialog>
+	)
 }
 
 export default LoginModal
