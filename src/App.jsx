@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import HomePage from './pages/HomePage'
 
-import "./styles/app.scss";
+import './styles/app.scss'
 
 export default function App() {
     const [messages, setMessages] = useState([])
