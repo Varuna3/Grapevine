@@ -73,9 +73,9 @@ export default function Messages({ messages, setMessages, server }) {
                     />
                 </picture>
                 <div className="messages-content">
-                    <h4 className="messages-username">{e.username}</h4>{' '}
+                    <h4 className="messages-username">{e.username}</h4>
                     {/*--> object.username */}
-                    <span className="messages-text">{e.message}</span>{' '}
+                    <span className="messages-text">{e.message}</span>
                     {/*--> object.message */}
                 </div>
             </article>
