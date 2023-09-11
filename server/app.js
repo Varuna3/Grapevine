@@ -18,6 +18,7 @@ import createMessage from './controllers/createMessage.js'
 import addUserToServer from './controllers/addUserToServer.js'
 import createInvite from './controllers/createInvite.js'
 import handleJoinServer from './controllers/handleJoinServer.js'
+import deleteInvite from './controllers/deleteInvite.js'
 
 //middleware
 const app = express()
@@ -47,6 +48,7 @@ app.put('/api/server', handleCreateServer)
 app.put('/api/message', createMessage)
 app.put('/api/invite', createInvite)
 app.delete('/api/account/', deleteAccount)
+app.delete('/api/invite', deleteInvite)
 app.post('/api/login', login)
 app.post('/api/logout/', logoutAccount)
 app.post('/api/server/addUser', addUserToServer)
