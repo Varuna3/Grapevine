@@ -5,6 +5,7 @@ import axios from 'axios'
 import InputArea from '../components/InputArea'
 import Messages from '../components/Messages'
 import LoginModal from '../components/LoginModal'
+import RegisterModal from '../components/RegisterModal'
 import CreateServerModal from '../components/CreateServerModal'
 import ServerList from '../components/ServerList'
 
@@ -20,8 +21,14 @@ export default function HomePage({
     const [username, setUsername] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [showServerModal, setShowServerModal] = useState(false)
+    const [showRegisterModal, setShowRegisterModal] = useState(false)
+    const [needsRegister, setNeedsRegister] = useState(false)
     const [serverList, setServerList] = useState([])
     // const [currentServer, setCurrentServer] = useState({})
+
+    console.log('showREgModak', showRegisterModal);
+    console.log('showmodal', showModal)
+    console.log('setNeedsRegister', needsRegister)
 
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
@@ -64,14 +71,29 @@ export default function HomePage({
         }
     }
 
+    // function registerModal(){
+    //     console.log('hitting ...>')
+    //     setShowModal(false)
+    //     setShowRegisterModal(true)
+
+    // }
+
     return (
         <main className="home-page">
-            <LoginModal
-                showModal={showModal}
-                setShowModal={setShowModal}
-                setUsername={setUsername}
-                username={username}
-            />
+            {needsRegister ? (
+                <RegisterModal
+                    showRegisterModal={showRegisterModal}
+                    setShowRegisterModal={setShowRegisterModal}
+                />
+            ) : (
+                <LoginModal
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    setUsername={setUsername}
+                    username={username}
+                    setNeedsRegister={setNeedsRegister}
+                />
+            )}
             <button
                 onClick={() => {
                     setShowServerModal(true)
