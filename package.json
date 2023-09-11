@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.15",
     "axios": "^1.5.0",
     "bcrypt": "^5.1.1",
     "dompurify": "^3.0.5",
