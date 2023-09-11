@@ -25,15 +25,23 @@
     overflow: hidden;
 }
 
-@include color-schemes using ($color) {
-    :root {
-        background-color: $color;
-        background: linear-gradient(123deg, $purple, $indigo, $fuchsia);
-    }
-    #root {
-        background-color: rgba($color, 0.8);
-        color: high-contrast($white $black, $color);
-    }
+:root {
+	@include color-schemes using ($color) {
+		background-color: $color;
+	}
+	background-image: var(--custom-wallpaper, none);
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+#root {
+	backdrop-filter: blur(6px) saturate(1.8);
+	background-color: rgba($light, 0.6);
+	color: $black;
+	@include dark {
+		background-color: rgba($dark, 0.8);
+		color: $white;
+	}
 }
 
 h1,
@@ -87,4 +95,20 @@ a[href] {
             color: contrast-color($primary, $color, $ratio);
         }
     }
+}
+
+// Custom scrollbar styling:
+
+::-webkit-scrollbar {
+	width: 14px;
+	&-track {
+		background-color: transparent;
+	}
+	&-thumb {
+		border-radius: 8px;
+		@include color-schemes using ($bg) {
+			background-color: contrast-color($secondary, $bg, a11y(aa ui));
+			border: 2px solid $bg;
+		}
+	}
 }
