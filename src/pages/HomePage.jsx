@@ -7,6 +7,8 @@ import Messages from '../components/Messages'
 import LoginModal from '../components/LoginModal'
 import CreateServerModal from '../components/CreateServerModal'
 import ServerList from '../components/ServerList'
+import CreateInvite from '../components/CreateInvite'
+import { ToastContainer } from 'react-toastify'
 
 import '../styles/home-page.scss'
 import Logout from '../components/Logout'
@@ -66,6 +68,22 @@ export default function HomePage({
 
     return (
         <main className="home-page">
+            {!showModal && !showServerModal ? (
+                <ToastContainer
+                    position="top-center"
+                    autoClose={2500}
+                    hideProgressBar={false}
+                    newestOnTop
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover={false}
+                    theme="dark"
+                />
+            ) : (
+                <></>
+            )}
             <LoginModal
                 showModal={showModal}
                 setShowModal={setShowModal}
@@ -83,6 +101,7 @@ export default function HomePage({
                 showServerModal={showServerModal}
                 setShowServerModal={setShowServerModal}
             />
+            <CreateInvite name={currentServer.name} />
             <Logout setShowModal={setShowModal} setMessages={setMessages} />
             <ServerList
                 serverList={serverList}

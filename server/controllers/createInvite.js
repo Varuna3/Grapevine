@@ -13,7 +13,7 @@ export default async function createInvite(req, res) {
                     .substring(2, 2 + 10),
             })
             if (invite) {
-                res.json({ Success: 'Invite successfully created!' })
+                res.json({ Success: invite.invite })
             } else {
                 res.json({
                     Error: "Invite creation failed. Please try again. (there's like a 1 in 170 quintillion chance you generate an invite that already exists. Congrats!",
