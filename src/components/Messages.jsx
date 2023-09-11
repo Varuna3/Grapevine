@@ -2,7 +2,8 @@
 
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
-import { toast } from 'react-toastify'
+import DOMPurify from 'dompurify'
+import { marked } from 'marked'
 
 import '../styles/messages.scss'
 
@@ -64,6 +65,7 @@ export default function Messages({ messages, setMessages, server }) {
 
     // given an object formatted like this: {username, message} spit out a "message div" that we can display
     function createMessageDiv(e, id) {
+        console.log(e.message)
         return (
             <article key={id} className="messages-chat">
                 <picture className="messages-pfp">
@@ -75,7 +77,12 @@ export default function Messages({ messages, setMessages, server }) {
                 <div className="messages-content">
                     <h4 className="messages-username">{e.username}</h4>
                     {/*--> object.username */}
-                    <span className="messages-text">{e.message}</span>
+                    <span
+                        className="messages-text"
+                        dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(marked.parse(e.message)),
+                        }}
+                    />
                     {/*--> object.message */}
                 </div>
             </article>
