@@ -11,12 +11,17 @@ import ServerList from '../components/ServerList'
 import '../styles/home-page.scss'
 import Logout from '../components/Logout'
 
-export default function HomePage({ messages, setMessages }) {
+export default function HomePage({
+    messages,
+    setMessages,
+    currentServer,
+    setCurrentServer,
+}) {
     const [username, setUsername] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [showServerModal, setShowServerModal] = useState(false)
     const [serverList, setServerList] = useState([])
-    const [currentServer, setCurrentServer] = useState({})
+    // const [currentServer, setCurrentServer] = useState({})
 
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
@@ -45,11 +50,16 @@ export default function HomePage({ messages, setMessages }) {
             message,
         })
         if (data.Success) {
-            socket.emit('client message', { username, message })
+            socket.emit('client message', {
+                username,
+                message,
+                server: currentServer.id,
+            })
         } else {
             socket.emit('client message', {
                 username,
                 message: "I think I want a pet unicorn. I'll name him Terry.",
+                server: currentServer.id,
             })
         }
     }
@@ -73,7 +83,7 @@ export default function HomePage({ messages, setMessages }) {
                 showServerModal={showServerModal}
                 setShowServerModal={setShowServerModal}
             />
-            <Logout setShowModal={setShowModal} />
+            <Logout setShowModal={setShowModal} setMessages={setMessages} />
             <ServerList
                 serverList={serverList}
                 setCurrentServer={setCurrentServer}
