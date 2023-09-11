@@ -14,7 +14,6 @@ export default function CreateInvite({ name }) {
                             toast.success(
                                 `Invite ${data.Success} successfully created.`
                             )
-                            setInvite(data.Success)
                         } else {
                             toast.error(
                                 'Something went catastrophically wrong.'
