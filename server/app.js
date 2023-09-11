@@ -59,6 +59,7 @@ io.on('connection', (socket) => {
         io.emit('new message', {
             username: data.username,
             message: data.message,
+            server: data.server,
         })
     })
 })
