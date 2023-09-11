@@ -22,13 +22,8 @@ export default function HomePage({
     const [showModal, setShowModal] = useState(false)
     const [showServerModal, setShowServerModal] = useState(false)
     const [showRegisterModal, setShowRegisterModal] = useState(false)
-    const [needsRegister, setNeedsRegister] = useState(false)
     const [serverList, setServerList] = useState([])
     // const [currentServer, setCurrentServer] = useState({})
-
-    console.log('showREgModak', showRegisterModal);
-    console.log('showmodal', showModal)
-    console.log('setNeedsRegister', needsRegister)
 
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
@@ -71,29 +66,21 @@ export default function HomePage({
         }
     }
 
-    // function registerModal(){
-    //     console.log('hitting ...>')
-    //     setShowModal(false)
-    //     setShowRegisterModal(true)
-
-    // }
-
     return (
         <main className="home-page">
-            {needsRegister ? (
-                <RegisterModal
-                    showRegisterModal={showRegisterModal}
-                    setShowRegisterModal={setShowRegisterModal}
-                />
-            ) : (
-                <LoginModal
-                    showModal={showModal}
-                    setShowModal={setShowModal}
-                    setUsername={setUsername}
-                    username={username}
-                    setNeedsRegister={setNeedsRegister}
-                />
-            )}
+            <RegisterModal
+                showRegisterModal={showRegisterModal}
+                setShowRegisterModal={setShowRegisterModal}
+                setUsername={setUsername}
+                username={username}
+            />
+            <LoginModal
+                showModal={showModal}
+                setShowModal={setShowModal}
+                setUsername={setUsername}
+                username={username}
+                setShowRegisterModal={setShowRegisterModal}
+            />
             <button
                 onClick={() => {
                     setShowServerModal(true)

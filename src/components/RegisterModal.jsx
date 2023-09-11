@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
-
+import { ToastContainer, toast } from 'react-toastify'
 
 import TextField from './TextField'
 import Button from './Button'
@@ -9,6 +9,7 @@ import '../styles/register-modal.scss'
 
 const RegisterModal = ({ showRegisterModal, setShowRegisterModal, setUsername, username }) => {
     const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
     const modalRef = useRef()
 
     useEffect(() => {
@@ -23,11 +24,15 @@ const RegisterModal = ({ showRegisterModal, setShowRegisterModal, setUsername, u
     const submitHandler = (e) => {
         e.preventDefault()
 
-        axios.put('/api/account/', { username, password }).then((res) => {
-            if (res.data.Success === true) {
-                setShowModal(false)
+        axios.put('/api/account/', { username, password, email }).then((res) => {
+            console.log('res.dat', res.data)
+            if (res.data.Success) {
+                toast.success('Registration Success!.')
+                setTimeout(() => {
+                    setShowRegisterModal(false)
+                  }, "3000");
             } else {
-                //toast.error('Authentication failed.')
+                toast.error('Registration failed.')
             }
         })
     }
@@ -35,6 +40,18 @@ const RegisterModal = ({ showRegisterModal, setShowRegisterModal, setUsername, u
 
     return (
         <dialog ref={modalRef} className="register-modal">
+            <ToastContainer
+                position="top-center"
+                autoClose={2500}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable
+                pauseOnHover={false}
+                theme="dark"
+            />
             <div className="register-modal-wrapper">
                 <form onSubmit={submitHandler} className="register-modal-form">
                     <h2 className="register-modal-heading">
@@ -44,7 +61,6 @@ const RegisterModal = ({ showRegisterModal, setShowRegisterModal, setUsername, u
                         <TextField
                             type="text"
                             label="Enter Username:"
-                            placeholder=""
                             value={username}
                             callback={setUsername}
                             required={true}
@@ -54,6 +70,13 @@ const RegisterModal = ({ showRegisterModal, setShowRegisterModal, setUsername, u
                             label="Enter Password:"
                             value={password}
                             callback={setPassword}
+                            required={true}
+                        />
+                        <TextField
+                            type="email"
+                            label="Enter Email:"
+                            value={email}
+                            callback={setEmail}
                             required={true}
                         />
                     </fieldset>
