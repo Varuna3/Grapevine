@@ -18,6 +18,8 @@ import createMessage from './controllers/createMessage.js'
 import addUserToServer from './controllers/addUserToServer.js'
 import createInvite from './controllers/createInvite.js'
 import handleJoinServer from './controllers/handleJoinServer.js'
+import deleteInvite from './controllers/deleteInvite.js'
+import getInvites from './controllers/getInvites.js'
 
 //middleware
 const app = express()
@@ -40,18 +42,20 @@ ViteExpress.config({ printViteDevServerHost: true })
 
 //routes
 app.get('/api', helloWorldHandler)
+app.get('/api/server/getall', getAllServers)
 app.get('/api/messages/:serverId', getAllMessages)
+app.get('/api/invites/:serverId', getInvites)
 app.get('/api/username', getUsername)
 app.put('/api/account/', createAccount)
 app.put('/api/server', handleCreateServer)
 app.put('/api/message', createMessage)
 app.put('/api/invite', createInvite)
 app.delete('/api/account/', deleteAccount)
+app.delete('/api/invite', deleteInvite)
 app.post('/api/login', login)
 app.post('/api/logout/', logoutAccount)
 app.post('/api/server/addUser', addUserToServer)
 app.post('/api/server/join', handleJoinServer)
-app.get('/api/server/getall', getAllServers)
 
 io.on('connection', (socket) => {
     socket.on('disconnect', () => {})

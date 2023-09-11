@@ -2,7 +2,8 @@
 
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
-import { toast } from 'react-toastify'
+import DOMPurify from 'dompurify'
+import { marked } from 'marked'
 
 import '../styles/messages.scss'
 
@@ -75,7 +76,12 @@ export default function Messages({ messages, setMessages, server }) {
                 <div className="messages-content">
                     <h4 className="messages-username">{e.username}</h4>
                     {/*--> object.username */}
-                    <span className="messages-text">{e.message}</span>
+                    <span
+                        className="messages-text"
+                        dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(marked.parse(e.message)),
+                        }}
+                    />
                     {/*--> object.message */}
                 </div>
             </article>
