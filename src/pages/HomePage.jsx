@@ -24,13 +24,17 @@ export default function HomePage({
     const [showModal, setShowModal] = useState(false)
     const [showServerModal, setShowServerModal] = useState(false)
     const [serverList, setServerList] = useState([])
+    const [showAllServersModal, setShowAllServersModal] = useState(false)
+    const [publicServers, setPublicServers] = useState([])
     // const [currentServer, setCurrentServer] = useState({})
+    console.log('publicServers', publicServers)
 
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
             if (data.Success) {
                 setUsername(data.Success)
                 getAllServers()
+                getPublicServers()
             } else if (data.Error) {
                 // Alert user there was an error
                 setShowModal(true)
@@ -44,6 +48,20 @@ export default function HomePage({
             if (res.data.Success[0]) {
                 setServerList(res.data.Success)
             }
+        })
+    }
+    
+    async function getPublicServers() {
+        await axios.get('/api/server/getpubservers').then(({data}) => {
+            const availableServers = [];
+
+            for (const obj1 of data.Success) {
+                if (!serverList.some(obj2 => obj2.id === obj1.id)) {
+                    availableServers.push(obj1);
+                }
+            }
+            console.log('availableServers', availableServers)
+            setPublicServers(availableServers)
         })
     }
 
@@ -98,12 +116,21 @@ export default function HomePage({
             >
                 Create Server
             </button>
+            <button 
+                onClick={() => {
+                    setShowAllServersModal(true)
+                }}>
+                Public Servers
+            </button>
             <CreateServerModal
                 showServerModal={showServerModal}
                 setShowServerModal={setShowServerModal}
             />
             <CreateInvite name={currentServer.name} />
-            <PublicServers />
+            <PublicServers 
+                setShowAllServersModal={setShowAllServersModal}
+                showAllServersModal={showAllServersModal}
+                publicServers={publicServers}/>
             <Logout setShowModal={setShowModal} setMessages={setMessages} />
             <ServerList
                 serverList={serverList}

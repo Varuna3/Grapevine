@@ -1,0 +1,5 @@
+@forward "login-modal";
+
+.public-server-modal {
+  @extend .login-modal;
+}
