@@ -35,18 +35,23 @@ const LoginModal = ({ showModal, setShowModal, setUsername, username }) => {
 
     return (
         <dialog ref={modalRef} className="login-modal">
-            <ToastContainer
-                position="top-center"
-                autoClose={2500}
-                hideProgressBar={false}
-                newestOnTop
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss={false}
-                draggable
-                pauseOnHover={false}
-                theme="dark"
-            />
+            {showModal ? (
+                <ToastContainer
+                    position="top-center"
+                    autoClose={2500}
+                    hideProgressBar={false}
+                    newestOnTop
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover={false}
+                    theme="dark"
+                />
+            ) : (
+                <></>
+            )}
+
             <div className="login-modal-wrapper">
                 <form onSubmit={submitHandler} className="login-modal-form">
                     <h2 className="login-modal-heading">
