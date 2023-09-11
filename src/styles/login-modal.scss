@@ -13,10 +13,14 @@
     padding: size(1) size(-1);
     margin: 0;
     overflow: auto;
-    &:not([open]),
-    &::backdrop {
-        display: none;
+	transition: opacity 250ms linear;
+    &:not([open]) {
+        pointer-events: none;
+		opacity: 0;
     }
+	&::backdrop {
+		display: none;
+	}
     fieldset {
         border: none;
         padding: 0;
@@ -37,7 +41,8 @@
     }
     &-form {
         overflow: hidden;
-        @include modular-scale(2, padding);
+        @include modular-scale(4, padding-top, padding-bottom);
+        @include modular-scale(3, padding-right, padding-left);
     }
     &-heading {
         display: block;
