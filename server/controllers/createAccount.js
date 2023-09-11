@@ -5,7 +5,6 @@ import bcrypt from 'bcrypt'
 import { User } from '../database/seed.js'
 
 export default async function createAccount(req, res) {
-    console.log('req.body', req.body)
     // Get all new user data from request body:
     let { username, password, email, imageURL } = req.body
 
