@@ -25,9 +25,10 @@ const RegisterModal = ({ showRegisterModal, setShowRegisterModal, setUsername, u
         e.preventDefault()
 
         axios.put('/api/account/', { username, password, email }).then((res) => {
-            console.log('res.dat', res.data)
             if (res.data.Success) {
                 toast.success('Registration Success!.')
+                setPassword('')
+                setEmail('')
                 setTimeout(() => {
                     setShowRegisterModal(false)
                   }, "3000");
