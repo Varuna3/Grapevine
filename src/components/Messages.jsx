@@ -65,7 +65,6 @@ export default function Messages({ messages, setMessages, server }) {
 
     // given an object formatted like this: {username, message} spit out a "message div" that we can display
     function createMessageDiv(e, id) {
-        console.log(e.message)
         return (
             <article key={id} className="messages-chat">
                 <picture className="messages-pfp">

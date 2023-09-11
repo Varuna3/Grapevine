@@ -5,11 +5,15 @@ import axios from 'axios'
 import InputArea from '../components/InputArea'
 import Messages from '../components/Messages'
 import LoginModal from '../components/LoginModal'
+import RegisterModal from '../components/RegisterModal'
 import CreateServerModal from '../components/CreateServerModal'
 import ServerList from '../components/ServerList'
 import CreateInvite from '../components/CreateInvite'
 import PublicServers from '../components/PublicServers'
-import { ToastContainer } from 'react-toastify'
+import ShowInvites from '../components/ShowInvites'
+import JoinServer from '../components/JoinServer'
+
+import { ToastContainer, toast } from 'react-toastify'
 
 import '../styles/home-page.scss'
 import Logout from '../components/Logout'
@@ -23,9 +27,13 @@ export default function HomePage({
     const [username, setUsername] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [showServerModal, setShowServerModal] = useState(false)
+    const [showRegisterModal, setShowRegisterModal] = useState(false)
+    const [showInvitesModal, setShowInvitesModal] = useState(false)
+    const [showJoinServerModal, setShowJoinServerModal] = useState(false)
     const [serverList, setServerList] = useState([])
     const [showAllServersModal, setShowAllServersModal] = useState(false)
     const [publicServers, setPublicServers] = useState([])
+    const [invites, setInvites] = useState([])
     // const [currentServer, setCurrentServer] = useState({})
     console.log('publicServers', publicServers)
 
@@ -50,14 +58,14 @@ export default function HomePage({
             }
         })
     }
-    
+
     async function getPublicServers() {
-        await axios.get('/api/server/getpubservers').then(({data}) => {
-            const availableServers = [];
+        await axios.get('/api/server/getpubservers').then(({ data }) => {
+            const availableServers = []
 
             for (const obj1 of data.Success) {
-                if (!serverList.some(obj2 => obj2.id === obj1.id)) {
-                    availableServers.push(obj1);
+                if (!serverList.some((obj2) => obj2.id === obj1.id)) {
+                    availableServers.push(obj1)
                 }
             }
             console.log('availableServers', availableServers)
@@ -87,7 +95,17 @@ export default function HomePage({
 
     return (
         <main className="home-page">
-            {!showModal && !showServerModal ? (
+            <RegisterModal
+                showRegisterModal={showRegisterModal}
+                setShowRegisterModal={setShowRegisterModal}
+                setUsername={setUsername}
+                username={username}
+            />
+            {/* only display toastcontainer if no modals are blurring the background */}
+            {!showModal &&
+            !showServerModal &&
+            !showInvitesModal &&
+            !showJoinServerModal ? (
                 <ToastContainer
                     position="top-center"
                     autoClose={2500}
@@ -108,6 +126,7 @@ export default function HomePage({
                 setShowModal={setShowModal}
                 setUsername={setUsername}
                 username={username}
+                setShowRegisterModal={setShowRegisterModal}
             />
             <button
                 onClick={() => {
@@ -116,10 +135,11 @@ export default function HomePage({
             >
                 Create Server
             </button>
-            <button 
+            <button
                 onClick={() => {
                     setShowAllServersModal(true)
-                }}>
+                }}
+            >
                 Public Servers
             </button>
             <CreateServerModal
@@ -127,11 +147,51 @@ export default function HomePage({
                 setShowServerModal={setShowServerModal}
             />
             <CreateInvite name={currentServer.name} />
-            <PublicServers 
+            <PublicServers
                 setShowAllServersModal={setShowAllServersModal}
                 showAllServersModal={showAllServersModal}
-                publicServers={publicServers}/>
+                publicServers={publicServers}
+            />
             <Logout setShowModal={setShowModal} setMessages={setMessages} />
+            <button
+                onClick={async () => {
+                    if (currentServer.id) {
+                        setShowInvitesModal(true)
+                        const { data } = await axios.get(
+                            `/api/invites/${currentServer.id}`
+                        )
+                        setInvites(data.Success)
+                    } else {
+                        toast.error('Please select a server.')
+                    }
+                }}
+            >
+                Show Invites
+            </button>
+            <ShowInvites
+                showInvitesModal={showInvitesModal}
+                setShowInvitesModal={setShowInvitesModal}
+                serverId={currentServer.id}
+                invites={invites}
+                setInvites={setInvites}
+            />
+            <button
+                onClick={() => {
+                    setShowJoinServerModal(true)
+                }}
+            >
+                Join Server
+            </button>
+            <JoinServer
+                showJoinServerModal={showJoinServerModal}
+                setShowJoinServerModal={setShowJoinServerModal}
+            />
+            <Logout
+                setShowModal={setShowModal}
+                setMessages={setMessages}
+                setCurrentServer={setCurrentServer}
+                setServerList={setServerList}
+            />
             <ServerList
                 serverList={serverList}
                 setCurrentServer={setCurrentServer}
@@ -141,11 +201,15 @@ export default function HomePage({
                 setMessages={setMessages}
                 server={currentServer}
             />
-            <InputArea
-                callback={(message) => {
-                    handleSubmit(message)
-                }}
-            />
+            {currentServer.id ? (
+                <InputArea
+                    callback={(message) => {
+                        handleSubmit(message)
+                    }}
+                />
+            ) : (
+                <></>
+            )}
         </main>
     )
 }
