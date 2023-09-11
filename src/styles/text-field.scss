@@ -1,46 +1,48 @@
 // Text Field: Styles for the text input control.
 
-@use "members" as *;
+@use 'members' as *;
 
 .text-field {
-	&-label, &-input {
-		font-family: $sans-serif;
-		font-size: inherit;
-	}
-	&-label {
-		display: block;
-		margin: size(-2) 2px;
-	}
-	&-input {
-		display: block;
-		width: 100%;
-		background-color: transparent;
-		border-radius: size(-3);
-		padding: size(-4) size(-2);
-		margin: 2px 0;
-		color: inherit;
-		appearance: none;
-		outline: none;
-		&:not(:hover) {
-			transition: background-color 150ms linear;
-		}
-		@include color-schemes using ($color) {
-			border: 2px solid contrast-color($secondary, $color, a11y(aa ui));
-			&:hover, &:focus {
-				background-color: color-shift(rgba($color, 0.8), 2.5%);
-			}
-			&:active {
-				background-color: color-shift(rgba($color, 0.4), 2.5%);
-			}
-			&:focus {
-				border-color: contrast-color($primary, $color, a11y(aa ui));
-				&:invalid {
-					border-color: contrast-color($danger, $color, a11y(aa ui));
-				}
-				&:valid {
-					border-color: contrast-color($success, $color, a11y(aa ui));
-				}
-			}
-		}
-	}
+    &-label,
+    &-input {
+        font-family: $sans-serif;
+        font-size: inherit;
+    }
+    &-label {
+        display: block;
+        margin: size(-2) 2px;
+    }
+    &-input {
+        display: block;
+        width: 100%;
+        background-color: transparent;
+        border-radius: size(-3);
+        padding: size(-4) size(-2);
+        margin: 2px 0;
+        color: inherit;
+        appearance: none;
+        outline: none;
+        &:not(:hover) {
+            transition: background-color 150ms linear;
+        }
+        @include color-schemes using ($color) {
+            border: 2px solid contrast-color($secondary, $color, a11y(aa ui));
+            &:hover,
+            &:focus {
+                background-color: color-shift(rgba($color, 0.8), 2.5%);
+            }
+            &:active {
+                background-color: color-shift(rgba($color, 0.4), 2.5%);
+            }
+            &:focus {
+                border-color: contrast-color($primary, $color, a11y(aa ui));
+                &:invalid {
+                    border-color: contrast-color($danger, $color, a11y(aa ui));
+                }
+                &:valid {
+                    border-color: contrast-color($success, $color, a11y(aa ui));
+                }
+            }
+        }
+    }
 }
