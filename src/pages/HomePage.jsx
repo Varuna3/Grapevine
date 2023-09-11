@@ -8,6 +8,7 @@ import LoginModal from '../components/LoginModal'
 import CreateServerModal from '../components/CreateServerModal'
 import ServerList from '../components/ServerList'
 import CreateInvite from '../components/CreateInvite'
+import PublicServers from '../components/PublicServers'
 import { ToastContainer } from 'react-toastify'
 
 import '../styles/home-page.scss'
@@ -102,6 +103,7 @@ export default function HomePage({
                 setShowServerModal={setShowServerModal}
             />
             <CreateInvite name={currentServer.name} />
+            <PublicServers />
             <Logout setShowModal={setShowModal} setMessages={setMessages} />
             <ServerList
                 serverList={serverList}
