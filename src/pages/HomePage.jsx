@@ -5,6 +5,7 @@ import axios from 'axios'
 import InputArea from '../components/InputArea'
 import Messages from '../components/Messages'
 import LoginModal from '../components/LoginModal'
+import RegisterModal from '../components/RegisterModal'
 import CreateServerModal from '../components/CreateServerModal'
 import ServerList from '../components/ServerList'
 import CreateInvite from '../components/CreateInvite'
@@ -24,6 +25,7 @@ export default function HomePage({
     const [username, setUsername] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [showServerModal, setShowServerModal] = useState(false)
+    const [showRegisterModal, setShowRegisterModal] = useState(false)
     const [showInvitesModal, setShowInvitesModal] = useState(false)
     const [serverList, setServerList] = useState([])
     const [invites, setInvites] = useState([])
@@ -72,6 +74,12 @@ export default function HomePage({
 
     return (
         <main className="home-page">
+            <RegisterModal
+                showRegisterModal={showRegisterModal}
+                setShowRegisterModal={setShowRegisterModal}
+                setUsername={setUsername}
+                username={username}
+            />
             {/* only display toastcontainer if no modals are blurring the background */}
             {!showModal && !showServerModal && !showInvitesModal ? (
                 <ToastContainer
@@ -94,6 +102,7 @@ export default function HomePage({
                 setShowModal={setShowModal}
                 setUsername={setUsername}
                 username={username}
+                setShowRegisterModal={setShowRegisterModal}
             />
             <button
                 onClick={() => {

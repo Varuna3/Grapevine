@@ -7,7 +7,7 @@ import Button from './Button'
 import '../styles/login-modal.scss'
 import { ToastContainer, toast } from 'react-toastify'
 
-const LoginModal = ({ showModal, setShowModal, setUsername, username }) => {
+const LoginModal = ({ showModal, setShowModal, setUsername, username, setShowRegisterModal }) => {
     const [password, setPassword] = useState('')
 
     const modalRef = useRef()
@@ -32,6 +32,12 @@ const LoginModal = ({ showModal, setShowModal, setUsername, username }) => {
             }
         })
     }
+
+    function register(){
+        //setShowModal(true)
+        setShowRegisterModal(true)
+    }
+
 
     return (
         <dialog ref={modalRef} className="login-modal">
@@ -75,6 +81,7 @@ const LoginModal = ({ showModal, setShowModal, setUsername, username }) => {
                         />
                     </fieldset>
                     <Button variant="success">Login</Button>
+                    <Button variant="light" action={register}>Register</Button>
                 </form>
             </div>
         </dialog>
