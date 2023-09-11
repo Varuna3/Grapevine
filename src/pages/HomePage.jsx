@@ -8,7 +8,9 @@ import LoginModal from '../components/LoginModal'
 import CreateServerModal from '../components/CreateServerModal'
 import ServerList from '../components/ServerList'
 import CreateInvite from '../components/CreateInvite'
-import { ToastContainer } from 'react-toastify'
+import ShowInvites from '../components/ShowInvites'
+
+import { ToastContainer, toast } from 'react-toastify'
 
 import '../styles/home-page.scss'
 import Logout from '../components/Logout'
@@ -22,7 +24,9 @@ export default function HomePage({
     const [username, setUsername] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [showServerModal, setShowServerModal] = useState(false)
+    const [showInvitesModal, setShowInvitesModal] = useState(false)
     const [serverList, setServerList] = useState([])
+    const [invites, setInvites] = useState([])
     // const [currentServer, setCurrentServer] = useState({})
 
     useEffect(() => {
@@ -68,7 +72,8 @@ export default function HomePage({
 
     return (
         <main className="home-page">
-            {!showModal && !showServerModal ? (
+            {/* only display toastcontainer if no modals are blurring the background */}
+            {!showModal && !showServerModal && !showInvitesModal ? (
                 <ToastContainer
                     position="top-center"
                     autoClose={2500}
@@ -102,6 +107,28 @@ export default function HomePage({
                 setShowServerModal={setShowServerModal}
             />
             <CreateInvite name={currentServer.name} />
+            <button
+                onClick={async () => {
+                    if (currentServer.id) {
+                        setShowInvitesModal(true)
+                        const { data } = await axios.get(
+                            `/api/invites/${currentServer.id}`
+                        )
+                        setInvites(data.Success)
+                    } else {
+                        toast.error('Please select a server.')
+                    }
+                }}
+            >
+                Show Invites
+            </button>
+            <ShowInvites
+                showInvitesModal={showInvitesModal}
+                setShowInvitesModal={setShowInvitesModal}
+                serverId={currentServer.id}
+                invites={invites}
+                setInvites={setInvites}
+            />
             <Logout setShowModal={setShowModal} setMessages={setMessages} />
             <ServerList
                 serverList={serverList}
