@@ -145,7 +145,12 @@ export default function HomePage({
                 showJoinServerModal={showJoinServerModal}
                 setShowJoinServerModal={setShowJoinServerModal}
             />
-            <Logout setShowModal={setShowModal} setMessages={setMessages} />
+            <Logout
+                setShowModal={setShowModal}
+                setMessages={setMessages}
+                setCurrentServer={setCurrentServer}
+                setServerList={setServerList}
+            />
             <ServerList
                 serverList={serverList}
                 setCurrentServer={setCurrentServer}

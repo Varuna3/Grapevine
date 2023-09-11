@@ -68,6 +68,7 @@ export default function JoinServer({
             <button
                 onClick={() => {
                     setShowJoinServerModal(false)
+                    setInput('')
                 }}
             >
                 Close
