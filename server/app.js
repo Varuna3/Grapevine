@@ -20,6 +20,7 @@ import getAllServers from './controllers/getAllServers.js'
 import { User, Invite, Message, ServerUser } from './database/seed.js'
 import createMessage from './controllers/createMessage.js'
 import addUserToServer from './controllers/addUserToServer.js'
+import createInvite from './controllers/createInvite.js'
 
 //middleware
 const app = express()
@@ -33,7 +34,7 @@ app.use(
         secret: 'L3TM30UT-1MSTUCK1NY0URP0CK3T',
         resave: false,
         saveUninitialized: false,
-    }),
+    })
 )
 
 const server = http.createServer(app)
@@ -47,6 +48,7 @@ app.get('/api/username', getUsername)
 app.put('/api/account/', createAccount)
 app.put('/api/server', handleCreateServer)
 app.put('/api/message', createMessage)
+app.put('/api/invite', createInvite)
 app.delete('/api/account/', deleteAccount)
 app.post('/api/login', login)
 app.post('/api/logout/', logoutAccount)
@@ -59,6 +61,7 @@ io.on('connection', (socket) => {
         io.emit('new message', {
             username: data.username,
             message: data.message,
+            server: data.server,
         })
     })
 })
