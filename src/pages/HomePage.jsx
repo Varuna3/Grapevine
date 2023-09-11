@@ -9,6 +9,7 @@ import CreateServerModal from '../components/CreateServerModal'
 import ServerList from '../components/ServerList'
 import CreateInvite from '../components/CreateInvite'
 import ShowInvites from '../components/ShowInvites'
+import JoinServer from '../components/JoinServer'
 
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -25,6 +26,7 @@ export default function HomePage({
     const [showModal, setShowModal] = useState(false)
     const [showServerModal, setShowServerModal] = useState(false)
     const [showInvitesModal, setShowInvitesModal] = useState(false)
+    const [showJoinServerModal, setShowJoinServerModal] = useState(false)
     const [serverList, setServerList] = useState([])
     const [invites, setInvites] = useState([])
     // const [currentServer, setCurrentServer] = useState({})
@@ -73,7 +75,10 @@ export default function HomePage({
     return (
         <main className="home-page">
             {/* only display toastcontainer if no modals are blurring the background */}
-            {!showModal && !showServerModal && !showInvitesModal ? (
+            {!showModal &&
+            !showServerModal &&
+            !showInvitesModal &&
+            !showJoinServerModal ? (
                 <ToastContainer
                     position="top-center"
                     autoClose={2500}
@@ -128,6 +133,17 @@ export default function HomePage({
                 serverId={currentServer.id}
                 invites={invites}
                 setInvites={setInvites}
+            />
+            <button
+                onClick={() => {
+                    setShowJoinServerModal(true)
+                }}
+            >
+                Join Server
+            </button>
+            <JoinServer
+                showJoinServerModal={showJoinServerModal}
+                setShowJoinServerModal={setShowJoinServerModal}
             />
             <Logout setShowModal={setShowModal} setMessages={setMessages} />
             <ServerList
