@@ -10,7 +10,7 @@ import '../styles/messages.scss'
 export default function Messages({ messages, setMessages, server }) {
     //state array for all current "message" elements (user image, username, message)
     const [messageDivs, setMessageDivs] = useState([])
-    
+
     // create increment variable for "key" for message elements
     let ids = 0
 
@@ -73,17 +73,22 @@ export default function Messages({ messages, setMessages, server }) {
                     />
                 </picture>
                 <div className="messages-content">
-                    <h4 className="messages-username">{e.username}</h4> {/*--> object.username */}
-                    <span className="messages-text">{e.message}</span> {/*--> object.message */}
+                    <h4 className="messages-username">{e.username}</h4>
+                    {/*--> object.username */}
+                    <span className="messages-text">{e.message}</span>
+                    {/*--> object.message */}
                 </div>
             </article>
         )
     }
 
-// return a "messages" container holding out "messageDivs" state array filled with message elements
+    // return a "messages" container holding out "messageDivs" state array filled with message elements
     return (
-        <div ref={ref} className="messages">
-            {messageDivs}
-        </div>
+        <>
+            <h1>{server.name}</h1>
+            <div ref={ref} className="messages">
+                {messageDivs}
+            </div>
+        </>
     )
 }
