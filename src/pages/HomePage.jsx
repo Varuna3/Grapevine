@@ -40,7 +40,6 @@ export default function HomePage({
         await axios.get('/api/server/getall').then((res) => {
             if (res.data.Success[0]) {
                 setServerList(res.data.Success)
-                setCurrentServer(res.data.Success[0])
             }
         })
     }
