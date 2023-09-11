@@ -169,11 +169,15 @@ export default function HomePage({
                 setMessages={setMessages}
                 server={currentServer}
             />
-            <InputArea
-                callback={(message) => {
-                    handleSubmit(message)
-                }}
-            />
+            {currentServer.id ? (
+                <InputArea
+                    callback={(message) => {
+                        handleSubmit(message)
+                    }}
+                />
+            ) : (
+                <></>
+            )}
         </main>
     )
 }
