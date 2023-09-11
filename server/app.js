@@ -55,6 +55,7 @@ app.delete('/api/invite', deleteInvite)
 app.post('/api/login', login)
 app.post('/api/logout/', logoutAccount)
 app.post('/api/server/addUser', addUserToServer)
+// app.post('/api/server/join', addUserToServer)
 app.post('/api/server/join', handleJoinServer)
 
 io.on('connection', (socket) => {

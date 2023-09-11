@@ -10,6 +10,7 @@ import CreateServerModal from '../components/CreateServerModal'
 import ServerList from '../components/ServerList'
 import CreateInvite from '../components/CreateInvite'
 import ShowInvites from '../components/ShowInvites'
+import JoinServer from '../components/JoinServer'
 
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -27,6 +28,7 @@ export default function HomePage({
     const [showServerModal, setShowServerModal] = useState(false)
     const [showRegisterModal, setShowRegisterModal] = useState(false)
     const [showInvitesModal, setShowInvitesModal] = useState(false)
+    const [showJoinServerModal, setShowJoinServerModal] = useState(false)
     const [serverList, setServerList] = useState([])
     const [invites, setInvites] = useState([])
     // const [currentServer, setCurrentServer] = useState({})
@@ -81,7 +83,10 @@ export default function HomePage({
                 username={username}
             />
             {/* only display toastcontainer if no modals are blurring the background */}
-            {!showModal && !showServerModal && !showInvitesModal ? (
+            {!showModal &&
+            !showServerModal &&
+            !showInvitesModal &&
+            !showJoinServerModal ? (
                 <ToastContainer
                     position="top-center"
                     autoClose={2500}
@@ -138,7 +143,23 @@ export default function HomePage({
                 invites={invites}
                 setInvites={setInvites}
             />
-            <Logout setShowModal={setShowModal} setMessages={setMessages} />
+            <button
+                onClick={() => {
+                    setShowJoinServerModal(true)
+                }}
+            >
+                Join Server
+            </button>
+            <JoinServer
+                showJoinServerModal={showJoinServerModal}
+                setShowJoinServerModal={setShowJoinServerModal}
+            />
+            <Logout
+                setShowModal={setShowModal}
+                setMessages={setMessages}
+                setCurrentServer={setCurrentServer}
+                setServerList={setServerList}
+            />
             <ServerList
                 serverList={serverList}
                 setCurrentServer={setCurrentServer}
