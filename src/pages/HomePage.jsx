@@ -7,7 +7,6 @@ import Messages from '../components/Messages'
 import LoginModal from '../components/LoginModal'
 import RegisterModal from '../components/RegisterModal'
 import CreateServerModal from '../components/CreateServerModal'
-import ServerList from '../components/ServerList'
 import CreateInvite from '../components/CreateInvite'
 import PublicServers from '../components/PublicServers'
 import ShowInvites from '../components/ShowInvites'
@@ -17,6 +16,7 @@ import { ToastContainer, toast } from 'react-toastify'
 
 import '../styles/home-page.scss'
 import Logout from '../components/Logout'
+import Dock from '../components/Dock'
 
 export default function HomePage({
     messages,
@@ -35,7 +35,6 @@ export default function HomePage({
     const [publicServers, setPublicServers] = useState([])
     const [invites, setInvites] = useState([])
     // const [currentServer, setCurrentServer] = useState({})
-    console.log('publicServers', publicServers)
 
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
@@ -44,9 +43,7 @@ export default function HomePage({
                 getAllServers()
                 getPublicServers()
             } else if (data.Error) {
-                // Alert user there was an error
                 setShowModal(true)
-                console.log(data.Error)
             }
         })
     }, [showModal, showServerModal])
@@ -68,7 +65,6 @@ export default function HomePage({
                     availableServers.push(obj1)
                 }
             }
-            console.log('availableServers', availableServers)
             setPublicServers(availableServers)
         })
     }
@@ -95,6 +91,7 @@ export default function HomePage({
 
     return (
         <main className="home-page">
+            <Dock anchors={serverList} setCurrentServer={setCurrentServer} />
             <RegisterModal
                 showRegisterModal={showRegisterModal}
                 setShowRegisterModal={setShowRegisterModal}
@@ -105,7 +102,8 @@ export default function HomePage({
             {!showModal &&
             !showServerModal &&
             !showInvitesModal &&
-            !showJoinServerModal ? (
+            !showJoinServerModal &&
+            !showAllServersModal ? (
                 <ToastContainer
                     position="top-center"
                     autoClose={2500}
@@ -152,7 +150,12 @@ export default function HomePage({
                 showAllServersModal={showAllServersModal}
                 publicServers={publicServers}
             />
-            <Logout setShowModal={setShowModal} setMessages={setMessages} />
+            <Logout
+                setShowModal={setShowModal}
+                setMessages={setMessages}
+                setCurrentServer={setCurrentServer}
+                setServerList={setServerList}
+            />
             <button
                 onClick={async () => {
                     if (currentServer.id) {
@@ -191,10 +194,6 @@ export default function HomePage({
                 setMessages={setMessages}
                 setCurrentServer={setCurrentServer}
                 setServerList={setServerList}
-            />
-            <ServerList
-                serverList={serverList}
-                setCurrentServer={setCurrentServer}
             />
             <Messages
                 messages={messages}

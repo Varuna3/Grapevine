@@ -7,7 +7,12 @@ import Button from './Button'
 
 import '../styles/register-modal.scss'
 
-const RegisterModal = ({ showRegisterModal, setShowRegisterModal, setUsername, username }) => {
+const RegisterModal = ({
+    showRegisterModal,
+    setShowRegisterModal,
+    setUsername,
+    username,
+}) => {
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const modalRef = useRef()
@@ -24,20 +29,19 @@ const RegisterModal = ({ showRegisterModal, setShowRegisterModal, setUsername, u
     const submitHandler = (e) => {
         e.preventDefault()
 
-        axios.put('/api/account/', { username, password, email }).then((res) => {
-            if (res.data.Success) {
-                toast.success('Registration Success!.')
-                setPassword('')
-                setEmail('')
-                setTimeout(() => {
+        axios
+            .put('/api/account/', { username, password, email })
+            .then((res) => {
+                if (res.data.Success) {
+                    toast.success('Registration Success!')
+                    setPassword('')
+                    setEmail('')
                     setShowRegisterModal(false)
-                  }, "3000");
-            } else {
-                toast.error('Registration failed.')
-            }
-        })
+                } else {
+                    toast.error('Registration failed.')
+                }
+            })
     }
-
 
     return (
         <dialog ref={modalRef} className="register-modal">
@@ -86,8 +90,6 @@ const RegisterModal = ({ showRegisterModal, setShowRegisterModal, setUsername, u
             </div>
         </dialog>
     )
-
-    
 }
 
 export default RegisterModal

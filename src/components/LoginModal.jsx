@@ -7,7 +7,13 @@ import Button from './Button'
 import '../styles/login-modal.scss'
 import { ToastContainer, toast } from 'react-toastify'
 
-const LoginModal = ({ showModal, setShowModal, setUsername, username, setShowRegisterModal }) => {
+const LoginModal = ({
+    showModal,
+    setShowModal,
+    setUsername,
+    username,
+    setShowRegisterModal,
+}) => {
     const [password, setPassword] = useState('')
 
     const modalRef = useRef()
@@ -27,17 +33,16 @@ const LoginModal = ({ showModal, setShowModal, setUsername, username, setShowReg
         axios.post('/api/login', { username, password }).then((res) => {
             if (res.data.Success === true) {
                 setShowModal(false)
+                setPassword('')
             } else {
                 toast.error('Authentication failed.')
             }
         })
     }
 
-    function register(){
-        //setShowModal(true)
+    function register() {
         setShowRegisterModal(true)
     }
-
 
     return (
         <dialog ref={modalRef} className="login-modal">
@@ -81,7 +86,9 @@ const LoginModal = ({ showModal, setShowModal, setUsername, username, setShowReg
                         />
                     </fieldset>
                     <Button variant="success">Login</Button>
-                    <Button variant="light" action={register}>Register</Button>
+                    <Button variant="light" action={register}>
+                        Register
+                    </Button>
                 </form>
             </div>
         </dialog>

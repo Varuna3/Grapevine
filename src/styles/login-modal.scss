@@ -3,6 +3,8 @@
 @use 'members' as *;
 
 .login-modal {
+	position: fixed;
+	inset: 0;
     display: flex;
     flex-flow: column nowrap;
     min-width: 100%;
@@ -30,11 +32,11 @@
         flex: 0 0 auto;
         width: 100%;
         max-width: $md;
-        box-shadow: 0 4px 12px -8px $secondary;
         border-radius: size(-1);
         margin: auto;
         @include container(login-modal);
         @include color-schemes using ($color) {
+			box-shadow: 0 3px 12px -3px contrast-color($secondary, $color, a11y(aa ui));
             background-color: $color;
             color: high-contrast($white $black, $color);
         }
