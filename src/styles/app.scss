@@ -17,12 +17,11 @@
     width: 100%;
     min-width: $xs;
     max-width: none;
-    height: 100%;
+    min-height: 100%;
     line-height: 1.5;
     font-family: $sans-serif;
     word-break: break-word;
     color-scheme: light dark;
-    overflow: hidden;
 }
 
 :root {
@@ -35,13 +34,23 @@
 }
 
 #root {
-	backdrop-filter: blur(6px) saturate(1.8);
 	background-color: rgba($light, 0.6);
 	color: $black;
 	@include dark {
 		background-color: rgba($dark, 0.8);
 		color: $white;
 	}
+	&::before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		inset: 0;
+		backdrop-filter: blur(6px) saturate(1.8);
+	}
+}
+
+body {
+	margin: 0;
 }
 
 h1,
