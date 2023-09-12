@@ -33,6 +33,7 @@ const LoginModal = ({
         axios.post('/api/login', { username, password }).then((res) => {
             if (res.data.Success === true) {
                 setShowModal(false)
+                setPassword('')
             } else {
                 toast.error('Authentication failed.')
             }
