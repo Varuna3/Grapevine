@@ -1,12 +1,8 @@
 // Dock: Scrollable list of separated server and navigation items.
 
-import { useEffect } from 'react'
 import '../styles/dock.scss'
 
 export default function Dock({ anchors, setCurrentServer }) {
-    useEffect(() => {
-        console.log(anchors)
-    }, [])
 
     return (
         <nav className="dock">
