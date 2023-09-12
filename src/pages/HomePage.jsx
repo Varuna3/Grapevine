@@ -7,7 +7,6 @@ import Messages from '../components/Messages'
 import LoginModal from '../components/LoginModal'
 import RegisterModal from '../components/RegisterModal'
 import CreateServerModal from '../components/CreateServerModal'
-import ServerList from '../components/ServerList'
 import CreateInvite from '../components/CreateInvite'
 import PublicServers from '../components/PublicServers'
 import ShowInvites from '../components/ShowInvites'
@@ -17,6 +16,7 @@ import { ToastContainer, toast } from 'react-toastify'
 
 import '../styles/home-page.scss'
 import Logout from '../components/Logout'
+import Dock from '../components/Dock'
 
 export default function HomePage({
     messages,
@@ -91,6 +91,7 @@ export default function HomePage({
 
     return (
         <main className="home-page">
+            <Dock anchors={serverList} setCurrentServer={setCurrentServer} />
             <RegisterModal
                 showRegisterModal={showRegisterModal}
                 setShowRegisterModal={setShowRegisterModal}
@@ -193,10 +194,6 @@ export default function HomePage({
                 setMessages={setMessages}
                 setCurrentServer={setCurrentServer}
                 setServerList={setServerList}
-            />
-            <ServerList
-                serverList={serverList}
-                setCurrentServer={setCurrentServer}
             />
             <Messages
                 messages={messages}

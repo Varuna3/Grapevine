@@ -1,22 +1,37 @@
 // Dock: Scrollable list of separated server and navigation items.
 
-import "../styles/dock.scss";
+import { useEffect } from 'react'
+import '../styles/dock.scss'
 
-export default function Dock({ anchors }) {
-	return (
-		<nav className="dock">
-			{anchors.map(({ title, action, image, isServer = false }, index) => (
-				<a
-					key={index}
-					className="dock-item"
-					data-label={title[0]}
-					data-server={isServer}
-					onClick={action}>
-					{image && (
-						<img className="dock-item-image" src={image} alt={title} />
-					)}
-				</a>
-			))}
-		</nav>
-	);
+export default function Dock({ anchors, setCurrentServer }) {
+    useEffect(() => {
+        console.log(anchors)
+    }, [])
+
+    return (
+        <nav className="dock">
+            {anchors.map((e, index) => {
+                const { name, image, isServer = true } = e
+                return (
+                    <a
+                        key={index}
+                        className="dock-item"
+                        data-label={name[0]}
+                        data-server={isServer}
+                        onClick={() => {
+                            setCurrentServer(e)
+                        }}
+                    >
+                        {image && (
+                            <img
+                                className="dock-item-image"
+                                src={image}
+                                alt={name}
+                            />
+                        )}
+                    </a>
+                )
+            })}
+        </nav>
+    )
 }
