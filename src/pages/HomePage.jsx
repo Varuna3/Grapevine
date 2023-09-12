@@ -152,7 +152,12 @@ export default function HomePage({
                 showAllServersModal={showAllServersModal}
                 publicServers={publicServers}
             />
-            <Logout setShowModal={setShowModal} setMessages={setMessages} />
+            <Logout
+                setShowModal={setShowModal}
+                setMessages={setMessages}
+                setCurrentServer={setCurrentServer}
+                setServerList={setServerList}
+            />
             <button
                 onClick={async () => {
                     if (currentServer.id) {
