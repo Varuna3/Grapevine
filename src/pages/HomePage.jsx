@@ -103,7 +103,8 @@ export default function HomePage({
             {!showModal &&
             !showServerModal &&
             !showInvitesModal &&
-            !showJoinServerModal ? (
+            !showJoinServerModal &&
+            !showAllServersModal ? (
                 <ToastContainer
                     position="top-center"
                     autoClose={2500}

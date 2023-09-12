@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import Button from './Button'
 import '../styles/public-servers-modal.scss'
+import { toast, ToastContainer } from 'react-toastify'
 
 const PublicServers = ({
     showAllServersModal,
@@ -26,12 +27,34 @@ const PublicServers = ({
             serverName: name,
             isAdmin: false,
         })
-        console.log(data)
+        if (data.Success) {
+            {
+                toast.success(
+                    'Success! Refresh your page to see the new server.'
+                )
+            }
+        }
     }
 
     return (
         <>
             <dialog ref={modalRef} className="public-server-modal">
+                {showAllServersModal ? (
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={2500}
+                        hideProgressBar={false}
+                        newestOnTop
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss={false}
+                        draggable
+                        pauseOnHover={false}
+                        theme="dark"
+                    />
+                ) : (
+                    <></>
+                )}
                 <Button
                     variant="danger"
                     action={() => {
