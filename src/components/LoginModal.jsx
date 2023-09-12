@@ -41,7 +41,6 @@ const LoginModal = ({
     }
 
     function register() {
-        //setShowModal(true)
         setShowRegisterModal(true)
     }
 

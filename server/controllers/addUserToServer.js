@@ -1,5 +1,6 @@
 import { Server, User, ServerUser } from '../database/seed.js'
 
+// body = {serverName, isAdmin}
 export default async function addUserToServer(req, res) {
     if (req.session.user) {
         const username = req.session.user
