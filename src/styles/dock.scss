@@ -1,67 +1,80 @@
 // Dock: Styles for the server or options dock.
 
-@use "members" as *;
+@use 'members' as *;
 
 $_height: 44px;
 
 .dock {
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: flex-start;
-	align-content: flex-start;
-	background-color: inherit;
-	gap: size(0);
-	padding: size(0);
-	overflow: auto;
-	@include container(dock);
-	&-item {
-		position: relative;
-		display: block;
-		flex: 0 0 auto;
-		width: $_height;
-		height: $_height;
-		border: 2px solid currentColor;
-		border-radius: size(-2);
-		box-shadow: 0 1px 6px -2px $secondary;
-		overflow: hidden;
-		outline: none;
-		cursor: pointer;
-		@include color-schemes using ($color) {
-			&:hover, &:focus {
-				border-color: contrast-color($success, $color, a11y(aa ui));
-			}
-			&:active, &.active {
-				border-color: contrast-color($primary, $color, a11y(aa ui));
-			}
-		}
-		&:not(:hover, :focus) {
-			transition: border-color 250ms ease-out;
-		}
-		&::before {
-			content: attr(data-label);
-			position: absolute;
-			top: 50%; left: 50%;
-			transform: translate(-50%, -50%);
-			font-size: 24px;
-		}
-		&[data-server="false"] {
-			margin-left: auto;
-			& ~ & {
-				margin: 0;
-			}
-		}
-		&[data-server="true"] {
-			border-radius: 9999px;
-			order: -1;
-		}
-	}
-	&-item-image {
-		position: absolute;
-		inset: 0;
-		display: block;
-		min-width: 100%;
-		min-height: 100%;
-		object-fit: cover;
-		object-position: center center;
-	}
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    background-color: inherit;
+    gap: size(0);
+    padding: size(0);
+    overflow: auto;
+    @include container(dock);
+    &-item {
+        position: relative;
+        display: block;
+        flex: 0 0 auto;
+        width: $_height;
+        height: $_height;
+        border: 2px solid currentColor;
+        border-radius: size(-2);
+        box-shadow: 0 1px 6px -2px $secondary;
+        overflow: hidden;
+        outline: none;
+        cursor: pointer;
+        @include color-schemes using ($color) {
+            &:hover,
+            &:focus {
+                border-color: contrast-color($success, $color, a11y(aa ui));
+            }
+            &:active,
+            &.active {
+                border-color: contrast-color($primary, $color, a11y(aa ui));
+            }
+        }
+        &:not(:hover, :focus) {
+            transition: border-color 250ms ease-out;
+        }
+        &::before {
+            content: attr(data-label);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+        }
+        &[data-server='false'] {
+            margin-left: auto;
+            & ~ & {
+                margin: 0;
+            }
+        }
+        &[data-server='true'] {
+            border-radius: 9999px;
+            order: -1;
+        }
+    }
+    &-item-image {
+        position: absolute;
+        inset: 0;
+        display: block;
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        padding: 4px;
+    }
+    &-server-container {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-content: flex-start;
+        background-color: inherit;
+        gap: size(0);
+        overflow: auto;
+    }
 }
