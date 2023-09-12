@@ -1,13 +1,52 @@
 import { Server } from '../database/seed.js'
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+
+import dotenv from 'dotenv'
+dotenv.config()
+
+const bucketName = process.env.AWS_BUCKET_NAME
+const bucketRegion = process.env.AWS_BUCKET_REGION
+const accessKey = process.env.ACCESS_KEY
+const secretAccessKey = process.env.SECRET_ACCESS_KEY
+
+const s3 = new S3Client({
+    credentials: {
+        accessKeyId: accessKey,
+        secretAccessKey: secretAccessKey
+    },
+    region: bucketRegion
+})
 
 export default async function handleCreateServer(req, res) {
     let { name, imageURL, isPrivate } = req.body
+    let serverImageUrl = ''
     imageURL ||= 'https://placehold.co/256x256?text=' + name.charAt(0)
+
+    const file = req.files.serverImage
+
+    console.log('FILE -------- ---> ', file)
+
+    if(req.files){
+        const serverimage = {
+            Bucket: bucketName,
+            Key: file.name, 
+            Body: file.data,
+            ContentType: file.mimetype
+        }
+        console.log('serverimage ====>', serverimage)
+
+        const comm = new PutObjectCommand(serverimage)
+
+        await s3.send(comm)
+        serverImageUrl = `https://grapevinedev.s3.us-west-2.amazonaws.com/${file.name}`
+
+
+    }
 
     try {
         await Server.create({
             name,
-            imageURL,
+            imageURL : req.files ? serverImageUrl : imageURL,
             isPrivate,
         })
 

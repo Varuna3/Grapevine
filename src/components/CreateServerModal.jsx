@@ -5,6 +5,7 @@ const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
     const [name, setServerName] = useState('')
     const [imageURL, setImageURL] = useState('')
     const [isPrivate, setIsPrivate] = useState(false)
+    const [serverImage, setServerImage] = useState()
 
     const modalRef = useRef()
 
@@ -20,9 +21,13 @@ const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
 
     const submitHandler = async (e) => {
         e.preventDefault()
-
+        console.log('e.target', e.target)
         await axios
-            .put('/api/server', { name, imageURL, isPrivate })
+            .put('/api/server', { name, imageURL, isPrivate, serverImage } , {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+            })
             .then((res) => {
                 if (res.data.Success) {
                     // setServerName('')
@@ -76,6 +81,7 @@ const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
                     name="isPrivate"
                     value={isPrivate}
                 />
+                <input type="file" id="serverImage" name="serverImage" onChange={(e) => setServerImage(e.target.files[0])}/>
                 <button type="submit">Create Server</button>
             </form>
             <button onClick={handleCancel}>Cancel</button>
