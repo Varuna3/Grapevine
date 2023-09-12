@@ -35,7 +35,6 @@ export default function HomePage({
     const [publicServers, setPublicServers] = useState([])
     const [invites, setInvites] = useState([])
     // const [currentServer, setCurrentServer] = useState({})
-    console.log('publicServers', publicServers)
 
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
@@ -44,9 +43,7 @@ export default function HomePage({
                 getAllServers()
                 getPublicServers()
             } else if (data.Error) {
-                // Alert user there was an error
                 setShowModal(true)
-                console.log(data.Error)
             }
         })
     }, [showModal, showServerModal])
@@ -68,7 +65,6 @@ export default function HomePage({
                     availableServers.push(obj1)
                 }
             }
-            console.log('availableServers', availableServers)
             setPublicServers(availableServers)
         })
     }
@@ -105,7 +101,8 @@ export default function HomePage({
             {!showModal &&
             !showServerModal &&
             !showInvitesModal &&
-            !showJoinServerModal ? (
+            !showJoinServerModal &&
+            !showAllServersModal ? (
                 <ToastContainer
                     position="top-center"
                     autoClose={2500}
