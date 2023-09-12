@@ -1,0 +1,9 @@
+@use 'members' as *;
+
+.settings-panel {
+    position: absolute;
+    width: 300px;
+    height: calc(100vh - 90px);
+    border: 2px solid green;
+    transition: margin-left 250ms ease-out;
+}
