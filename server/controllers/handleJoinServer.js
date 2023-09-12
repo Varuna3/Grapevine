@@ -1,5 +1,6 @@
 import { Invite, Server, User, ServerUser } from '../database/seed.js'
 
+// body = {inviteString}
 export default async function handleJoinServer(req, res) {
     if (req.session.user) {
         const user = await User.findOne({

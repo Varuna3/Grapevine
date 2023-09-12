@@ -35,7 +35,6 @@ export default function HomePage({
     const [publicServers, setPublicServers] = useState([])
     const [invites, setInvites] = useState([])
     // const [currentServer, setCurrentServer] = useState({})
-    console.log('publicServers', publicServers)
 
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
@@ -68,7 +67,6 @@ export default function HomePage({
                     availableServers.push(obj1)
                 }
             }
-            console.log('availableServers', availableServers)
             setPublicServers(availableServers)
         })
     }
