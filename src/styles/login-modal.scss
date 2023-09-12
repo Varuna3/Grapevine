@@ -3,6 +3,8 @@
 @use 'members' as *;
 
 .login-modal {
+	position: fixed;
+	inset: 0;
     display: flex;
     flex-flow: column nowrap;
     min-width: 100%;
