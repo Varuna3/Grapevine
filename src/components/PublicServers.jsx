@@ -9,7 +9,6 @@ const PublicServers = ({showAllServersModal, setShowAllServersModal, publicServe
 
     useEffect(() => {
         axios.get('/api/server/getpubservers').then(({data}) => {
-            console.log('DATA', data)
         })
         if (!modalRef.current) return
 

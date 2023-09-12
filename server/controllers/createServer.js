@@ -1,5 +1,6 @@
 import { Server } from '../database/seed.js'
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
+import sharp from 'sharp'
 
 import dotenv from 'dotenv'
 dotenv.config()
@@ -24,16 +25,17 @@ export default async function handleCreateServer(req, res) {
 
     const file = req.files.serverImage
 
-    console.log('FILE -------- ---> ', file)
+    const optimized = await sharp(file.data)
+        .resize(60, 60, { fit: "inside", withoutEnlargement: true })
+        .toBuffer();
 
     if(req.files){
         const serverimage = {
             Bucket: bucketName,
             Key: file.name, 
-            Body: file.data,
+            Body: optimized,
             ContentType: file.mimetype
         }
-        console.log('serverimage ====>', serverimage)
 
         const comm = new PutObjectCommand(serverimage)
 
