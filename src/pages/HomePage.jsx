@@ -43,9 +43,7 @@ export default function HomePage({
                 getAllServers()
                 getPublicServers()
             } else if (data.Error) {
-                // Alert user there was an error
                 setShowModal(true)
-                console.log(data.Error)
             }
         })
     }, [showModal, showServerModal])
