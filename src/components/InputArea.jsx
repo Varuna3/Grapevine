@@ -1,6 +1,6 @@
 // Input Area: Multiline text input area for composing chat messages.
 
-import { useState, useId } from 'react'
+import { useState, useId, useRef } from 'react'
 
 import Button from './Button'
 
@@ -10,14 +10,26 @@ export default function InputArea({ callback }) {
     const [message, setMessage] = useState('')
 
     const inputId = useId()
+    let ref = useRef()
 
-    function submitHander(event) {
+    function submitHandler(event) {
         event.preventDefault()
         callback(message)
     }
 
+    function onEnterPress(e) {
+        if (e.keyCode == 13 && e.shiftKey == false) {
+            e.preventDefault()
+            ref.requestSubmit()
+        }
+    }
+
     return (
-        <form className="input-area" onSubmit={submitHander}>
+        <form
+            ref={(el) => (ref = el)}
+            className="input-area"
+            onSubmit={submitHandler}
+        >
             <label className="input-area-label" htmlFor={inputId}>
                 Enter Message:
             </label>
@@ -30,6 +42,7 @@ export default function InputArea({ callback }) {
                 onChange={(event) => {
                     setMessage(event.target.value)
                 }}
+                onKeyDown={onEnterPress}
             />
             <Button variant="primary" children="Send" />
         </form>
