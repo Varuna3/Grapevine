@@ -33,7 +33,7 @@ const RegisterModal = ({
             .put('/api/account/', { username, password, email })
             .then((res) => {
                 if (res.data.Success) {
-                    toast.success('Registration Success!.')
+                    toast.success('Registration Success!')
                     setPassword('')
                     setEmail('')
                     setShowRegisterModal(false)
