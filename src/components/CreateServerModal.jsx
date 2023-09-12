@@ -21,7 +21,7 @@ const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
 
     const submitHandler = async (e) => {
         e.preventDefault()
-        console.log('e.target', e.target)
+
         await axios
             .put('/api/server', { name, imageURL, isPrivate, serverImage } , {
                 headers: {
