@@ -2,8 +2,12 @@
 
 import '../styles/dock.scss'
 
-export default function Dock({ anchors, setCurrentServer }) {
-
+export default function Dock({
+    anchors,
+    setCurrentServer,
+    showSettings,
+    setShowSettings,
+}) {
     return (
         <nav className="dock">
             <div className="dock-server-container">
@@ -36,7 +40,7 @@ export default function Dock({ anchors, setCurrentServer }) {
                 data-item-image="https://cdn-icons-png.flaticon.com/512/126/126472.png"
                 data-server={false}
                 onClick={() => {
-                    console.log('rawr')
+                    setShowSettings(!showSettings)
                 }}
             >
                 {

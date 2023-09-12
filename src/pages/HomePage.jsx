@@ -11,6 +11,7 @@ import CreateInvite from '../components/CreateInvite'
 import PublicServers from '../components/PublicServers'
 import ShowInvites from '../components/ShowInvites'
 import JoinServer from '../components/JoinServer'
+import SettingsPanel from '../components/SettingsPanel'
 
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -34,7 +35,7 @@ export default function HomePage({
     const [showAllServersModal, setShowAllServersModal] = useState(false)
     const [publicServers, setPublicServers] = useState([])
     const [invites, setInvites] = useState([])
-    // const [currentServer, setCurrentServer] = useState({})
+    const [showSettings, setShowSettings] = useState(false)
 
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
@@ -91,7 +92,12 @@ export default function HomePage({
 
     return (
         <main className="home-page">
-            <Dock anchors={serverList} setCurrentServer={setCurrentServer} />
+            <Dock
+                anchors={serverList}
+                setCurrentServer={setCurrentServer}
+                showSettings={showSettings}
+                setShowSettings={setShowSettings}
+            />
             <RegisterModal
                 showRegisterModal={showRegisterModal}
                 setShowRegisterModal={setShowRegisterModal}
@@ -119,6 +125,7 @@ export default function HomePage({
             ) : (
                 <></>
             )}
+            <SettingsPanel showSettings={showSettings} />
             <LoginModal
                 showModal={showModal}
                 setShowModal={setShowModal}
