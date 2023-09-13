@@ -113,7 +113,7 @@ export default function ShowInvites({
                 <></>
             )}
             <div style={{ display: 'flex', gap: 20, flexDirection: 'column' }}>
-                {inviteDivs}
+                {inviteDivs.length > 0 ? inviteDivs : <h1>No invites yet!</h1>}
             </div>
             <button
                 onClick={() => {
