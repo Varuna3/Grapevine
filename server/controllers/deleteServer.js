@@ -1,4 +1,4 @@
-import { Server, ServerUser, User } from '../database/seed.js'
+import { Message, Server, ServerUser, User } from '../database/seed.js'
 
 export default async function deleteServer(req, res) {
     if (req.session.user) {
@@ -11,6 +11,10 @@ export default async function deleteServer(req, res) {
                 where: { userId: user.id, serverId: server.id },
             })
             if (isAdmin) {
+                const messages = await Message.findAll({
+                    where: { serverId: server.id },
+                })
+                messages.forEach(async (e) => await e.destroy())
                 await server.destroy()
                 res.json({ Success: `Server '${server.name}' deleted.` })
             } else {

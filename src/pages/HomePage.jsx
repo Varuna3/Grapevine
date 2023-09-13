@@ -158,6 +158,7 @@ export default function HomePage({
                 setShowModal={setShowModal}
                 setUsername={setUsername}
                 username={username}
+                showRegisterModal={showRegisterModal}
                 setShowRegisterModal={setShowRegisterModal}
             />
             <button
