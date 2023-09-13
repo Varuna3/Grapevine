@@ -1,14 +1,26 @@
 // Get all public servers
 
-import { Server } from '../database/seed.js'
+import { Server, sequelize, User } from '../database/seed.js'
 
 export default async function getAllServers(req, res) {
-    try {
-        const servers = await Server.findAll({
-            where: { isPrivate : false },
+    if (req.session.user) {
+        const user = await User.findOne({
+            where: { username: req.session.user },
+            include: Server,
         })
-        res.json({ Success: servers })
-    } catch {
+        const serverIds = user.servers.map((e) => e.id)
+        try {
+            const servers = await Server.findAll({
+                where: {
+                    isPrivate: false,
+                    id: { [sequelize.Op.not]: [...serverIds] },
+                },
+            })
+            res.json({ Success: servers })
+        } catch {
             res.json({ Error: 'No Servers exist. Try creating one.' })
         }
+    } else {
+        res.json({ Error: 'Please login.' })
+    }
 }
