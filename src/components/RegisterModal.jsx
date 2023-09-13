@@ -15,6 +15,7 @@ const RegisterModal = ({
 }) => {
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
+    const [imageURL, setImageURL] = useState()
     const modalRef = useRef()
 
     useEffect(() => {
@@ -30,7 +31,11 @@ const RegisterModal = ({
         e.preventDefault()
 
         axios
-            .put('/api/account/', { username, password, email })
+            .put('/api/account/', { username, password, email, imageURL },{
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+            })
             .then((res) => {
                 if (res.data.Success) {
                     toast.success('Registration Success!')
@@ -88,6 +93,12 @@ const RegisterModal = ({
                             label="Enter Email:"
                             value={email}
                             callback={setEmail}
+                            required={true}
+                        />
+                        <TextField
+                            type="file"
+                            label="Upload Image:"
+                            callback={setImageURL}
                             required={true}
                         />
                     </fieldset>
