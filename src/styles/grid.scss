@@ -1,0 +1,33 @@
+// Grid: Breakpoint grid with preset gap.
+
+@use "members" as *;
+
+.grid {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	width: 100vw;
+	margin: 0 auto;
+	&.start {
+		align-items: flex-start;
+	}
+	&.end {
+		align-items: flex-end;
+	}
+	@include container(grid);
+	@each $class, $width in $breakpoints {
+		&.#{$class} {
+			width: $width;
+		}
+	}
+	&-content {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		@include modular-scale(-1, column-gap);
+		@include modular-scale(1, row-gap);
+		& > * {
+			flex: 1 1 auto;
+		}
+	}
+}

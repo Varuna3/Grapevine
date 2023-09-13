@@ -59,6 +59,11 @@ const RegisterModal = ({
             />
             <div className="register-modal-wrapper">
                 <form onSubmit={submitHandler} className="register-modal-form">
+					<a
+						className='link'
+						onClick={() => setShowRegisterModal(false)}>
+						&#10094; Login
+					</a>
                     <h2 className="register-modal-heading">
                         Register for Grapevine!
                     </h2>
@@ -85,7 +90,7 @@ const RegisterModal = ({
                             required={true}
                         />
                     </fieldset>
-                    <Button variant="success">Register</Button>
+					<Button variant="success">Register</Button>
                 </form>
             </div>
         </dialog>
