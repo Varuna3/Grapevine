@@ -1,8 +1,24 @@
 // Create Account: Endpoint for creating a user account.
 
 import bcrypt from 'bcrypt'
-
 import { User } from '../database/seed.js'
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import sharp from 'sharp'
+import dotenv from 'dotenv'
+dotenv.config()
+
+const bucketName = process.env.AWS_BUCKET_NAME
+const bucketRegion = process.env.AWS_BUCKET_REGION
+const accessKey = process.env.ACCESS_KEY
+const secretAccessKey = process.env.SECRET_ACCESS_KEY
+
+const s3 = new S3Client({
+    credentials: {
+        accessKeyId: accessKey,
+        secretAccessKey: secretAccessKey,
+    },
+    region: bucketRegion,
+})
 
 export default async function createAccount(req, res) {
     // Get all new user data from request body:

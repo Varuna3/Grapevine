@@ -60,7 +60,6 @@ export default function HomePage({
 
     async function getPublicServers() {
         await axios.get('/api/server/getpubservers').then(({ data }) => {
-            console.log(data)
             const availableServers = []
             if (data.Success) {
                 for (const obj1 of data.Success) {
