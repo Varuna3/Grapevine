@@ -73,12 +73,11 @@ export default function Messages({
     function createMessageDiv(e, id) {
         return (
             <article key={id} className="messages-chat">
-                <picture className="messages-pfp">
-                    <img
-                        src={`https://placehold.co/128?text=${e.username[0]}`} // --> use first char of username to get image
-                        alt="Mary Grapevine"
-                    />
-                </picture>
+                <img
+                    src={`https://placehold.co/128?text=${e.username[0]}`} // --> use first char of username to get image
+                    alt="Mary Grapevine"
+                    className="messages-pfp"
+                />
                 <div className="messages-content">
                     <h4 className="messages-username">{e.username}</h4>
                     {/*--> object.username */}
