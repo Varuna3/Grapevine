@@ -3,7 +3,7 @@ import session from 'express-session'
 import morgan from 'morgan'
 import ViteExpress from 'vite-express'
 import http from 'http'
-import fileUpload from 'express-fileupload';
+import fileUpload from 'express-fileupload'
 import { Server } from 'socket.io'
 
 import { helloWorldHandler } from './controllers/helloworld.js'
@@ -22,6 +22,7 @@ import handleJoinServer from './controllers/handleJoinServer.js'
 import deleteInvite from './controllers/deleteInvite.js'
 import getAllPublicServers from './controllers/getAllPublicServers.js'
 import getInvites from './controllers/getInvites.js'
+import deleteServer from './controllers/deleteServer.js'
 
 //middleware
 const app = express()
@@ -55,6 +56,7 @@ app.put('/api/message', createMessage)
 app.put('/api/invite', createInvite)
 app.delete('/api/account/', deleteAccount)
 app.delete('/api/invite', deleteInvite)
+app.delete('/api/server', deleteServer)
 app.post('/api/login', login)
 app.post('/api/logout/', logoutAccount)
 app.post('/api/server/addUser', addUserToServer)
