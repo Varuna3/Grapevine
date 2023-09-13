@@ -95,7 +95,8 @@ sub {
     font-size: size(-1);
 }
 
-a[href] {
+a[href], .link {
+	cursor: pointer;
     &:not(:hover, :focus) {
         text-decoration-line: none;
     }
