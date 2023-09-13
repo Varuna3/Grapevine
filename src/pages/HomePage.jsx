@@ -60,7 +60,6 @@ export default function HomePage({
 
     async function getPublicServers() {
         await axios.get('/api/server/getpubservers').then(({ data }) => {
-            console.log(data)
             const availableServers = []
             if (data.Success) {
                 for (const obj1 of data.Success) {
@@ -144,7 +143,16 @@ export default function HomePage({
             ) : (
                 <></>
             )}
-            <SettingsPanel showSettings={showSettings} />
+            <SettingsPanel
+                showSettings={showSettings}
+                setShowModal={setShowModal}
+                setMessages={setMessages}
+                setCurrentServer={setCurrentServer}
+                setServerList={setServerList}
+                currentServer={currentServer}
+                showInvitesModal={showInvitesModal}
+                setShowInvitesModal={setShowInvitesModal}
+            />
             <LoginModal
                 showModal={showModal}
                 setShowModal={setShowModal}
@@ -170,40 +178,18 @@ export default function HomePage({
                 showServerModal={showServerModal}
                 setShowServerModal={setShowServerModal}
             />
-            <CreateInvite name={currentServer.name} />
             <PublicServers
                 setShowAllServersModal={setShowAllServersModal}
                 showAllServersModal={showAllServersModal}
                 publicServers={publicServers}
             />
-            <Logout
-                setShowModal={setShowModal}
-                setMessages={setMessages}
-                setCurrentServer={setCurrentServer}
-                setServerList={setServerList}
-            />
-            <button
-                onClick={async () => {
-                    if (currentServer.id) {
-                        setShowInvitesModal(true)
-                        const { data } = await axios.get(
-                            `/api/invites/${currentServer.id}`
-                        )
-                        setInvites(data.Success)
-                    } else {
-                        toast.error('Please select a server.')
-                    }
-                }}
-            >
-                Show Invites
-            </button>
-            <ShowInvites
+            {/* <ShowInvites
                 showInvitesModal={showInvitesModal}
                 setShowInvitesModal={setShowInvitesModal}
                 serverId={currentServer.id}
                 invites={invites}
                 setInvites={setInvites}
-            />
+            /> */}
             <button
                 onClick={() => {
                     setShowJoinServerModal(true)
@@ -214,12 +200,6 @@ export default function HomePage({
             <JoinServer
                 showJoinServerModal={showJoinServerModal}
                 setShowJoinServerModal={setShowJoinServerModal}
-            />
-            <Logout
-                setShowModal={setShowModal}
-                setMessages={setMessages}
-                setCurrentServer={setCurrentServer}
-                setServerList={setServerList}
             />
             <Messages
                 messages={messages}
