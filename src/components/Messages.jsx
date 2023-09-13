@@ -40,7 +40,7 @@ export default function Messages({
                     let message = {
                         username: e.user.username,
                         message: e.message,
-                        imageURL: e.user.imageURL
+                        userImage: e.user.imageURL
                     }
                     // add message 'e' to messages array
                     tmpMessages = [...tmpMessages, message]
@@ -76,7 +76,7 @@ export default function Messages({
             <article key={id} className="messages-chat">
                 <picture className="messages-pfp">
                     <img
-                        src={e.imageURL} // --> use first char of username to get image
+                        src={e.userImage} // --> use first char of username to get image
                         alt={e.username}
                     />
                 </picture>

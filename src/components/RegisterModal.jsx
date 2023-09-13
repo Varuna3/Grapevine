@@ -18,8 +18,6 @@ const RegisterModal = ({
     const [imageURL, setImageURL] = useState()
     const modalRef = useRef()
 
-    console.log('imageURL', imageURL)
-
     useEffect(() => {
         if (!modalRef.current) return
         if (showRegisterModal) {

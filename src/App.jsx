@@ -21,7 +21,7 @@ export default function App() {
     function handleNewMessage(data) {
         setMessages([
             ...messages,
-            { username: data.username, message: data.message },
+            { username: data.username, message: data.message, userImage: data.userImage },
         ])
     }
 
