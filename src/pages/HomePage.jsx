@@ -225,6 +225,8 @@ export default function HomePage({
                 messages={messages}
                 setMessages={setMessages}
                 server={currentServer}
+                showSettings={showSettings}
+                setShowSettings={setShowSettings}
             />
             {currentServer.id ? (
                 <InputArea

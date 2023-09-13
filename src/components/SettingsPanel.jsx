@@ -21,8 +21,8 @@ export default function SettingsPanel({ showSettings }) {
                 className="settings-panel"
                 style={
                     showSettings
-                        ? { marginLeft: '100vw' }
-                        : { marginLeft: 'calc(100vw - 320px)' }
+                        ? { marginLeft: 'calc(100vw - 320px)' }
+                        : { marginLeft: '100vw' }
                 }
             ></div>
         </>

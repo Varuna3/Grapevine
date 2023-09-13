@@ -8,7 +8,13 @@ import { marked } from 'marked'
 import '../styles/messages.scss'
 
 // Container displays messages for a given server
-export default function Messages({ messages, setMessages, server }) {
+export default function Messages({
+    messages,
+    setMessages,
+    server,
+    showSettings,
+    setShowSettings,
+}) {
     //state array for all current "message" elements (user image, username, message)
     const [messageDivs, setMessageDivs] = useState([])
 
@@ -92,7 +98,15 @@ export default function Messages({ messages, setMessages, server }) {
     return (
         <>
             <h1>{server.name}</h1>
-            <div ref={ref} className="messages">
+            <div
+                ref={ref}
+                className="messages"
+                style={
+                    showSettings
+                        ? { width: 'calc(100vw - 340px' }
+                        : { width: '100vw' }
+                }
+            >
                 {messageDivs}
             </div>
         </>

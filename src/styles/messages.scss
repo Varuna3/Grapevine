@@ -1,5 +1,7 @@
 .messages {
+    border: 2px solid red;
     scroll-behavior: smooth;
-    max-height: 70vh;
+    height: 70vh;
     overflow: auto;
+    transition: width 250ms ease-out;
 }
