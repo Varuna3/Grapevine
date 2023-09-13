@@ -14,6 +14,7 @@ import JoinServer from '../components/JoinServer'
 import SettingsPanel from '../components/SettingsPanel'
 
 import { ToastContainer, toast } from 'react-toastify'
+import lodash from 'lodash'
 
 import '../styles/home-page.scss'
 import Logout from '../components/Logout'
@@ -59,11 +60,13 @@ export default function HomePage({
 
     async function getPublicServers() {
         await axios.get('/api/server/getpubservers').then(({ data }) => {
+            console.log(data)
             const availableServers = []
-
-            for (const obj1 of data.Success) {
-                if (!serverList.some((obj2) => obj2.id === obj1.id)) {
-                    availableServers.push(obj1)
+            if (data.Success) {
+                for (const obj1 of data.Success) {
+                    if (!serverList.some((obj2) => obj2.id === obj1.id)) {
+                        availableServers.push(obj1)
+                    }
                 }
             }
             setPublicServers(availableServers)
@@ -84,7 +87,23 @@ export default function HomePage({
         } else {
             socket.emit('client message', {
                 username,
-                message: "I think I want a pet unicorn. I'll name him Terry.",
+                message: `I think I want a pet unicorn. I'll name him ${lodash.sample(
+                    [
+                        'Terry',
+                        'Fred',
+                        'Jeffrey',
+                        'Franklin',
+                        'Froggy Fresh',
+                        'Samuel',
+                        'Bart',
+                        'Rocky',
+                        'Apollo',
+                        'Zelda',
+                        'Mario',
+                        'Kyle',
+                        'Larry',
+                    ]
+                )}.`,
                 server: currentServer.id,
             })
         }
@@ -206,6 +225,8 @@ export default function HomePage({
                 messages={messages}
                 setMessages={setMessages}
                 server={currentServer}
+                showSettings={showSettings}
+                setShowSettings={setShowSettings}
             />
             {currentServer.id ? (
                 <InputArea
