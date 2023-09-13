@@ -65,6 +65,27 @@ export default function SettingsPanel({
                     invites={invites}
                     setInvites={setInvites}
                 />
+                <button
+                    style={{ color: 'red' }}
+                    onClick={async () => {
+                        if (currentServer.name) {
+                            const { data } = await axios.delete('/api/server', {
+                                data: { id: currentServer.id },
+                            })
+                            if (data.Success) {
+                                toast.success(
+                                    `Server '${currentServer.name}' deleted. Refresh to see it disappear.`
+                                )
+                            } else {
+                                toast.error('Something went wrong.')
+                            }
+                        } else {
+                            toast.error('Please select a server.')
+                        }
+                    }}
+                >
+                    Delete Server
+                </button>
                 <h1>User Settings</h1>
                 <Logout
                     setShowModal={setShowModal}
