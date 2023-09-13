@@ -22,35 +22,36 @@
     font-family: $sans-serif;
     word-break: break-word;
     color-scheme: light dark;
+    overflow-x: hidden;
 }
 
 :root {
-	@include color-schemes using ($color) {
-		background-color: $color;
-	}
-	background-image: var(--custom-wallpaper, none);
-	background-attachment: fixed;
-	background-size: cover;
+    @include color-schemes using ($color) {
+        background-color: $color;
+    }
+    background-image: var(--custom-wallpaper, none);
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 #root {
-	background-color: rgba($light, 0.6);
-	color: $black;
-	@include dark {
-		background-color: rgba($dark, 0.8);
-		color: $white;
-	}
-	&::before {
-		content: "";
-		position: absolute;
-		z-index: -1;
-		inset: 0;
-		backdrop-filter: blur(6px) saturate(1.8);
-	}
+    background-color: rgba($light, 0.6);
+    color: $black;
+    @include dark {
+        background-color: rgba($dark, 0.8);
+        color: $white;
+    }
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        backdrop-filter: blur(6px) saturate(1.8);
+    }
 }
 
 body {
-	margin: 0;
+    margin: 0;
 }
 
 h1,
@@ -110,15 +111,15 @@ a[href], .link {
 // Custom scrollbar styling:
 
 ::-webkit-scrollbar {
-	width: 14px;
-	&-track {
-		background-color: transparent;
-	}
-	&-thumb {
-		border-radius: 8px;
-		@include color-schemes using ($bg) {
-			background-color: contrast-color($secondary, $bg, a11y(aa ui));
-			border: 2px solid $bg;
-		}
-	}
+    width: 14px;
+    &-track {
+        background-color: transparent;
+    }
+    &-thumb {
+        border-radius: 8px;
+        @include color-schemes using ($bg) {
+            background-color: contrast-color($secondary, $bg, a11y(aa ui));
+            border: 2px solid $bg;
+        }
+    }
 }

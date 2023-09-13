@@ -173,4 +173,4 @@ if (process.argv[1] === url.fileURLToPath(import.meta.url)) {
     await sequelize.close()
 }
 
-export { User, Server, Invite, Message, ServerUser }
+export { User, Server, Invite, Message, ServerUser, Sequelize }

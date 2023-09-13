@@ -7,16 +7,18 @@ import Messages from '../components/Messages'
 import LoginModal from '../components/LoginModal'
 import RegisterModal from '../components/RegisterModal'
 import CreateServerModal from '../components/CreateServerModal'
-import ServerList from '../components/ServerList'
 import CreateInvite from '../components/CreateInvite'
 import PublicServers from '../components/PublicServers'
 import ShowInvites from '../components/ShowInvites'
 import JoinServer from '../components/JoinServer'
+import SettingsPanel from '../components/SettingsPanel'
 
 import { ToastContainer, toast } from 'react-toastify'
+import lodash from 'lodash'
 
 import '../styles/home-page.scss'
 import Logout from '../components/Logout'
+import Dock from '../components/Dock'
 
 export default function HomePage({
     messages,
@@ -34,7 +36,7 @@ export default function HomePage({
     const [showAllServersModal, setShowAllServersModal] = useState(false)
     const [publicServers, setPublicServers] = useState([])
     const [invites, setInvites] = useState([])
-    // const [currentServer, setCurrentServer] = useState({})
+    const [showSettings, setShowSettings] = useState(false)
 
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
@@ -58,11 +60,13 @@ export default function HomePage({
 
     async function getPublicServers() {
         await axios.get('/api/server/getpubservers').then(({ data }) => {
+            console.log(data)
             const availableServers = []
-
-            for (const obj1 of data.Success) {
-                if (!serverList.some((obj2) => obj2.id === obj1.id)) {
-                    availableServers.push(obj1)
+            if (data.Success) {
+                for (const obj1 of data.Success) {
+                    if (!serverList.some((obj2) => obj2.id === obj1.id)) {
+                        availableServers.push(obj1)
+                    }
                 }
             }
             setPublicServers(availableServers)
@@ -83,7 +87,23 @@ export default function HomePage({
         } else {
             socket.emit('client message', {
                 username,
-                message: "I think I want a pet unicorn. I'll name him Terry.",
+                message: `I think I want a pet unicorn. I'll name him ${lodash.sample(
+                    [
+                        'Terry',
+                        'Fred',
+                        'Jeffrey',
+                        'Franklin',
+                        'Froggy Fresh',
+                        'Samuel',
+                        'Bart',
+                        'Rocky',
+                        'Apollo',
+                        'Zelda',
+                        'Mario',
+                        'Kyle',
+                        'Larry',
+                    ]
+                )}.`,
                 server: currentServer.id,
             })
         }
@@ -91,6 +111,12 @@ export default function HomePage({
 
     return (
         <main className="home-page">
+            <Dock
+                anchors={serverList}
+                setCurrentServer={setCurrentServer}
+                showSettings={showSettings}
+                setShowSettings={setShowSettings}
+            />
             <RegisterModal
                 showRegisterModal={showRegisterModal}
                 setShowRegisterModal={setShowRegisterModal}
@@ -118,6 +144,7 @@ export default function HomePage({
             ) : (
                 <></>
             )}
+            <SettingsPanel showSettings={showSettings} />
             <LoginModal
                 showModal={showModal}
                 setShowModal={setShowModal}
@@ -194,14 +221,12 @@ export default function HomePage({
                 setCurrentServer={setCurrentServer}
                 setServerList={setServerList}
             />
-            <ServerList
-                serverList={serverList}
-                setCurrentServer={setCurrentServer}
-            />
             <Messages
                 messages={messages}
                 setMessages={setMessages}
                 server={currentServer}
+                showSettings={showSettings}
+                setShowSettings={setShowSettings}
             />
             {currentServer.id ? (
                 <InputArea

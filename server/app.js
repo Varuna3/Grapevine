@@ -3,6 +3,7 @@ import session from 'express-session'
 import morgan from 'morgan'
 import ViteExpress from 'vite-express'
 import http from 'http'
+import fileUpload from 'express-fileupload';
 import { Server } from 'socket.io'
 
 import { helloWorldHandler } from './controllers/helloworld.js'
@@ -36,6 +37,7 @@ app.use(
         saveUninitialized: false,
     })
 )
+app.use(fileUpload())
 
 const server = http.createServer(app)
 const io = new Server(server)

@@ -1,6 +1,7 @@
 // Input Area: Multiline text input area for composing chat messages.
 
 import { useState, useId, useRef } from 'react'
+import lodash from 'lodash'
 
 import Button from './Button'
 
@@ -15,6 +16,7 @@ export default function InputArea({ callback }) {
     function submitHandler(event) {
         event.preventDefault()
         callback(message)
+        setMessage('')
     }
 
     function onEnterPress(e) {
@@ -38,6 +40,15 @@ export default function InputArea({ callback }) {
                 id={inputId}
                 autoFocus={true}
                 autoComplete="off"
+                placeholder={lodash.sample([
+                    'I like rocks.',
+                    'I like to watch kids tv.',
+                    'Grapes are the best fruit!',
+                    'The earth is flat.',
+                    'Pancakes > waffles',
+                    '#ihatewaffles',
+                    'I drive a Ford f550.',
+                ])}
                 value={message}
                 onChange={(event) => {
                     setMessage(event.target.value)
