@@ -3,8 +3,8 @@
 @use 'members' as *;
 
 .login-modal {
-	position: fixed;
-	inset: 0;
+    position: fixed;
+    inset: 0;
     display: flex;
     flex-flow: column nowrap;
     min-width: 100%;
@@ -15,14 +15,14 @@
     padding: size(1) size(-1);
     margin: 0;
     overflow: auto;
-	transition: opacity 250ms linear;
+    transition: opacity 250ms linear;
     &:not([open]) {
         pointer-events: none;
-		opacity: 0;
+        opacity: 0;
     }
-	&::backdrop {
-		display: none;
-	}
+    &::backdrop {
+        display: none;
+    }
     fieldset {
         border: none;
         padding: 0;
@@ -36,7 +36,8 @@
         margin: auto;
         @include container(login-modal);
         @include color-schemes using ($color) {
-			box-shadow: 0 3px 12px -3px contrast-color($secondary, $color, a11y(aa ui));
+            box-shadow: 0 3px 12px -3px contrast-color($secondary, $color, a11y(aa
+                            ui));
             background-color: $color;
             color: high-contrast($white $black, $color);
         }
