@@ -25,6 +25,7 @@ import getAllPublicServers from './controllers/getAllPublicServers.js'
 import getInvites from './controllers/getInvites.js'
 import deleteServer from './controllers/deleteServer.js'
 import getGiphy from './controllers/getGiphy.js'
+import randomGifs from './controllers/randomGifs.js'
 
 //middleware
 const app = express()
@@ -70,6 +71,7 @@ app.post('/api/server/join', handleJoinServer)
 app.get('/api/server/getall', getAllServers)
 app.get('/api/server/getpubservers', getAllPublicServers)
 app.get('/api/getgiphy/:searchterm', cors(), getGiphy)
+app.get('/api/randomgifs', cors(), randomGifs)
 
 io.on('connection', (socket) => {
     socket.on('disconnect', () => {})

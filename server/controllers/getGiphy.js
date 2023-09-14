@@ -12,10 +12,7 @@ export default async function getGiphy(req, res) {
     res.header('Access-Control-Allow-Origin', '*');
     let { searchterm } = req.params
 
-    //const { data: gifs } = await gf.trending({ limit: 10 })
-
     const { data: gifs } = await gf.search(`${searchterm}`, { limit: 10 })
 
-    console.log('gifs', gifs)
     res.json( gifs )
 }
