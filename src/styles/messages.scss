@@ -22,7 +22,7 @@
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
-		gap: size(0);
+		gap: size(-3);
 		flex: 1 0 auto;
 		@include font-size(1);
 		@include breakpoint($md) {
@@ -49,13 +49,13 @@
 		display: block;
 		width: $lg;
 		border-radius: 3px size(1) size(2);
+		backdrop-filter: blur(4px) saturate(180%);
 		overflow: hidden;
 		@include container(messages-content);
 		@include color-schemes(50, 800) using ($weight) {
 			$bg: color-weight($secondary, $weight);
-			border: 1px solid shade($bg, 10%);
-			background-color: $bg;
-			box-shadow: 3px 3px 8px -4px $bg;
+			border: 1px solid shade($bg, 5%);
+			background-color: rgba($bg, 0.8);
 			color: high-contrast($white $black, $bg);
 		}
 	}
