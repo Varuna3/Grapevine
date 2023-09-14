@@ -5,12 +5,17 @@ dotenv.config()
 
 const gf = new GiphyFetch(process.env.GIPHY_KEY)
 
+console.log('GF', gf)
+
 
 export default async function getGiphy(req, res) {
-    let searchterm = req.params
-    console.log('HIT GIPHY', searchterm)
-    const { data: gifs } = await gf.search(searchterm, { sort: 'relevant', lang: 'es', limit: 10, type: 'stickers' })
-    console.log('DATA in GIPHY', data)
-    
-    res.json(data)
+    res.header('Access-Control-Allow-Origin', '*');
+    let { searchterm } = req.params
+
+    //const { data: gifs } = await gf.trending({ limit: 10 })
+
+    const { data: gifs } = await gf.search(`${searchterm}`, { limit: 10 })
+
+    console.log('gifs', gifs)
+    res.json( gifs )
 }

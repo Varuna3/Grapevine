@@ -38,6 +38,10 @@ export default function HomePage({
     const [publicServers, setPublicServers] = useState([])
     const [invites, setInvites] = useState([])
     const [showSettings, setShowSettings] = useState(false)
+    const [searchTerm, setSearchTerm] = useState('')
+    const [gifList, setGifList] = useState([])
+
+    console.log('gifList', gifList)
 
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
@@ -72,6 +76,11 @@ export default function HomePage({
             }
             setPublicServers(availableServers)
         })
+    }
+
+    async function getGiphy(searchTerm) {
+        const { data } = await axios.get(`/api/getGiphy/${searchTerm}`)
+        setGifList(data)
     }
 
     async function handleSubmit(message) {
@@ -202,6 +211,27 @@ export default function HomePage({
             >
                 Join Server
             </button>
+            <div>
+                <input 
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    value={searchTerm}
+                    id="searchTerm"
+                    name="searchTerm"
+                />
+                <button onClick={() => {getGiphy(searchTerm)}}> Search Giphy</button>
+                {gifList && 
+                <div>
+                    {gifList.map((gif) => {
+                        return (
+                        <div key={gif.id}>
+                        
+                            <img crossOrigin="anonymous" width="200" src={gif.images.downsized_medium.url} />
+                        </div>
+                        )
+                    })}
+                </div>
+                }
+            </div>
             <JoinServer
                 showJoinServerModal={showJoinServerModal}
                 setShowJoinServerModal={setShowJoinServerModal}
