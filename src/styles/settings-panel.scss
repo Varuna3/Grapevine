@@ -1,9 +1,37 @@
+// Settings: Dropdown drawer component that contains any settings.
+
 @use 'members' as *;
 
 .settings-panel {
-    position: absolute;
-    width: 300px;
-    height: calc(100vh - 90px);
-    border: 2px solid green;
-    transition: margin-left 250ms ease-out;
+	position: absolute;
+	z-index: $z-dropdown;
+	display: block;
+	width: 100%;
+	max-width: $sm;
+	max-height: $md;
+	padding: 0.25em size(0) size(-3);
+	overflow: hidden;
+	transform-origin: center;
+	transition-property: transform, opacity;
+	transition-duration: $time-xs;
+	&:not([data-open="true"]) {
+		pointer-events: none;
+		transform: scale(0.95);
+		opacity: 0;
+	}
+	@include container(settings-panel);
+	&-content {
+		position: relative;
+		display: block;
+		height: 100%;
+		overflow: auto;
+		border-radius: size(-1);
+		backdrop-filter: blur(8px);
+		@include modular-scale(2, padding);
+		@include color-schemes using ($color) {
+			box-shadow: 0 3px 12px -8px contrast-color($black, $color, a11y(aa ui));
+			background-color: rgba($color, 0.8);
+			color: high-contrast($white $black, $color);
+		}
+	}
 }
