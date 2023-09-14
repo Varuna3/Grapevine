@@ -10,3 +10,22 @@
 // Font Families:
 $display: 'Lobster Two', cursive;
 $sans-serif: 'Poppins', sans-serif;
+
+// Z-Index Position:
+$z-underlay: -1000 !default;
+$z-overlay: 1000 !default;
+$z-dropdown: 2000 !default;
+$z-sticky: 3000 !default;
+$z-fixed: 4000 !default;
+$z-backdrop: 5000 !default;
+$z-modal: 6000 !default;
+$z-popup: 7000 !default;
+$z-tooltip: 8000 !default;
+
+// Timing Lengths:
+$time-xs: 150ms !default;
+$time-sm: 300ms !default;
+$time-md: 500ms !default;
+$time-lg: 750ms !default;
+$time-xl: 1s !default;
+$time-xxl: 1.5s !default;
