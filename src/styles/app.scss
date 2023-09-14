@@ -5,6 +5,7 @@
 *,
 ::before,
 ::after {
+	transition-timing-function: cubic-bezier(0.8, 0.3, 0.6, 0.8);
 	background-size: cover;
 	background-position: top center;
     box-sizing: border-box;
@@ -43,13 +44,6 @@
     @include dark {
         background-color: rgba($dark, 0.8);
         color: $white;
-    }
-    &::before {
-        content: '';
-        position: absolute;
-        z-index: -1;
-        inset: 0;
-        backdrop-filter: blur(6px) saturate(1.8);
     }
 }
 
