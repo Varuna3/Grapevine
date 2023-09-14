@@ -8,16 +8,17 @@ import Logout from './Logout'
 import CreateInvite from './CreateInvite'
 import ShowInvites from './ShowInvites'
 
-export default function SettingsPanel({
-    showSettings,
-    setShowModal,
-    setMessages,
-    setCurrentServer,
-    setServerList,
-    currentServer,
-    showInvitesModal,
-    setShowInvitesModal,
-}) {
+export default function SettingsPanel(props) {
+    const {
+        showSettings,
+        setShowModal,
+        setMessages,
+        setCurrentServer,
+        setServerList,
+        currentServer,
+        showInvitesModal,
+        setShowInvitesModal,
+    } = props
     const [marginLeft, setMarginLeft] = useState('100vw')
     const [invites, setInvites] = useState([])
 
