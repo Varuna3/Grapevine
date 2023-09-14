@@ -5,6 +5,8 @@
 *,
 ::before,
 ::after {
+	background-size: cover;
+	background-position: top center;
     box-sizing: border-box;
     max-width: 100%;
 }
@@ -26,12 +28,13 @@
 }
 
 :root {
+	--custom-wallpaper: url(grapevine.jpg);
+	background-image: var(--custom-wallpaper, none);
+    background-attachment: fixed;
+    background-size: cover;
     @include color-schemes using ($color) {
         background-color: $color;
     }
-    background-image: var(--custom-wallpaper, none);
-    background-attachment: fixed;
-    background-size: cover;
 }
 
 #root {
