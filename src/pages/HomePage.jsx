@@ -119,6 +119,10 @@ export default function HomePage({
                 setCurrentServer={setCurrentServer}
                 showSettings={showSettings}
                 setShowSettings={setShowSettings}
+                showServerModal={showServerModal}
+                setShowServerModal={setShowServerModal}
+                setShowJoinServerModal={setShowJoinServerModal}
+                setShowAllServersModal={setShowAllServersModal}
             />
             <RegisterModal
                 showRegisterModal={showRegisterModal}
@@ -165,20 +169,7 @@ export default function HomePage({
                 showRegisterModal={showRegisterModal}
                 setShowRegisterModal={setShowRegisterModal}
             />
-            <button
-                onClick={() => {
-                    setShowServerModal(true)
-                }}
-            >
-                Create Server
-            </button>
-            <button
-                onClick={() => {
-                    setShowAllServersModal(true)
-                }}
-            >
-                Public Servers
-            </button>
+
             <CreateServerModal
                 showServerModal={showServerModal}
                 setShowServerModal={setShowServerModal}
@@ -188,13 +179,7 @@ export default function HomePage({
                 showAllServersModal={showAllServersModal}
                 publicServers={publicServers}
             />
-            <button
-                onClick={() => {
-                    setShowJoinServerModal(true)
-                }}
-            >
-                Join Server
-            </button>
+
             <JoinServer
                 showJoinServerModal={showJoinServerModal}
                 setShowJoinServerModal={setShowJoinServerModal}
