@@ -33,7 +33,17 @@ export default function Dock({
                         </a>
                     )
                 })}
+                <a
+                    key={'dont-tell-anyone'}
+                    className="dock-item"
+                    data-label={'+'}
+                    data-server={true}
+                    onClick={() => {
+                        console.log('hehe')
+                    }}
+                ></a>
             </div>
+
             <a
                 key={'super-secret-key'}
                 className="dock-item"

@@ -77,7 +77,7 @@ export default function HomePage({
     async function handleSubmit(message) {
         const { data } = await axios.put('/api/message', {
             server: currentServer.name,
-            message, 
+            message,
         })
 
         if (data.Success) {
@@ -85,7 +85,7 @@ export default function HomePage({
                 username,
                 message,
                 server: currentServer.id,
-                userImage: profileImage
+                userImage: profileImage,
             })
         } else {
             socket.emit('client message', {
@@ -188,13 +188,6 @@ export default function HomePage({
                 showAllServersModal={showAllServersModal}
                 publicServers={publicServers}
             />
-            {/* <ShowInvites
-                showInvitesModal={showInvitesModal}
-                setShowInvitesModal={setShowInvitesModal}
-                serverId={currentServer.id}
-                invites={invites}
-                setInvites={setInvites}
-            /> */}
             <button
                 onClick={() => {
                     setShowJoinServerModal(true)
