@@ -5,9 +5,6 @@ dotenv.config()
 
 const gf = new GiphyFetch(process.env.GIPHY_KEY)
 
-console.log('GF', gf)
-
-
 export default async function getGiphy(req, res) {
     res.header('Access-Control-Allow-Origin', '*');
     let { searchterm } = req.params
