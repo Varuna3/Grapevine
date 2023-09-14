@@ -71,6 +71,8 @@ io.on('connection', (socket) => {
             username: data.username,
             message: data.message,
             server: data.server,
+            userImage: data.userImage
+            
         })
     })
 })

@@ -1,7 +1,30 @@
 .messages {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
     border: 2px solid red;
+    border-radius: 25px;
     scroll-behavior: smooth;
     height: 70vh;
     overflow: auto;
     transition: width 250ms ease-out;
+    &-chat {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        border: 2px solid purple;
+        border-radius: 20px;
+        padding: 10px;
+    }
+    &-pfp {
+        border-radius: 50%;
+        overflow: hidden;
+        height: 60px;
+        width: 60px;
+        object-fit: cover;
+    }
+    &-username {
+        font-size: 25px;
+    }
 }

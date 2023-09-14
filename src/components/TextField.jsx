@@ -20,7 +20,12 @@ export default function TextField(props) {
 
     // Update onChange callback with value:
     function handleChange(event) {
-        callback(event.target.value)
+        if(event.target.files){
+            callback(event.target.files[0])
+            
+        } else {
+            callback(event.target.value)
+        }
     }
 
     return (

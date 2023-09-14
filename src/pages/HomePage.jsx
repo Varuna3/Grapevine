@@ -27,6 +27,7 @@ export default function HomePage({
     setCurrentServer,
 }) {
     const [username, setUsername] = useState('')
+    const [profileImage, setProfileImage] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [showServerModal, setShowServerModal] = useState(false)
     const [showRegisterModal, setShowRegisterModal] = useState(false)
@@ -41,7 +42,8 @@ export default function HomePage({
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
             if (data.Success) {
-                setUsername(data.Success)
+                setUsername(data.Success.user)
+                setProfileImage(data.Success.image)
                 getAllServers()
                 getPublicServers()
             } else if (data.Error) {
@@ -75,13 +77,15 @@ export default function HomePage({
     async function handleSubmit(message) {
         const { data } = await axios.put('/api/message', {
             server: currentServer.name,
-            message,
+            message, 
         })
+
         if (data.Success) {
             socket.emit('client message', {
                 username,
                 message,
                 server: currentServer.id,
+                userImage: profileImage
             })
         } else {
             socket.emit('client message', {

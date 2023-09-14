@@ -8,6 +8,7 @@ export async function login(req, res) {
         bcrypt.compare(password, user.passwordHash, async (err, valid) => {
             if (valid) {
                 req.session.user = user.username
+                req.session.image = user.imageURL
                 res.send({ Success: true })
             } else {
                 res.send({ Error: 'Error: Authentication failed.' })
