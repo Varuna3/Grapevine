@@ -5,6 +5,7 @@
 .login-modal {
     position: fixed;
     inset: 0;
+	z-index: $z-modal;
     display: flex;
     flex-flow: column nowrap;
     min-width: 100%;
@@ -12,6 +13,8 @@
     border: none;
     backdrop-filter: blur(20px) saturate(180%);
     background-color: rgba($black, 0.6);
+	background-image: var(--custom-wallpaper);
+	background-size: cover;
     padding: size(1) size(-1);
     margin: 0;
     overflow: auto;
@@ -36,8 +39,7 @@
         margin: auto;
         @include container(login-modal);
         @include color-schemes using ($color) {
-            box-shadow: 0 3px 12px -3px contrast-color($secondary, $color, a11y(aa
-                            ui));
+            box-shadow: 0 3px 12px -3px contrast-color($secondary, $color, a11y(aa ui));
             background-color: $color;
             color: high-contrast($white $black, $color);
         }
