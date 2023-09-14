@@ -1,0 +1,18 @@
+// Home Page: Styles for the application home.
+
+@use "members" as *;
+
+.home-page {
+	position: relative;
+	display: block;
+	height: 100%;
+	max-width: $xxl;
+	margin: auto;
+	@include container(home-page);
+	.settings-panel {
+		position: absolute;
+		top: auto;
+		right: 0;
+		transform-origin: top right;
+	}
+}
