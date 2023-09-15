@@ -63,7 +63,9 @@ h6 {
     display: block;
     font-family: $display;
     line-height: 1.33;
-    margin: size(-3) 0;
+	@include modular-scale(-1) using ($size) {
+		margin: $size 0;
+	}
 }
 
 h1 {

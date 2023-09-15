@@ -19,7 +19,6 @@ const RandomGifList = ({
                             <div key={g.id}>
                                 <img
                                     crossOrigin="anonymous"
-                                    width="200"
                                     src={g.images.downsized.url}
                                     style={{ border: '2px solid cyan' }}
                                     onClick={async () => {
