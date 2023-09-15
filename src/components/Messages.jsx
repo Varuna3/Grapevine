@@ -103,7 +103,7 @@ export default function Messages({
                 className="messages"
                 style={
                     showSettings
-                        ? { width: 'calc(100vw - 340px' }
+                        ? { width: 'calc(100vw - 340px)' }
                         : { width: '100vw' }
                 }
             >

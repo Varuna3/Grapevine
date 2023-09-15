@@ -9,14 +9,16 @@ import '../styles/input-area.scss'
 import EmojiContainer from './EmojiContainer'
 import GifContainer from './GifContainer'
 
-
-export default function InputArea({ callback }) {
+export default function InputArea({
+    callback,
+    currentServer,
+    username,
+    profileImage,
+}) {
     const [message, setMessage] = useState('')
     const [openEmojis, setOpenEmojis] = useState(false)
     const [openGifs, setOpenGifs] = useState(false)
     const [randomGifs, setRandomGifs] = useState([])
-
-    console.log('randomGifs', randomGifs)
 
     const inputId = useId()
     let ref = useRef()
@@ -34,7 +36,7 @@ export default function InputArea({ callback }) {
         }
     }
 
-    async function getRandomGifs(){
+    async function getRandomGifs() {
         const { data } = await axios.get(`/api/randomgifs`)
         setRandomGifs(data)
     }
@@ -102,7 +104,13 @@ export default function InputArea({ callback }) {
             >
                 GIF
             </button>
-            <GifContainer openGifs={openGifs} randomGifs={randomGifs}/>
+            <GifContainer
+                openGifs={openGifs}
+                randomGifs={randomGifs}
+                currentServer={currentServer}
+                username={username}
+                profileImage={profileImage}
+            />
             <Button variant="primary" type="submit" children="Send" />
         </form>
     )

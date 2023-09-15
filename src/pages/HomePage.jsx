@@ -108,6 +108,7 @@ export default function HomePage({
                     ]
                 )}.`,
                 server: currentServer.id,
+                userImage: profileImage,
             })
         }
     }
@@ -196,6 +197,9 @@ export default function HomePage({
                     callback={(message) => {
                         handleSubmit(message)
                     }}
+                    currentServer={currentServer}
+                    username={username}
+                    profileImage={profileImage}
                 />
             ) : (
                 <></>
