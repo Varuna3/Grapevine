@@ -3,67 +3,48 @@
 @use "members" as *;
 
 .messages {
-	display: flex;
-	flex-flow: column nowrap;
+	display: block;
+	max-width: $xxl;
+	margin: 0 auto;
 	@include container(messages);
 	&-chat {
-		display: flex;
-		flex-flow: column nowrap;
-		align-items: flex-start;
-		justify-content: flex-start;
-		gap: size(-1) size(-3);
-		margin: 0 auto;
-		@include modular-scale(1, padding);
-		@include breakpoint($md) {
-			flex-flow: row nowrap;
-		}
+		display: block;
+		@include modular-scale(-1, margin-top, margin-bottom);
+		@include modular-scale(2, margin-right, margin-left);
 	}
 	&-profile {
 		display: flex;
 		flex-flow: row nowrap;
+		justify-self: flex-start;
 		align-items: center;
-		gap: size(-3);
-		flex: 1 0 auto;
-		@include font-size(1);
-		@include breakpoint($md) {
-			width: $xs;
-		}
-		& > * {
-			flex: 0 1 auto;
+		gap: size(-1);
+		padding: size(-3) 0;
+		overflow: hidden;
+		@include color-schemes using ($color) {
+			border-bottom: 1px solid color-shift($color, 10%);
 		}
 	}
 	&-pfp {
 		display: block;
-		width: 36px;
-		height: 36px;
 		border-radius: 9999px;
+		@include font-size(2, width, height);
 	}
 	&-username {
 		display: block;
 		font-family: $display-alt;
-		font-weight: 600;
-		font-size: size(0);
 		margin: 0;
+		@include font-size(1);
 	}
 	&-content {
 		display: block;
 		width: $lg;
-		border-radius: 3px size(1) size(2);
-		backdrop-filter: blur(4px) saturate(180%);
-		overflow: hidden;
 		@include container(messages-content);
-		@include color-schemes(50, 800) using ($weight) {
-			$bg: color-weight($secondary, $weight);
-			border: 1px solid shade($bg, 5%);
-			background-color: rgba($bg, 0.8);
-			color: high-contrast($white $black, $bg);
-		}
 	}
 }
 
 .messages-text {
 	display: block;
-	@include modular-scale(1, margin);
+	margin: size(0) 0;
 
 	h1,
 	h2,
@@ -100,7 +81,7 @@
 		display: block;
 		width: 100%;
 		max-width: $md;
-		border-radius: size(-1);
+		border-radius: 8px;
 		margin: size(0) 0;
 	}
 
