@@ -6,9 +6,11 @@ import lodash from 'lodash'
 import Button from './Button'
 
 import '../styles/input-area.scss'
+import EmojiContainer from './EmojiContainer'
 
 export default function InputArea({ callback }) {
     const [message, setMessage] = useState('')
+    const [openEmojis, setOpenEmojis] = useState(false)
 
     const inputId = useId()
     let ref = useRef()
@@ -55,7 +57,26 @@ export default function InputArea({ callback }) {
                 }}
                 onKeyDown={onEnterPress}
             />
-            <Button variant="primary" children="Send" />
+            <button
+                type="button"
+                style={{
+                    height: 40,
+                    width: 40,
+                    borderRadius: '50%',
+                    border: '2px solid green',
+                }}
+                onClick={() => {
+                    setOpenEmojis(!openEmojis)
+                }}
+            >
+                😁
+            </button>
+            <EmojiContainer
+                openEmojis={openEmojis}
+                message={message}
+                setMessage={setMessage}
+            />
+            <Button variant="primary" type="submit" children="Send" />
         </form>
     )
 }
