@@ -38,11 +38,9 @@
 }
 
 #root {
-    background-color: rgba($light, 0.6);
-    color: $black;
-    @include dark {
-        background-color: rgba($dark, 0.8);
-        color: $white;
+    @include color-schemes using ($color) {
+        background-color: rgba($color, 0.8);
+        color: high-contrast($white $black, $color);
     }
     &::before {
         content: '';
