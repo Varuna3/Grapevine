@@ -79,8 +79,9 @@
 
 	img {
 		display: block;
-		width: 100%;
-		max-width: $md;
+		width: auto;
+		max-width: 100%;
+		height: $sm;
 		border-radius: 8px;
 		margin: size(0) 0;
 	}
