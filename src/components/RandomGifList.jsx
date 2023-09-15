@@ -27,13 +27,13 @@ const RandomGifList = ({
                                             '/api/message',
                                             {
                                                 server: currentServer.name,
-                                                message: `<img src="${g.images.downsized.url}" style='width: 200px' />`,
+                                                message: `<div style='height: 200px'><img src="${g.images.downsized.url}" style='max-height: 200px' /></div>`,
                                             }
                                         )
                                         if (data.Success) {
                                             socket.emit('client message', {
                                                 username,
-                                                message: `<img src="${g.images.downsized.url}" style='width: 200px' />`,
+                                                message: `<div style='height: 200px'><img src="${g.images.downsized.url}" style='max-height: 200px' /></div>`,
                                                 server: currentServer.id,
                                                 userImage: profileImage,
                                             })
