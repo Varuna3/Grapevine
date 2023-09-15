@@ -6,11 +6,26 @@
 	display: block;
 	max-width: $xxl;
 	margin: 0 auto;
+    @include modular-scale(2, padding-right, padding-left);
 	@include container(messages);
+    &-name {
+        display: inline-block;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: size(-3);
+        @include font-size(4);
+		@include color-schemes using ($color) {
+            @include contrast(aa large, aaa large) using ($ratio) {
+                color: contrast-color($primary, $color, $ratio);
+                background-image: linear-gradient(100deg,
+                    contrast-color($indigo, $color, $ratio),
+                    contrast-color($purple, $color, $ratio)
+                );
+            }
+		}
+    }
 	&-chat {
 		display: block;
-		@include modular-scale(-1, margin-top, margin-bottom);
-		@include modular-scale(2, margin-right, margin-left);
 	}
 	&-profile {
 		display: flex;
@@ -83,6 +98,8 @@
 		max-width: 100%;
 		height: $sm;
 		border-radius: 8px;
+		object-fit: cover;
+        object-position: center;
 		margin: size(0) 0;
 	}
 
