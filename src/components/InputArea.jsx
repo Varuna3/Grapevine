@@ -70,48 +70,38 @@ export default function InputArea({
                 }}
                 onKeyDown={onEnterPress}
             />
-            <button
-                type="button"
-                style={{
-                    height: 40,
-                    width: 40,
-                    borderRadius: '50%',
-                    border: '2px solid green',
-                }}
-                onClick={() => {
-                    setOpenEmojis(!openEmojis)
-                }}
-            >
-                😁
-            </button>
-            <EmojiContainer
-                openEmojis={openEmojis}
-                message={message}
-                setMessage={setMessage}
-            />
-            <button
-                type="button"
-                style={{
-                    height: 40,
-                    width: 40,
-                    borderRadius: '50%',
-                    border: '2px solid green',
-                }}
-                onClick={() => {
-                    setOpenGifs(!openGifs)
-                    getRandomGifs(randomGifs)
-                }}
-            >
-                GIF
-            </button>
-            <GifContainer
-                openGifs={openGifs}
-                randomGifs={randomGifs}
-                currentServer={currentServer}
-                username={username}
-                profileImage={profileImage}
-            />
-            <Button variant="primary" type="submit" children="Send" />
+            <div className="input-area-controls">
+                <Button
+                    variant="yellow"
+                    type="button"
+                    action={() => {
+                        setOpenEmojis(!openEmojis)
+                    }}
+                    children="😍"
+                />
+                <EmojiContainer
+                    openEmojis={openEmojis}
+                    message={message}
+                    setMessage={setMessage}
+                />
+                <Button
+                    variant="pink"
+                    type="button"
+                    action={() => {
+                        setOpenGifs(!openGifs)
+                        getRandomGifs(randomGifs)
+                    }}
+                    children="GIF"
+                />
+                <GifContainer
+                    openGifs={openGifs}
+                    randomGifs={randomGifs}
+                    currentServer={currentServer}
+                    username={username}
+                    profileImage={profileImage}
+                />
+                <Button variant="primary" type="submit" children="Send" />
+            </div>
         </form>
     )
 }
