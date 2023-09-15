@@ -1,9 +1,27 @@
+// Settings Panel: Sidebar drawer containing all app settings.
+
 @use 'members' as *;
 
 .settings-panel {
     position: absolute;
-    width: 300px;
-    height: calc(100vh - 90px);
-    border: 2px solid green;
-    transition: margin-left 250ms ease-out;
+    z-index: 10;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    width: $md;
+    max-height: 70vh;
+    backdrop-filter: blur(8px);
+    border-radius: size(-1) size(-1) 0 0;
+    padding: size(1) size(2) size(4);
+    margin: 0 !important;
+    overflow: auto;
+    transition: transform 250ms ease-out;
+    &:not([data-open="true"]) {
+        transform: translate(-50%, 100%);
+    }
+    @include container(settings-panel);
+    @include color-schemes using ($color) {
+        background-color: rgba($color, 0.8);
+    }
 }
