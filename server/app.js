@@ -4,6 +4,7 @@ import morgan from 'morgan'
 import ViteExpress from 'vite-express'
 import http from 'http'
 import fileUpload from 'express-fileupload'
+import cors from 'cors'
 import { Server } from 'socket.io'
 
 import { helloWorldHandler } from './controllers/helloworld.js'
@@ -23,9 +24,15 @@ import deleteInvite from './controllers/deleteInvite.js'
 import getAllPublicServers from './controllers/getAllPublicServers.js'
 import getInvites from './controllers/getInvites.js'
 import deleteServer from './controllers/deleteServer.js'
+import getGiphy from './controllers/getGiphy.js'
+import randomGifs from './controllers/randomGifs.js'
 
 //middleware
 const app = express()
+
+app.use(cors({
+    origin: '*'
+}));
 
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
@@ -63,6 +70,8 @@ app.post('/api/server/addUser', addUserToServer)
 app.post('/api/server/join', handleJoinServer)
 app.get('/api/server/getall', getAllServers)
 app.get('/api/server/getpubservers', getAllPublicServers)
+app.get('/api/getgiphy/:searchterm', cors(), getGiphy)
+app.get('/api/randomgifs', cors(), randomGifs)
 
 io.on('connection', (socket) => {
     socket.on('disconnect', () => {})
