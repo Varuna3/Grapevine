@@ -12,7 +12,7 @@
     padding: size(0);
     margin: size(0);
     @include color-schemes using ($color) {
-        background-color: color-shift($color, 5%);
+        background-color: rgba(color-shift($color, 10%), 0.6);
     }
     & > * {
         flex: 0 0 auto;
