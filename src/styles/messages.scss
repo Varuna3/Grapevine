@@ -34,15 +34,15 @@
 	}
 	&-pfp {
 		display: block;
-		width: size(1);
-		height: size(1);
+		width: 36px;
+		height: 36px;
 		border-radius: 9999px;
 	}
 	&-username {
 		display: block;
 		font-family: $display-alt;
 		font-weight: 600;
-		font-size: size(-1);
+		font-size: size(0);
 		margin: 0;
 	}
 	&-content {
