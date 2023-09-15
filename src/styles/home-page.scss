@@ -1,0 +1,22 @@
+// Home Page: Styles for the application home.
+
+@use "members" as *;
+
+.home-page {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	flex-flow: column nowrap;
+	max-width: $xxl;
+	margin: auto;
+	@include container(home-page);
+	& > * {
+		flex: 0 0 auto;
+	}
+	.messages {
+		min-width: 100%;
+		scroll-behavior: smooth;
+		flex: 1 1 auto;
+		overflow: auto;
+	}
+}
