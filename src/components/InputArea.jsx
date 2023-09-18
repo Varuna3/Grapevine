@@ -33,6 +33,8 @@ export default function InputArea({
         if (e.keyCode == 13 && e.shiftKey == false) {
             e.preventDefault()
             ref.requestSubmit()
+        } else if (e.keyCode == 8) {
+            setMessage(message.substring(0, 254))
         }
     }
 
@@ -66,7 +68,9 @@ export default function InputArea({
                 ])}
                 value={message}
                 onChange={(event) => {
-                    setMessage(event.target.value)
+                    const str = event.target.value
+                    if (message.length < 255) setMessage(str)
+                    else setMessage(str.substring(0, 254) + str[255])
                 }}
                 onKeyDown={onEnterPress}
             />
