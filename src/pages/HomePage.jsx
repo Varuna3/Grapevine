@@ -27,7 +27,8 @@ export default function HomePage({
     setCurrentServer,
 }) {
     const [username, setUsername] = useState('')
-    const [profileImage, setProfileImage] = useState('')
+    const [imageURL, setProfileImage] = useState('')
+    const [email, setProfileEmail] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [showServerModal, setShowServerModal] = useState(false)
     const [showRegisterModal, setShowRegisterModal] = useState(false)
@@ -39,11 +40,14 @@ export default function HomePage({
     const [invites, setInvites] = useState([])
     const [showSettings, setShowSettings] = useState(false)
 
+    console.log('USERNAME', username)
+
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
             if (data.Success) {
                 setUsername(data.Success.user)
                 setProfileImage(data.Success.image)
+                setProfileEmail(data.Success.email)
                 getAllServers()
                 getPublicServers()
             } else if (data.Error) {
@@ -156,6 +160,13 @@ export default function HomePage({
                 currentServer={currentServer}
                 showInvitesModal={showInvitesModal}
                 setShowInvitesModal={setShowInvitesModal}
+                setProfileEmail={setProfileEmail}
+                setProfileImage={setProfileImage}
+                setUsername={setUsername}
+                username={username}
+                email={email}
+                imageURL={imageURL}
+
             />
             <LoginModal
                 showModal={showModal}
