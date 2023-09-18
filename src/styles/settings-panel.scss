@@ -22,7 +22,7 @@
     }
     @include container(settings-panel);
     @include color-schemes using ($color) {
-        box-shadow: 0 0 8px -2px $color;
+        box-shadow: 0 0 8px -4px contrast-color($secondary, $color, a11y(aa ui));
         background-color: rgba(color-shift($color, 5%), 0.8);
     }
 }
