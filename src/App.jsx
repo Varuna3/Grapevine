@@ -1,6 +1,7 @@
 // App: Component containing the entire application.
 
 import { useEffect, useState } from 'react'
+import lodash from 'lodash'
 
 import HomePage from './pages/HomePage'
 
@@ -15,14 +16,40 @@ export default function App() {
         socket.on('new message', (data) => {
             if (data.server === currentServer.id) handleNewMessage(data)
         })
+        socket.on('delete message', (data) => {
+            if (data.serverId === currentServer.id) handleDeleteMessage(data)
+        })
         return () => socket.disconnect()
     }, [messages])
 
     function handleNewMessage(data) {
         setMessages([
             ...messages,
-            { username: data.username, message: data.message, userImage: data.userImage },
+            {
+                username: data.username,
+                message: data.message,
+                userImage: data.userImage,
+            },
         ])
+    }
+
+    function handleDeleteMessage(data) {
+        let index = 0
+        const noun = lodash.sample([
+            'grape',
+            'pancake',
+            'waffle',
+            'rock',
+            'human',
+        ])
+        messages.forEach((e, i) => {
+            if (e.message === data.message) {
+                index = i
+            }
+        })
+        const dup = messages.map((e) => e)
+        dup[index].message = `This message was deleted for ${noun} slander.`
+        setMessages(dup)
     }
 
     return (

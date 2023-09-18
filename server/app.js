@@ -30,9 +30,11 @@ import randomGifs from './controllers/randomGifs.js'
 //middleware
 const app = express()
 
-app.use(cors({
-    origin: '*'
-}));
+app.use(
+    cors({
+        origin: '*',
+    })
+)
 
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
@@ -80,8 +82,16 @@ io.on('connection', (socket) => {
             username: data.username,
             message: data.message,
             server: data.server,
-            userImage: data.userImage
-            
+            userImage: data.userImage,
+        })
+    })
+    socket.on('delete message', (data) => {
+        console.log(data)
+        io.emit('delete message', {
+            message: data.message,
+            username: data.username,
+            serverId: data.serverId,
+            key: data.key,
         })
     })
 })
