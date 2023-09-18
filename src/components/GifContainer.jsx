@@ -23,7 +23,7 @@ const GifContainer = ({
             const { data } = await axios.get(`/api/getGiphy/${searchTerm}`)
             setGifList(data)
         } else {
-            const { data } = await axios.get('/api/getGiphy/you-are-a-moron')
+            const { data } = await axios.get('/api/getGiphy/are-you-a-moron')
             setGifList(data)
         }
     }
