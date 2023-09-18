@@ -23,6 +23,7 @@ import deleteInvite from './controllers/deleteInvite.js'
 import getAllPublicServers from './controllers/getAllPublicServers.js'
 import getInvites from './controllers/getInvites.js'
 import deleteServer from './controllers/deleteServer.js'
+import updateUser from './controllers/updateUser.js'
 
 //middleware
 const app = express()
@@ -51,6 +52,7 @@ app.get('/api/messages/:serverId', getAllMessages)
 app.get('/api/invites/:serverId', getInvites)
 app.get('/api/username', getUsername)
 app.put('/api/account/', createAccount)
+app.put('/api/update/', updateUser)
 app.put('/api/server', handleCreateServer)
 app.put('/api/message', createMessage)
 app.put('/api/invite', createInvite)
