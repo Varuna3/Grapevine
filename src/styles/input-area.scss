@@ -25,6 +25,7 @@
     &-field {
         display: block;
         flex: 1 1 auto;
+        width: $sm;
         min-height: 0px;
         font-size: 1em;
         font-family: $sans-serif;
@@ -38,8 +39,11 @@
         transition: min-height 300ms linear;
         outline: none;
         &:focus {
-            min-height: 40vh;
+            min-height: min(20vh, $xs);
             overflow: auto;
+            @include breakpoint($lg) {
+                min-height: min(3lh, $xs);
+            }
         }
     }
     &-controls {
