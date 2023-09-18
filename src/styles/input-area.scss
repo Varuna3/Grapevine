@@ -12,7 +12,7 @@
     padding: size(0);
     margin: size(0);
     @include color-schemes using ($color) {
-        background-color: color-shift($color, 5%);
+        background-color: rgba(color-shift($color, 5%), 0.6);
     }
     & > * {
         flex: 0 0 auto;
@@ -25,6 +25,7 @@
     &-field {
         display: block;
         flex: 1 1 auto;
+        width: $sm;
         min-height: 0px;
         font-size: 1em;
         font-family: $sans-serif;
@@ -38,8 +39,11 @@
         transition: min-height 300ms linear;
         outline: none;
         &:focus {
-            min-height: 40vh;
+            min-height: min(20vh, $xs);
             overflow: auto;
+            @include breakpoint($lg) {
+                min-height: min(3lh, $xs);
+            }
         }
     }
     &-controls {
