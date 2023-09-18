@@ -99,8 +99,8 @@ export default function Messages({
     // return a "messages" container holding out "messageDivs" state array filled with message elements
     return (
         <>
-            <h1>{server.name}</h1>
             <div ref={ref} className="messages">
+                <h1 className="messages-name">{server.name}</h1>
                 {messageDivs}
             </div>
         </>
