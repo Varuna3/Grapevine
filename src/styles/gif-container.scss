@@ -1,16 +1,48 @@
+// Gif Container: Styles for the GIF selection picker.
+
+@use "members" as *;
+
 .gif-container {
     display: flex;
-    overflow: scroll;
-    flex-wrap: wrap;
-    width: 25vw;
-    height: 25vw;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    border: 2px solid rgb(0, 136, 255);
-    bottom: 16vh;
-    background-color: rgb(0, 0, 0);
-    font-size: 30px;
-    padding: 10px;
-    border-radius: 25px;
+    flex-flow: column nowrap;
+    width: 100%;
+    max-height: $md;
+    gap: size(-3);
+    overflow: auto;
+    transition: max-height 300ms ease;
+    &:not([data-open="true"]) {
+        max-height: 0px;
+    }
+    @include container(gif-container);
+    &-inputs {
+        display: flex;
+        flex-flow: row wrap;
+        gap: inherit;
+        & > * {
+            flex: 9999 1 auto;
+        }
+        .text-field label {
+            position: absolute;
+            left: -100vw;
+        }
+        .button {
+            flex: 1 0 auto;
+        }
+    }
+    &-images {
+        display: grid;
+        grid-gap: size(0);
+        grid-template-columns: repeat(auto-fit, minmax(min($sm, 100%), 1fr));
+        grid-template-rows: masonry;
+        align-items: stretch;
+        overflow: auto;
+        & > * {
+            display: flex;
+            width: 100%;
+            border-radius: 3px;
+            background-color: rgba($gray, 0.25);
+            object-fit: contain;
+            cursor: pointer;
+        }
+    }
 }

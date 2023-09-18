@@ -4,6 +4,8 @@ import axios from 'axios'
 
 import RandomGifList from './RandomGifList'
 import SearchedGifList from './SearchedGifList'
+import TextField from './TextField'
+import Button from './Button'
 
 const GifContainer = ({
     openGifs,
@@ -23,48 +25,47 @@ const GifContainer = ({
     }
 
     return (
-        <>
-            {openGifs ? (
-                <div className="gif-container">
-                    <input
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        value={searchTerm}
-                        id="searchTerm"
-                        name="searchTerm"
+        <div className="gif-container" data-open={openGifs}>
+            <div className="gif-container-inputs">
+                <TextField
+                    type="text"
+                    callback={setSearchTerm}
+                    value={searchTerm}
+                    label="Lookup GIFs"
+                    placeholder="Lookup GIFs..."
+                />
+                <Button
+                    variant="pink"
+                    action={(e) => {
+                        e.preventDefault()
+                        getGiphy(searchTerm)
+                    }}
+                >
+                    Search GIF
+                </Button>
+            </div>
+            <div className="gif-container-images">
+                {gifList && gifList.length > 0 ? (
+                    <SearchedGifList
+                        gifList={gifList}
+                        message={message}
+                        setMessage={setMessage}
+                        currentServer={currentServer}
+                        username={username}
+                        profileImage={profileImage}
                     />
-                    <button
-                        onClick={(e) => {
-                            e.preventDefault()
-                            getGiphy(searchTerm)
-                        }}
-                    >
-                        {' '}
-                        Search GIF
-                    </button>
-                    {gifList && gifList.length > 0 ? (
-                        <SearchedGifList
-                            gifList={gifList}
-                            message={message}
-                            setMessage={setMessage}
-                            currentServer={currentServer}
-                            username={username}
-                            profileImage={profileImage}
-                        />
-                    ) : (
-                        <RandomGifList
-                            randomGifs={randomGifs}
-                            message={message}
-                            setMessage={setMessage}
-                            currentServer={currentServer}
-                            username={username}
-                            profileImage={profileImage}
-                        />
-                    )}
-                </div>
-            ) : (
-                <></>
-            )}
-        </>
+                ) : (
+                    <RandomGifList
+                        randomGifs={randomGifs}
+                        message={message}
+                        setMessage={setMessage}
+                        currentServer={currentServer}
+                        username={username}
+                        profileImage={profileImage}
+                    />
+                )}
+            </div>
+        </div>
     )
 }
 
