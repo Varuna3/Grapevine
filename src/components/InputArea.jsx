@@ -2,15 +2,23 @@
 
 import { useState, useId, useRef } from 'react'
 import lodash from 'lodash'
-
+import axios from 'axios'
 import Button from './Button'
 
 import '../styles/input-area.scss'
 import EmojiContainer from './EmojiContainer'
+import GifContainer from './GifContainer'
 
-export default function InputArea({ callback }) {
+export default function InputArea({
+    callback,
+    currentServer,
+    username,
+    profileImage,
+}) {
     const [message, setMessage] = useState('')
     const [openEmojis, setOpenEmojis] = useState(false)
+    const [openGifs, setOpenGifs] = useState(false)
+    const [randomGifs, setRandomGifs] = useState([])
 
     const inputId = useId()
     let ref = useRef()
@@ -26,6 +34,11 @@ export default function InputArea({ callback }) {
             e.preventDefault()
             ref.requestSubmit()
         }
+    }
+
+    async function getRandomGifs() {
+        const { data } = await axios.get(`/api/randomgifs`)
+        setRandomGifs(data)
     }
 
     return (
@@ -75,6 +88,28 @@ export default function InputArea({ callback }) {
                 openEmojis={openEmojis}
                 message={message}
                 setMessage={setMessage}
+            />
+            <button
+                type="button"
+                style={{
+                    height: 40,
+                    width: 40,
+                    borderRadius: '50%',
+                    border: '2px solid green',
+                }}
+                onClick={() => {
+                    setOpenGifs(!openGifs)
+                    getRandomGifs(randomGifs)
+                }}
+            >
+                GIF
+            </button>
+            <GifContainer
+                openGifs={openGifs}
+                randomGifs={randomGifs}
+                currentServer={currentServer}
+                username={username}
+                profileImage={profileImage}
             />
             <Button variant="primary" type="submit" children="Send" />
         </form>

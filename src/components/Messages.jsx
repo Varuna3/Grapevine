@@ -74,13 +74,15 @@ export default function Messages({
     function createMessageDiv(e, id) {
         return (
             <article key={id} className="messages-chat">
-                <img
-                    src={e.userImage} // --> use first char of username to get image
-                    alt={e.username}
-                    className="messages-pfp"
-                />
-                <div className="messages-content">
+                <div className="messages-profile">
+                    <img
+                        src={e.userImage} // --> use first char of username to get image
+                        alt={e.username}
+                        className="messages-pfp"
+                    />
                     <h4 className="messages-username">{e.username}</h4>
+                </div>
+                <div className="messages-content">
                     {/*--> object.username */}
                     <span
                         className="messages-text"
@@ -98,15 +100,7 @@ export default function Messages({
     return (
         <>
             <h1>{server.name}</h1>
-            <div
-                ref={ref}
-                className="messages"
-                style={
-                    showSettings
-                        ? { width: 'calc(100vw - 340px' }
-                        : { width: '100vw' }
-                }
-            >
+            <div ref={ref} className="messages">
                 {messageDivs}
             </div>
         </>

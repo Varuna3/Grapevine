@@ -1,30 +1,123 @@
+// Rendered Note: Markdown styles for rendered note information.
+
+@use "members" as *;
+
 .messages {
-    padding: 20px;
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
-    border: 2px solid red;
-    border-radius: 25px;
-    scroll-behavior: smooth;
-    height: 65vh;
-    overflow: auto;
-    transition: width 250ms ease-out;
-    &-chat {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        border: 2px solid purple;
-        border-radius: 20px;
-        padding: 10px;
-    }
-    &-pfp {
-        border-radius: 50%;
-        overflow: hidden;
-        height: 60px;
-        width: 60px;
-        object-fit: cover;
-    }
-    &-username {
-        font-size: 25px;
-    }
+	display: block;
+	max-width: $xxl;
+	margin: 0 auto;
+	@include container(messages);
+	&-chat {
+		display: block;
+		@include modular-scale(-1, margin-top, margin-bottom);
+		@include modular-scale(2, margin-right, margin-left);
+	}
+	&-profile {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-self: flex-start;
+		align-items: center;
+		gap: size(-1);
+		padding: size(-3) 0;
+		overflow: hidden;
+		@include color-schemes using ($color) {
+			border-bottom: 1px solid color-shift($color, 10%);
+		}
+	}
+	&-pfp {
+		display: block;
+		border-radius: 9999px;
+		@include font-size(2, width, height);
+	}
+	&-username {
+		display: block;
+		font-family: $display-alt;
+		margin: 0;
+		@include font-size(1);
+	}
+	&-content {
+		display: block;
+		width: $lg;
+		@include container(messages-content);
+	}
+}
+
+.messages-text {
+	display: block;
+	margin: size(0) 0;
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: $display-alt;
+	}
+
+	p {
+		margin: size(0) 0;
+	}
+
+	code {
+		hyphens: none;
+		tab-size: 4;
+	}
+
+	pre {
+		overflow-x: auto;
+	}
+
+	blockquote {
+		display: block;
+		padding: size(0) size(1);
+		margin: 0;
+		@include color-schemes using ($color) {
+			border-left: 3px solid contrast-color($gray, $color, a11y(aa ui));
+		}
+	}
+
+	img {
+		display: block;
+		width: auto;
+		max-width: 100%;
+		height: $sm;
+		border-radius: 8px;
+		margin: size(0) 0;
+	}
+
+	hr {
+		display: block;
+		width: 90%;
+		max-width: $lg;
+		margin: size(2) auto;
+	}
+
+	table {
+		display: block;
+		max-width: $xxl;
+		min-width: 0;
+		border-collapse: collapse;
+		overflow-x: auto;
+	}
+
+	thead {
+		border-bottom: 2px solid currentColor;
+	}
+
+	tr {
+		@include color-schemes using ($color) {
+			border-bottom: 1px solid contrast-color($gray, $color, a11y(aa ui));
+		}
+	}
+
+	th,
+	td {
+		width: 1%;
+		min-width: 100px;
+		max-width: $sm;
+		vertical-align: top;
+		white-space: normal;
+		padding: size(-1) 4px;
+	}
 }
