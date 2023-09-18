@@ -3,6 +3,7 @@ import DOMPurify from 'dompurify'
 import { marked } from 'marked'
 
 import Button from './Button'
+import axios from 'axios'
 
 export default function MessageDiv({ e, messageId, serverId }) {
     const [showDelete, setShowDelete] = useState(false)
@@ -42,8 +43,15 @@ export default function MessageDiv({ e, messageId, serverId }) {
                     style={showDelete ? {} : { display: 'none' }}
                 >
                     <Button
-                        action={() => {
+                        action={async () => {
                             setDeleted(true)
+                            await axios.delete('/api/message', {
+                                data: {
+                                    username: e.username,
+                                    serverId,
+                                    message: e.message,
+                                },
+                            })
                             socket.emit('delete message', {
                                 message: e.message,
                                 username: e.username,

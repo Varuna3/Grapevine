@@ -26,6 +26,7 @@ import getInvites from './controllers/getInvites.js'
 import deleteServer from './controllers/deleteServer.js'
 import getGiphy from './controllers/getGiphy.js'
 import randomGifs from './controllers/randomGifs.js'
+import deleteMessage from './controllers/deleteMessage.js'
 
 //middleware
 const app = express()
@@ -66,6 +67,7 @@ app.put('/api/invite', createInvite)
 app.delete('/api/account/', deleteAccount)
 app.delete('/api/invite', deleteInvite)
 app.delete('/api/server', deleteServer)
+app.delete('/api/message', deleteMessage)
 app.post('/api/login', login)
 app.post('/api/logout/', logoutAccount)
 app.post('/api/server/addUser', addUserToServer)
