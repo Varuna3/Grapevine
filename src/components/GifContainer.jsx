@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import '../styles/gif-container.scss'
 import axios from 'axios'
+import lodash from 'lodash'
 
 import RandomGifList from './RandomGifList'
 import SearchedGifList from './SearchedGifList'
@@ -18,8 +19,13 @@ const GifContainer = ({
     const [gifList, setGifList] = useState([])
 
     async function getGiphy(searchTerm) {
-        const { data } = await axios.get(`/api/getGiphy/${searchTerm}`)
-        setGifList(data)
+        if (searchTerm.length > 0) {
+            const { data } = await axios.get(`/api/getGiphy/${searchTerm}`)
+            setGifList(data)
+        } else {
+            const { data } = await axios.get('/api/getGiphy/you-are-a-moron')
+            setGifList(data)
+        }
     }
 
     return (
