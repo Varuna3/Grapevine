@@ -1,6 +1,9 @@
 import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
+import TextField from './TextField'
+import Button from './Button'
+import '../styles/join-server.scss'
 
 export default function JoinServer({
     showJoinServerModal,
@@ -21,7 +24,7 @@ export default function JoinServer({
     })
 
     return (
-        <dialog ref={modalRef}>
+        <dialog ref={modalRef} className="join-server">
             {showJoinServerModal ? (
                 <ToastContainer
                     position="top-center"
@@ -38,41 +41,45 @@ export default function JoinServer({
             ) : (
                 <></>
             )}
-            <form
-                onSubmit={async (e) => {
-                    e.preventDefault()
-                    const { data } = await axios.post('/api/server/join', {
-                        inviteString: input,
-                    })
-                    if (data.Success) {
-                        toast.success(data.Success)
-                    } else {
-                        toast.error(data.Error)
-                    }
-                }}
-            >
-                <h2>Invite:</h2>
-                <label htmlFor="input"></label>
-                <input
-                    id="input"
-                    type="text"
-                    placeholder="h41rygr4pe"
-                    autoComplete="off"
-                    value={input}
-                    onChange={(e) => {
-                        setInput(e.target.value)
+            <div className="join-server-wrapper">
+                <form
+                    onSubmit={async (e) => {
+                        e.preventDefault()
+                        const { data } = await axios.post('/api/server/join', {
+                            inviteString: input,
+                        })
+                        if (data.Success) {
+                            toast.success(data.Success)
+                        } else {
+                            toast.error(data.Error)
+                        }
                     }}
-                />
-                <button>Join Server</button>
-            </form>
-            <button
-                onClick={() => {
-                    setShowJoinServerModal(false)
-                    setInput('')
-                }}
-            >
-                Close
-            </button>
+                >
+                    <h2 className="join-server-heading">
+                        Invite:
+                    </h2>
+                    <TextField
+                        id="input"
+                        type="text" 
+                        label=""
+                        placeholder="h41rygr4pe"
+                        value={input}
+                        action={(e) => {
+                            setInput(e.target.value)
+                        }}
+                    />
+                    <Button>Join Server</Button>
+                </form>
+                <Button
+                variant="danger"
+                    action={() => {
+                        setShowJoinServerModal(false)
+                        setInput('')
+                    }}
+                >
+                    Close
+                </Button>
+            </div>
         </dialog>
     )
 }
