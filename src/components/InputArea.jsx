@@ -8,6 +8,7 @@ import Button from './Button'
 import '../styles/input-area.scss'
 import EmojiContainer from './EmojiContainer'
 import GifContainer from './GifContainer'
+import { VALID_CHARS } from '../assets/ValidChars.json'
 
 export default function InputArea({
     callback,
@@ -19,6 +20,22 @@ export default function InputArea({
     const [openEmojis, setOpenEmojis] = useState(false)
     const [openGifs, setOpenGifs] = useState(false)
     const [randomGifs, setRandomGifs] = useState([])
+
+    const validChars = new Set([...VALID_CHARS])
+
+    var shouldBeLarge = false
+
+    if (message.length < 12 && message.length > 0 && !message.includes('img')) {
+        const arr = message.split('')
+        for (let i = 0; i < arr.length; i++) {
+            if (validChars.has(message[i])) {
+                shouldBeLarge = false
+                break
+            } else {
+                shouldBeLarge = true
+            }
+        }
+    }
 
     const inputId = useId()
     let ref = useRef()
@@ -55,6 +72,9 @@ export default function InputArea({
             <textarea
                 className="input-area-field"
                 id={inputId}
+                style={
+                    shouldBeLarge ? { fontSize: '2.5em' } : { fontSize: '1em' }
+                }
                 autoFocus={true}
                 autoComplete="off"
                 placeholder={lodash.sample([
