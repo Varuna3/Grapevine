@@ -26,7 +26,11 @@ export default function Modal({ open, setOpen, title, children }) {
     }, [open])
 
     return (
-        <dialog ref={ref} className="modal">
+        <dialog
+            ref={ref}
+            className="modal"
+            onCancel={(event) => event.preventDefault()}
+        >
             <div className="modal-wrapper">
                 <h2 className="modal-title">{title || 'Untitled Modal'}</h2>
                 <div className="modal-content">{children}</div>
