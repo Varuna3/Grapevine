@@ -83,11 +83,6 @@ export default function InputArea({
                     }}
                     children="😍"
                 />
-                <EmojiContainer
-                    openEmojis={openEmojis}
-                    message={message}
-                    setMessage={setMessage}
-                />
                 <Button
                     variant="pink"
                     type="button"
@@ -99,6 +94,11 @@ export default function InputArea({
                 />
                 <Button variant="primary" type="submit" children="Send" />
             </div>
+            <EmojiContainer
+                openEmojis={openEmojis}
+                message={message}
+                setMessage={setMessage}
+            />
             <GifContainer
                 openGifs={openGifs}
                 randomGifs={randomGifs}
