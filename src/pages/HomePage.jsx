@@ -87,11 +87,7 @@ export default function HomePage({
                 username,
                 message,
                 server: currentServer.id,
-                // <<<<<<< HEAD
                 userImage: imageURL,
-                // =======
-                // userImage: profileImage,
-                // >>>>>>> main
             })
         } else {
             socket.emit('client message', {
