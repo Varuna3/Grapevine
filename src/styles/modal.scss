@@ -1,0 +1,62 @@
+// Modal: Styles for the general modal component.
+
+@use "members" as *;
+
+.modal {
+    position: fixed;
+    inset: 0;
+    display: block;
+    width: $md;
+    max-width: calc(100% - 1rem);
+    max-height: calc(100% - 1rem);
+    border-radius: size(-3);
+    border: none;
+    padding: 0;
+    margin: auto;
+    overflow: auto;
+    transition: opacity 500ms ease;
+    @include color-schemes using ($color) {
+        background-color: $color;
+    }
+    &::backdrop {
+        backdrop-filter: blur(24px);
+        @include color-schemes using ($color) {
+            background-color: rgba($color, 0.25);
+        }
+    }
+    @include container(modal);
+    &:not([open]) {
+        pointer-events: none;
+        opacity: 0;
+    }
+    &-wrapper {
+        @include container(modal-wrapper);
+        @include modular-scale(3, padding);
+    }
+    &-title {
+        margin: 0;
+        @include font-size(3);
+    }
+    &-content {
+        margin-top: size(-3);
+    }
+    &-close {
+        position: fixed;
+        top: 0; right: 0;
+        display: block;
+        width: 32px;
+        height: 32px;
+        border-radius: 9999px;
+        border: none;
+        margin: size(-3);
+        cursor: pointer;
+        &:active {
+            transform: scale(0.9);
+        }
+        @include font-size(1);
+        @include color-schemes using ($color) {
+            background-color: contrast-color($danger, $color, a11y(aa ui));
+            color: high-contrast($white $black, $danger);
+        }
+    }
+}
