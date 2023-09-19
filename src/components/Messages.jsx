@@ -2,10 +2,10 @@
 
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
-import DOMPurify from 'dompurify'
-import { marked } from 'marked'
 
 import '../styles/messages.scss'
+import Button from './Button'
+import MessageDiv from './MessageDiv'
 
 // Container displays messages for a given server
 export default function Messages({
@@ -70,30 +70,10 @@ export default function Messages({
         ref.current.scrollTo(0, ref.current.scrollHeight)
     }, [messageDivs])
 
-    // given an object formatted like this: {username, message} spit out a "message div" that we can display
+    // given an object formatted like this: {username, message} spit out a "e div" that we can display
     function createMessageDiv(e, id) {
-        return (
-            <article key={id} className="messages-chat">
-                <div className="messages-profile">
-                    <img
-                        src={e.userImage} // --> use first char of username to get image
-                        alt={e.username}
-                        className="messages-pfp"
-                    />
-                    <h4 className="messages-username">{e.username}</h4>
-                </div>
-                <div className="messages-content">
-                    {/*--> object.username */}
-                    <span
-                        className="messages-text"
-                        dangerouslySetInnerHTML={{
-                            __html: DOMPurify.sanitize(marked.parse(e.message)),
-                        }}
-                    />
-                    {/*--> object.message */}
-                </div>
-            </article>
-        )
+        // const [showDelete, setShowDelete] = useState(false)
+        return <MessageDiv e={e} key={id} messageId={id} serverId={server.id} />
     }
 
     // return a "messages" container holding out "messageDivs" state array filled with message elements

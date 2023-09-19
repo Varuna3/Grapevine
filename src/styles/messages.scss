@@ -1,140 +1,146 @@
 // Rendered Note: Markdown styles for rendered note information.
 
-@use "members" as *;
+@use 'members' as *;
 
 .messages {
-	display: block;
-	max-width: $xxl;
-	margin: 0 auto;
+    display: block;
+    max-width: $xxl;
+    margin: 0 auto;
     @include modular-scale(2, padding-right, padding-left);
-	@include container(messages);
+    @include container(messages);
     &-name {
         display: inline-block;
         background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: size(-3);
         @include font-size(4);
-		@include color-schemes using ($color) {
+        @include color-schemes using ($color) {
             @include contrast(aa large, aaa large) using ($ratio) {
                 color: contrast-color($primary, $color, $ratio);
-                background-image: linear-gradient(100deg,
+                background-image: linear-gradient(
+                    100deg,
                     contrast-color($indigo, $color, $ratio),
                     contrast-color($purple, $color, $ratio)
                 );
             }
-		}
+        }
     }
-	&-chat {
-		display: block;
-	}
-	&-profile {
-		display: flex;
-		flex-flow: row nowrap;
-		justify-self: flex-start;
-		align-items: center;
-		gap: size(-1);
-		padding: size(-3) 0;
-		overflow: hidden;
-		@include color-schemes using ($color) {
-			border-bottom: 1px solid rgba(color-shift($color, 15%), 0.8);
-		}
-	}
-	&-pfp {
-		display: block;
-		border-radius: 9999px;
-		@include font-size(2, width, height);
-	}
-	&-username {
-		display: block;
-		font-family: $display-alt;
-		margin: 0;
-		@include font-size(1);
-	}
-	&-content {
-		display: block;
-		width: $lg;
-		@include container(messages-content);
-	}
+    &-chat {
+        display: block;
+    }
+    &-profile {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-self: flex-start;
+        align-items: center;
+        gap: size(-1);
+        padding: size(-3) 0;
+        overflow: hidden;
+        @include color-schemes using ($color) {
+            border-bottom: 1px solid color-shift($color, 10%);
+        }
+    }
+    &-pfp {
+        display: block;
+        border-radius: 9999px;
+        @include font-size(2, width, height);
+    }
+    &-username {
+        display: block;
+        font-family: $display-alt;
+        margin: 0;
+        @include font-size(1);
+    }
+    &-content {
+        display: block;
+        width: $lg;
+        @include container(messages-content);
+    }
+    &-delete-button {
+        position: static;
+        left: calc(100% - 100px);
+        bottom: calc(50% + 10px);
+    }
 }
 
 .messages-text {
-	display: block;
-	margin: size(0) 0;
+    display: block;
+    margin: size(0) 0;
 
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		font-family: $display-alt;
-	}
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: $display-alt;
+    }
 
-	p {
-		margin: size(0) 0;
-	}
+    p {
+        margin: size(0) 0;
+    }
 
-	code {
-		hyphens: none;
-		tab-size: 4;
-	}
+    code {
+        hyphens: none;
+        tab-size: 4;
+    }
 
-	pre {
-		overflow-x: auto;
-	}
+    pre {
+        overflow-x: auto;
+    }
 
-	blockquote {
-		display: block;
-		padding: size(0) size(1);
-		margin: 0;
-		@include color-schemes using ($color) {
-			border-left: 3px solid contrast-color($gray, $color, a11y(aa ui));
-		}
-	}
+    blockquote {
+        display: block;
+        padding: size(0) size(1);
+        margin: 0;
+        @include color-schemes using ($color) {
+            border-left: 3px solid contrast-color($gray, $color, a11y(aa ui));
+        }
+    }
 
-	img {
-		display: block;
-		width: auto;
-		max-width: 100%;
-		height: $sm;
-		border-radius: 8px;
-		object-fit: cover;
+    img {
+        display: block;
+        width: auto;
+        max-width: 100%;
+        height: $sm;
+        border-radius: 8px;
+        object-fit: cover;
         object-position: center;
-		margin: size(0) 0;
-	}
+        margin: size(0) 0;
+    }
 
-	hr {
-		display: block;
-		width: 90%;
-		max-width: $lg;
-		margin: size(2) auto;
-	}
+    hr {
+        display: block;
+        width: 90%;
+        max-width: $lg;
+        margin: size(2) auto;
+    }
 
-	table {
-		display: block;
-		max-width: $xxl;
-		min-width: 0;
-		border-collapse: collapse;
-		overflow-x: auto;
-	}
+    table {
+        display: block;
+        max-width: $xxl;
+        min-width: 0;
+        border-collapse: collapse;
+        overflow-x: auto;
+    }
 
-	thead {
-		border-bottom: 2px solid currentColor;
-	}
+    thead {
+        border-bottom: 2px solid currentColor;
+    }
 
-	tr {
-		@include color-schemes using ($color) {
-			border-bottom: 1px solid contrast-color($gray, $color, a11y(aa ui));
-		}
-	}
+    tr {
+        @include color-schemes using ($color) {
+            border-bottom: 1px solid contrast-color($gray, $color, a11y(aa ui));
+        }
+    }
 
-	th,
-	td {
-		width: 1%;
-		min-width: 100px;
-		max-width: $sm;
-		vertical-align: top;
-		white-space: normal;
-		padding: size(-1) 4px;
-	}
+    th,
+    td {
+        width: 1%;
+        min-width: 100px;
+        max-width: $sm;
+        vertical-align: top;
+        white-space: normal;
+        padding: size(-1) 4px;
+    }
 }

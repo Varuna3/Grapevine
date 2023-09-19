@@ -26,13 +26,16 @@ import getInvites from './controllers/getInvites.js'
 import deleteServer from './controllers/deleteServer.js'
 import getGiphy from './controllers/getGiphy.js'
 import randomGifs from './controllers/randomGifs.js'
+import deleteMessage from './controllers/deleteMessage.js'
 
 //middleware
 const app = express()
 
-app.use(cors({
-    origin: '*'
-}));
+app.use(
+    cors({
+        origin: '*',
+    })
+)
 
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
@@ -64,6 +67,7 @@ app.put('/api/invite', createInvite)
 app.delete('/api/account/', deleteAccount)
 app.delete('/api/invite', deleteInvite)
 app.delete('/api/server', deleteServer)
+app.delete('/api/message', deleteMessage)
 app.post('/api/login', login)
 app.post('/api/logout/', logoutAccount)
 app.post('/api/server/addUser', addUserToServer)
@@ -80,8 +84,16 @@ io.on('connection', (socket) => {
             username: data.username,
             message: data.message,
             server: data.server,
-            userImage: data.userImage
-            
+            userImage: data.userImage,
+        })
+    })
+    socket.on('delete message', (data) => {
+        console.log(data)
+        io.emit('delete message', {
+            message: data.message,
+            username: data.username,
+            serverId: data.serverId,
+            key: data.key,
         })
     })
 })

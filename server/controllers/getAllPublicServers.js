@@ -16,7 +16,6 @@ export default async function getAllServers(req, res) {
                 id: { [Sequelize.Op.not]: [...serverIds] },
             },
         })
-        console.log(servers)
         res.json({ Success: servers })
         // } catch {
         //     res.json({ Error: 'No Servers exist. Try creating one.' })
