@@ -97,15 +97,15 @@ export default function InputArea({
                     }}
                     children="GIF"
                 />
-                <GifContainer
-                    openGifs={openGifs}
-                    randomGifs={randomGifs}
-                    currentServer={currentServer}
-                    username={username}
-                    profileImage={profileImage}
-                />
                 <Button variant="primary" type="submit" children="Send" />
             </div>
+            <GifContainer
+                openGifs={openGifs}
+                randomGifs={randomGifs}
+                currentServer={currentServer}
+                username={username}
+                profileImage={profileImage}
+            />
         </form>
     )
 }
