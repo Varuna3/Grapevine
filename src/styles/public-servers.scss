@@ -16,8 +16,10 @@
     overflow: auto;
     transition: opacity 500ms ease;
     &::backdrop {
-        background-color: transparent;
         backdrop-filter: blur(24px);
+        @include color-schemes using ($color) {
+            background-color: rgba($color, 0.25);
+        }
     }
     @include viewport {
         @include modular-scale(3, padding);
