@@ -20,12 +20,8 @@ export default function EmojiContainer({ openEmojis, message, setMessage }) {
     })
 
     return (
-        <>
-            {openEmojis ? (
-                <div className="emoji-container">{emojis}</div>
-            ) : (
-                <></>
-            )}
-        </>
+        <div className="emoji-container" data-open={openEmojis}>
+            <div className="emoji-container-text">{emojis}</div>
+        </div>
     )
 }
