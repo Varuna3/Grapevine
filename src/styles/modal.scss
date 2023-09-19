@@ -34,8 +34,21 @@
         @include modular-scale(3, padding);
     }
     &-title {
+        display: inline-block;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
         margin: 0;
         @include font-size(3);
+        @include color-schemes using ($color) {
+            @include contrast(aa large, aaa large) using ($ratio) {
+                color: contrast-color($purple, $color, $ratio);
+                background-image: linear-gradient(
+                    to bottom,
+                    contrast-color($indigo, $color, $ratio),
+                    contrast-color($purple, $color, $ratio)
+                );
+            }
+        }
     }
     &-content {
         margin-top: size(-3);
