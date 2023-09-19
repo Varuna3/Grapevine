@@ -80,15 +80,14 @@ export default function Messages({
     return (
         <>
             <div ref={ref} className="messages">
-                <h1 className="messages-name">
-                    {server.name ? server.name : 'Welcome to Grapevine!'}
-                </h1>
-                <p
-                    className="messages-name"
-                    style={{ fontSize: 40, width: '100vw' }}
-                >
-                    {server.name ? <></> : 'Select or join a server!'}
-                </p>
+                {!server.name ? (
+                    <div className="messages-welcome">
+                        <h1>Welcome to Grapevine!</h1>
+                        <strong>Select or join a server!</strong>
+                    </div>
+                ) : (
+                    <h1 className="messages-name">{server.name}</h1>
+                )}
                 {messageDivs}
             </div>
         </>

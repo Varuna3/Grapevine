@@ -63,6 +63,22 @@
     }
 }
 
+.messages-welcome {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    text-align: center;
+    width: 100%;
+    @include modular-scale(1, padding);
+    h1 {
+        @include font-size(3);
+    }
+    strong {
+        display: inline-block;
+        @include font-size(4);
+    }
+}
+
 .messages-text {
     display: block;
     margin: size(0) 0;
