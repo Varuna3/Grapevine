@@ -12,10 +12,10 @@ export default function MessageDiv({ e, messageId, serverId }) {
     return (
         <article
             className="messages-chat"
-            onMouseEnter={() => {
+            onPointerEnter={() => {
                 setShowDelete(true)
             }}
-            onMouseLeave={() => {
+            onPointerLeave={() => {
                 setShowDelete(false)
             }}
         >
@@ -43,6 +43,7 @@ export default function MessageDiv({ e, messageId, serverId }) {
                     style={showDelete ? {} : { display: 'none' }}
                 >
                     <Button
+                        variant="danger"
                         action={async () => {
                             setDeleted(true)
                             await axios.delete('/api/message', {
@@ -60,7 +61,7 @@ export default function MessageDiv({ e, messageId, serverId }) {
                             })
                         }}
                     >
-                        delete
+                        Delete Message
                     </Button>
                 </div>
             ) : (

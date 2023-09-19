@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 
 import Button from './Button'
-import '../styles/public-servers-modal.scss'
+import '../styles/public-servers.scss'
 import { toast, ToastContainer } from 'react-toastify'
 
 const PublicServers = ({
@@ -38,8 +38,16 @@ const PublicServers = ({
 
     return (
         <>
-            <dialog ref={modalRef} className="public-server-modal">
-                {showAllServersModal ? (
+            <dialog ref={modalRef} className="public-servers">
+                <button
+                    className="public-servers-close"
+                    onClick={() => {
+                        setShowAllServersModal(false)
+                    }}
+                >
+                    &times;
+                </button>
+                {showAllServersModal && (
                     <ToastContainer
                         position="top-center"
                         autoClose={2500}
@@ -52,44 +60,23 @@ const PublicServers = ({
                         pauseOnHover={false}
                         theme="dark"
                     />
-                ) : (
-                    <></>
                 )}
-                <Button
-                    variant="danger"
-                    action={() => {
-                        setShowAllServersModal(false)
-                    }}
-                >
-                    X
-                </Button>
-                <h2>Public Servers</h2>
-                {publicServers && (
-                    <>
-                        {publicServers.map((server) => {
-                            return (
-                                <div key={server.id}>
-                                    <img
-                                        src={server.imageURL}
-                                        style={{
-                                            height: 100,
-                                            borderRadius: 10,
-                                        }}
-                                    />
-                                    {server.name}
-                                    <Button
-                                        variant="success"
-                                        action={() => {
-                                            handleJoin(server.name)
-                                        }}
-                                    >
-                                        Join
-                                    </Button>
-                                </div>
-                            )
-                        })}
-                    </>
-                )}
+                <h1>Public Servers</h1>
+                {publicServers &&
+                    publicServers.map((server) => (
+                        <div key={server.id} className="public-servers-item">
+                            <img src={server.imageURL} />
+                            <span>{server.name}</span>
+                            <Button
+                                variant="success"
+                                action={() => {
+                                    handleJoin(server.name)
+                                }}
+                            >
+                                Join
+                            </Button>
+                        </div>
+                    ))}
             </dialog>
         </>
     )
