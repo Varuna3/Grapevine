@@ -10,11 +10,15 @@
     @include container(home-page);
     & > * {
         flex: 0 0 auto;
+        overflow: auto;
     }
     .messages {
         min-width: 100%;
         scroll-behavior: smooth;
-        flex: 1 1 auto;
+        flex: 1 1 0px;
         overflow: auto;
+    }
+    .input-area {
+        flex: 0 1 auto;
     }
 }

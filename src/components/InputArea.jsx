@@ -70,13 +70,6 @@ export default function InputArea({
                 }}
                 onKeyDown={onEnterPress}
             />
-            <GifContainer
-                openGifs={openGifs}
-                randomGifs={randomGifs}
-                currentServer={currentServer}
-                username={username}
-                profileImage={profileImage}
-            />
             <div className="input-area-controls">
                 <Button
                     variant="yellow"
@@ -102,6 +95,13 @@ export default function InputArea({
                 />
                 <Button variant="primary" type="submit" children="Send" />
             </div>
+            <GifContainer
+                openGifs={openGifs}
+                randomGifs={randomGifs}
+                currentServer={currentServer}
+                username={username}
+                profileImage={profileImage}
+            />
         </form>
     )
 }

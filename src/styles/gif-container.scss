@@ -6,10 +6,10 @@
     display: flex;
     flex-flow: column nowrap;
     width: 100%;
-    max-height: $md;
+    max-height: $xxl;
     gap: size(-3);
-    overflow: auto;
-    transition: max-height 300ms ease;
+    overflow: hidden;
+    transition: max-height 500ms ease;
     &:not([data-open="true"]) {
         max-height: 0px;
     }
@@ -18,6 +18,7 @@
         display: flex;
         flex-flow: row wrap;
         gap: inherit;
+        flex: 0 0 auto;
         & > * {
             flex: 9999 1 auto;
         }
@@ -32,9 +33,10 @@
     &-images {
         display: grid;
         grid-gap: size(0);
-        grid-template-columns: repeat(auto-fit, minmax(min($sm, 100%), 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min($xs, 100%), 1fr));
         grid-template-rows: masonry;
         align-items: stretch;
+        flex: 0 1 auto;
         overflow: auto;
         & > * {
             display: flex;
