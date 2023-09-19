@@ -1,6 +1,6 @@
 // Modal: General dialog modal for user interactions.
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 import '../styles/modal.scss'
 
