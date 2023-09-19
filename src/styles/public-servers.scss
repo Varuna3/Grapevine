@@ -1,0 +1,80 @@
+// Public Server Modal: Styles for modal to join a public server.
+
+@use "members" as *;
+
+.public-servers {
+    position: fixed;
+    inset: 0;
+    display: block;
+    width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+    transition: opacity 500ms ease;
+    &::backdrop {
+        background-color: transparent;
+        backdrop-filter: blur(24px);
+    }
+    @include viewport {
+        @include modular-scale(3, padding);
+    }
+    @include container(public-server-modal);
+    &:not([open]) {
+        pointer-events: none;
+        opacity: 0;
+    }
+    &-close {
+        position: fixed;
+        top: 0; right: 0;
+        display: block;
+        width: 32px;
+        height: 32px;
+        border-radius: 9999px;
+        border: none;
+        margin: size(-3);
+        cursor: pointer;
+        &:active {
+            transform: scale(0.9);
+        }
+        @include font-size(1);
+        @include color-schemes using ($color) {
+            background-color: contrast-color($danger, $color, a11y(aa ui));
+            color: high-contrast($white $black, $danger);
+        }
+    }
+    &-item {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        margin: size(0) 0;
+        gap: size(-1);
+        @include font-size(1);
+        img {
+            display: block;
+            width: 2.5em;
+            height: 2.5em;
+            border: 2px solid $white;
+            border-radius: 9999px;
+            object-fit: cover;
+            object-position: center;
+        }
+        span {
+            display: none;
+            flex: 9999 1 auto;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            @include breakpoint($xs) {
+                display: block;
+            }
+        }
+        .button {
+            flex: 1 0 auto;
+        }
+    }
+}
