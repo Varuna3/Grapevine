@@ -72,7 +72,9 @@ export default function InputArea({
             <textarea
                 className="input-area-field"
                 id={inputId}
-                style={shouldBeLarge ? { fontSize: 40 } : { fontSize: 15 }}
+                style={
+                    shouldBeLarge ? { fontSize: '2.5em' } : { fontSize: '1em' }
+                }
                 autoFocus={true}
                 autoComplete="off"
                 placeholder={lodash.sample([

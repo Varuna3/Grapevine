@@ -51,7 +51,11 @@ export default function MessageDiv({ e, messageId, serverId }) {
                 {/*--> object.message */}
                 <span
                     className="messages-text"
-                    style={shouldBeLarge ? { fontSize: 40 } : { fontSize: 15 }}
+                    style={
+                        shouldBeLarge
+                            ? { fontSize: '2.5em' }
+                            : { fontSize: '1em' }
+                    }
                     dangerouslySetInnerHTML={{
                         __html: DOMPurify.sanitize(marked.parse(e.message)),
                     }}
