@@ -3,60 +3,15 @@
 @use 'members' as *;
 
 .login-modal {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    flex-flow: column nowrap;
-    min-width: 100%;
-    min-height: 100%;
-    border: none;
-    backdrop-filter: blur(20px) saturate(180%);
-    background-color: rgba($black, 0.6);
-    padding: size(1) size(-1);
-    margin: 0;
-    overflow: auto;
-    transition: opacity 250ms linear;
-    &:not([open]) {
-        pointer-events: none;
-        opacity: 0;
-    }
-    &::backdrop {
+    .modal-close {
         display: none;
     }
     fieldset {
         border: none;
         padding: 0;
     }
-    &-wrapper {
-        display: block;
-        flex: 0 0 auto;
-        width: 100%;
-        max-width: $md;
-        border-radius: size(-1);
-        margin: auto;
-        @include container(login-modal);
-        @include color-schemes using ($color) {
-            box-shadow: 0 3px 12px -3px contrast-color($secondary, $color, a11y(aa
-                            ui));
-            background-color: $color;
-            color: high-contrast($white $black, $color);
-        }
-    }
     &-form {
         overflow: hidden;
-        @include modular-scale(4, padding-top, padding-bottom);
-        @include modular-scale(3, padding-right, padding-left);
-    }
-    &-heading {
-        display: block;
-        text-align: center;
-        margin: 0 0 size(-3);
-        @include font-size(4);
-        @include color-schemes using ($color) {
-            @include contrast(aa large, aaa large) using ($ratio) {
-                color: contrast-color($primary, $color, $ratio);
-            }
-        }
     }
     &-fields {
         display: flex;

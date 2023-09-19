@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 
+import Modal from './Modal'
 import TextField from './TextField'
 import Button from './Button'
 import Grid from './Grid'
@@ -17,17 +18,6 @@ const LoginModal = ({
     setShowRegisterModal,
 }) => {
     const [password, setPassword] = useState('')
-
-    const modalRef = useRef()
-
-    useEffect(() => {
-        if (!modalRef.current) return
-        if (showModal) {
-            modalRef.current.showModal()
-        } else {
-            modalRef.current.close()
-        }
-    }, [showModal])
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -47,34 +37,29 @@ const LoginModal = ({
     }
 
     return (
-        <dialog ref={modalRef} className="login-modal">
-            {showModal ? (
-                <ToastContainer
-                    position="top-center"
-                    autoClose={2500}
-                    hideProgressBar={false}
-                    newestOnTop
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss={false}
-                    draggable
-                    pauseOnHover={false}
-                    theme="dark"
-                />
-            ) : (
-                <></>
-            )}
-
-            <div
-                className="login-modal-wrapper"
-                style={showRegisterModal ? { display: 'none' } : {}}
+        <div className="login-modal">
+            <Modal
+                open={showModal}
+                setOpen={setShowModal}
+                title="Welcome to Grapevine!"
             >
+                {showModal && (
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={2500}
+                        hideProgressBar={false}
+                        newestOnTop
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss={false}
+                        draggable
+                        pauseOnHover={false}
+                        theme="dark"
+                    />
+                )}
                 <form onSubmit={submitHandler} className="login-modal-form">
                     <Grid>
                         <div>
-                            <h2 className="login-modal-heading">
-                                Welcome to Grapevine!
-                            </h2>
                             <fieldset className="login-modal-fields">
                                 <TextField
                                     type="text"
@@ -101,8 +86,8 @@ const LoginModal = ({
                         </Grid>
                     </Grid>
                 </form>
-            </div>
-        </dialog>
+            </Modal>
+        </div>
     )
 }
 
