@@ -26,7 +26,6 @@ const EditUser = ({
             })
             .then((res) => {
                 if (res.data.Success) {
-                    console.log('res.data.Success', res.data.Success)
                     setProfileImage(res.data.Success.imageURL)
                     setUsername(res.data.Success.username)
                     setIsEditing(false)

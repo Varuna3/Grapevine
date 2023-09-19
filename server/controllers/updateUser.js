@@ -54,12 +54,8 @@ export default async function updateUser(req, res) {
             user.passwordHash =  password ? passwordHash : user.passwordHash
             user.email = email
             user.imageURL = req.files ? profileImageUrl : imageURL,
+            req.session.user = user.username
             req.session.imageURL = user.imageURL
-    
-            console.log('user.username --->', user.username)
-            console.log('user.pass --->', user.passwordHash)
-            console.log('user.email --->', user.email)
-            console.log('user.imageURl --->', user.imageURL)
     
             await user.save()
     

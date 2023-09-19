@@ -40,8 +40,6 @@ export default function HomePage({
     const [invites, setInvites] = useState([])
     const [showSettings, setShowSettings] = useState(false)
 
-    console.log('USERNAME', username)
-
     useEffect(() => {
         axios.get('/api/username').then(({ data }) => {
             if (data.Success) {
@@ -89,7 +87,7 @@ export default function HomePage({
                 username,
                 message,
                 server: currentServer.id,
-                userImage: profileImage
+                userImage: imageURL
             })
         } else {
             socket.emit('client message', {
