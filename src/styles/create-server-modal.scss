@@ -1,0 +1,64 @@
+// Create Server Modal: Styles for the create server modal.
+
+@use 'members' as *;
+
+.create-server-modal {
+    display: flex;
+    flex-flow: column nowrap;
+    min-width: 100%;
+    min-height: 100%;
+    border: none;
+    background-color: rgba($black, 0);
+    padding: size(1) size(-1);
+    margin: 0;
+    overflow: auto;
+    &:not([open]),
+    &::backdrop {
+        display: none;
+    }
+    fieldset {
+        border: none;
+        padding: 0;
+    }
+    &-wrapper {
+        display: block;
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: $md;
+        box-shadow: 0 3px 12px -3px $secondary;
+        border-radius: size(-1);
+        margin: auto;
+        @include container(login-modal);
+        @include color-schemes using ($color) {
+            background-color: $color;
+            color: high-contrast($white $black, $color);
+        }
+    }
+    &-form {
+        overflow: hidden;
+        @include modular-scale(2, padding);
+    }
+    &-heading {
+        display: block;
+        text-align: center;
+        margin: 0 0 size(-3);
+        @include font-size(4);
+        @include color-schemes using ($color) {
+            @include contrast(aa large, aaa large) using ($ratio) {
+                color: contrast-color($primary, $color, $ratio);
+            }
+        }
+    }
+    &-fields {
+        display: flex;
+        flex-flow: column wrap;
+        gap: 0 size(-1);
+        & > * {
+            flex: 1 1 $xs;
+        }
+    }
+    .button {
+        float: right;
+        margin: size(-2) 0;
+    }
+}
