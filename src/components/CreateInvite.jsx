@@ -1,11 +1,13 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import Button from './Button'
 
 export default function CreateInvite({ name }) {
     return (
         <>
-            <button
-                onClick={async () => {
+            <Button
+            variant="success"
+                action={async () => {
                     if (name) {
                         const { data } = await axios.put('/api/invite', {
                             name,
@@ -25,7 +27,7 @@ export default function CreateInvite({ name }) {
                 }}
             >
                 Create Invite
-            </button>
+            </Button>
         </>
     )
 }
