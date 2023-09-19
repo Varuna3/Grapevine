@@ -27,7 +27,8 @@ export default function HomePage({
     setCurrentServer,
 }) {
     const [username, setUsername] = useState('')
-    const [profileImage, setProfileImage] = useState('')
+    const [imageURL, setProfileImage] = useState('')
+    const [email, setProfileEmail] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [showServerModal, setShowServerModal] = useState(false)
     const [showRegisterModal, setShowRegisterModal] = useState(false)
@@ -44,6 +45,7 @@ export default function HomePage({
             if (data.Success) {
                 setUsername(data.Success.user)
                 setProfileImage(data.Success.image)
+                setProfileEmail(data.Success.email)
                 getAllServers()
                 getPublicServers()
             } else if (data.Error) {
@@ -85,7 +87,7 @@ export default function HomePage({
                 username,
                 message,
                 server: currentServer.id,
-                userImage: profileImage,
+                userImage: imageURL,
             })
         } else {
             socket.emit('client message', {
@@ -108,7 +110,7 @@ export default function HomePage({
                     ]
                 )}.`,
                 server: currentServer.id,
-                userImage: profileImage,
+                userImage: imageURL,
             })
         }
     }
@@ -161,6 +163,12 @@ export default function HomePage({
                 currentServer={currentServer}
                 showInvitesModal={showInvitesModal}
                 setShowInvitesModal={setShowInvitesModal}
+                setProfileEmail={setProfileEmail}
+                setProfileImage={setProfileImage}
+                setUsername={setUsername}
+                username={username}
+                email={email}
+                imageURL={imageURL}
             />
             <LoginModal
                 showModal={showModal}
@@ -199,7 +207,7 @@ export default function HomePage({
                     }}
                     currentServer={currentServer}
                     username={username}
-                    profileImage={profileImage}
+                    profileImage={imageURL}
                 />
             ) : (
                 <></>

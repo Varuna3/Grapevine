@@ -24,6 +24,7 @@ import deleteInvite from './controllers/deleteInvite.js'
 import getAllPublicServers from './controllers/getAllPublicServers.js'
 import getInvites from './controllers/getInvites.js'
 import deleteServer from './controllers/deleteServer.js'
+import updateUser from './controllers/updateUser.js'
 import getGiphy from './controllers/getGiphy.js'
 import randomGifs from './controllers/randomGifs.js'
 import deleteMessage from './controllers/deleteMessage.js'
@@ -61,6 +62,7 @@ app.get('/api/messages/:serverId', getAllMessages)
 app.get('/api/invites/:serverId', getInvites)
 app.get('/api/username', getUsername)
 app.put('/api/account/', createAccount)
+app.put('/api/update/', updateUser)
 app.put('/api/server', handleCreateServer)
 app.put('/api/message', createMessage)
 app.put('/api/invite', createInvite)

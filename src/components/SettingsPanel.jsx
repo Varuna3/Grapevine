@@ -7,6 +7,8 @@ import '../styles/settings-panel.scss'
 import Logout from './Logout'
 import CreateInvite from './CreateInvite'
 import ShowInvites from './ShowInvites'
+import EditUser from './EditUser'
+import Button from './Button'
 
 export default function SettingsPanel(props) {
     const {
@@ -18,8 +20,14 @@ export default function SettingsPanel(props) {
         currentServer,
         showInvitesModal,
         setShowInvitesModal,
+        username,
+        imageURL,
+        email,
+        setUsername,
+        setProfileImage,
+        setProfileEmail,
     } = props
-
+    const [isEditing, setIsEditing] = useState(false)
     const [invites, setInvites] = useState([])
 
     return (
@@ -71,12 +79,39 @@ export default function SettingsPanel(props) {
                     Delete Server
                 </button>
                 <h1>User Settings</h1>
-                <Logout
-                    setShowModal={setShowModal}
-                    setMessages={setMessages}
-                    setCurrentServer={setCurrentServer}
-                    setServerList={setServerList}
-                />
+                {isEditing ? (
+                    <>
+                        <EditUser
+                            username={username}
+                            imageURL={imageURL}
+                            email={email}
+                            setUsername={setUsername}
+                            setProfileImage={setProfileImage}
+                            setProfileEmail={setProfileEmail}
+                            setIsEditing={setIsEditing}
+                        />
+                    </>
+                ) : (
+                    <>
+                        <img src={imageURL} />
+                        {username}
+                        <br />
+                        {email}
+                        <Button
+                            action={() => {
+                                setIsEditing(true)
+                            }}
+                        >
+                            Edit Profile
+                        </Button>
+                        <Logout
+                            setShowModal={setShowModal}
+                            setMessages={setMessages}
+                            setCurrentServer={setCurrentServer}
+                            setServerList={setServerList}
+                        />
+                    </>
+                )}
             </div>
         </>
     )

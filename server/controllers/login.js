@@ -9,6 +9,7 @@ export async function login(req, res) {
             if (valid) {
                 req.session.user = user.username
                 req.session.image = user.imageURL
+                req.session.email = user.email
                 res.send({ Success: true })
             } else {
                 res.send({ Error: 'Error: Authentication failed.' })
