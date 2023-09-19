@@ -29,10 +29,10 @@
             border: 2px solid contrast-color($secondary, $color, a11y(aa ui));
             &:hover,
             &:focus {
-                background-color: color-shift(rgba($color, 0.8), 2.5%);
+                background-color: color-shift(rgba($color, 0.8), 10%);
             }
             &:active {
-                background-color: color-shift(rgba($color, 0.4), 2.5%);
+                background-color: color-shift(rgba($color, 0.4), 10%);
             }
             &:focus {
                 border-color: contrast-color($primary, $color, a11y(aa ui));

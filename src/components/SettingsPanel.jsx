@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
@@ -20,37 +20,19 @@ export default function SettingsPanel(props) {
         currentServer,
         showInvitesModal,
         setShowInvitesModal,
-        username, 
-        imageURL, 
-        email, 
-        setUsername, 
-        setProfileImage, 
-        setProfileEmail
+        username,
+        imageURL,
+        email,
+        setUsername,
+        setProfileImage,
+        setProfileEmail,
     } = props
-    const [marginLeft, setMarginLeft] = useState('100vw')
-    const [invites, setInvites] = useState([])
     const [isEditing, setIsEditing] = useState(false)
-
-    useEffect(() => {
-        showSettings
-            ? () => {
-                  setMarginLeft('60vw')
-              }
-            : () => {
-                  setMarginLeft('100vw')
-              }
-    }, [showSettings])
+    const [invites, setInvites] = useState([])
 
     return (
         <>
-            <div
-                className="settings-panel"
-                style={
-                    showSettings
-                        ? { marginLeft: 'calc(100vw - 320px)' }
-                        : { marginLeft: '100vw' }
-                }
-            >
+            <div className="settings-panel" data-open={showSettings}>
                 <h1>Server Settings</h1>
                 <CreateInvite name={currentServer.name} />
                 <button
@@ -99,28 +81,35 @@ export default function SettingsPanel(props) {
                 <h1>User Settings</h1>
                 {isEditing ? (
                     <>
-                    <EditUser 
-                        username={username}
-                        imageURL={imageURL}
-                        email={email}
-                        setUsername={setUsername}
-                        setProfileImage={setProfileImage} 
-                        setProfileEmail={setProfileEmail}
-                        setIsEditing={setIsEditing}
-                    />
+                        <EditUser
+                            username={username}
+                            imageURL={imageURL}
+                            email={email}
+                            setUsername={setUsername}
+                            setProfileImage={setProfileImage}
+                            setProfileEmail={setProfileEmail}
+                            setIsEditing={setIsEditing}
+                        />
                     </>
                 ) : (
                     <>
-                    <img src={imageURL}/>
-                    {username}<br/>
-                    {email}
-                    <Button action={() => {setIsEditing(true)}}>Edit Profile</Button>
-                    <Logout
-                        setShowModal={setShowModal}
-                        setMessages={setMessages}
-                        setCurrentServer={setCurrentServer}
-                        setServerList={setServerList}
-                    />
+                        <img src={imageURL} />
+                        {username}
+                        <br />
+                        {email}
+                        <Button
+                            action={() => {
+                                setIsEditing(true)
+                            }}
+                        >
+                            Edit Profile
+                        </Button>
+                        <Logout
+                            setShowModal={setShowModal}
+                            setMessages={setMessages}
+                            setCurrentServer={setCurrentServer}
+                            setServerList={setServerList}
+                        />
                     </>
                 )}
             </div>

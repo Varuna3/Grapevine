@@ -79,7 +79,7 @@ export default function HomePage({
     async function handleSubmit(message) {
         const { data } = await axios.put('/api/message', {
             server: currentServer.name,
-            message, 
+            message,
         })
 
         if (data.Success) {
@@ -87,7 +87,11 @@ export default function HomePage({
                 username,
                 message,
                 server: currentServer.id,
-                userImage: imageURL
+                // <<<<<<< HEAD
+                userImage: imageURL,
+                // =======
+                // userImage: profileImage,
+                // >>>>>>> main
             })
         } else {
             socket.emit('client message', {
@@ -110,6 +114,7 @@ export default function HomePage({
                     ]
                 )}.`,
                 server: currentServer.id,
+                userImage: imageURL,
             })
         }
     }
@@ -121,6 +126,10 @@ export default function HomePage({
                 setCurrentServer={setCurrentServer}
                 showSettings={showSettings}
                 setShowSettings={setShowSettings}
+                showServerModal={showServerModal}
+                setShowServerModal={setShowServerModal}
+                setShowJoinServerModal={setShowJoinServerModal}
+                setShowAllServersModal={setShowAllServersModal}
             />
             <RegisterModal
                 showRegisterModal={showRegisterModal}
@@ -164,7 +173,6 @@ export default function HomePage({
                 username={username}
                 email={email}
                 imageURL={imageURL}
-
             />
             <LoginModal
                 showModal={showModal}
@@ -174,20 +182,7 @@ export default function HomePage({
                 showRegisterModal={showRegisterModal}
                 setShowRegisterModal={setShowRegisterModal}
             />
-            <button
-                onClick={() => {
-                    setShowServerModal(true)
-                }}
-            >
-                Create Server
-            </button>
-            <button
-                onClick={() => {
-                    setShowAllServersModal(true)
-                }}
-            >
-                Public Servers
-            </button>
+
             <CreateServerModal
                 showServerModal={showServerModal}
                 setShowServerModal={setShowServerModal}
@@ -197,20 +192,7 @@ export default function HomePage({
                 showAllServersModal={showAllServersModal}
                 publicServers={publicServers}
             />
-            {/* <ShowInvites
-                showInvitesModal={showInvitesModal}
-                setShowInvitesModal={setShowInvitesModal}
-                serverId={currentServer.id}
-                invites={invites}
-                setInvites={setInvites}
-            /> */}
-            <button
-                onClick={() => {
-                    setShowJoinServerModal(true)
-                }}
-            >
-                Join Server
-            </button>
+
             <JoinServer
                 showJoinServerModal={showJoinServerModal}
                 setShowJoinServerModal={setShowJoinServerModal}
@@ -227,6 +209,9 @@ export default function HomePage({
                     callback={(message) => {
                         handleSubmit(message)
                     }}
+                    currentServer={currentServer}
+                    username={username}
+                    profileImage={imageURL}
                 />
             ) : (
                 <></>

@@ -5,6 +5,8 @@
 *,
 ::before,
 ::after {
+    background-size: cover;
+    background-position: center;
     box-sizing: border-box;
     max-width: 100%;
 }
@@ -26,20 +28,19 @@
 }
 
 :root {
-    @include color-schemes using ($color) {
-        background-color: $color;
-    }
+    #{--custom-wallpaper}: linear-gradient(123deg, $blue, $indigo, $purple, $red);
     background-image: var(--custom-wallpaper, none);
     background-attachment: fixed;
     background-size: cover;
+    @include color-schemes using ($color) {
+        background-color: $color;
+    }
 }
 
 #root {
-    background-color: rgba($light, 0.6);
-    color: $black;
-    @include dark {
-        background-color: rgba($dark, 0.8);
-        color: $white;
+    @include color-schemes using ($color) {
+        background-color: rgba($color, 0.8);
+        color: high-contrast($white $black, $color);
     }
     &::before {
         content: '';
@@ -63,7 +64,9 @@ h6 {
     display: block;
     font-family: $display;
     line-height: 1.33;
-    margin: size(-3) 0;
+	@include modular-scale(-1) using ($size) {
+		margin: $size 0;
+	}
 }
 
 h1 {

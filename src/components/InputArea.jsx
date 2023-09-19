@@ -2,15 +2,23 @@
 
 import { useState, useId, useRef } from 'react'
 import lodash from 'lodash'
-
+import axios from 'axios'
 import Button from './Button'
 
 import '../styles/input-area.scss'
 import EmojiContainer from './EmojiContainer'
+import GifContainer from './GifContainer'
 
-export default function InputArea({ callback }) {
+export default function InputArea({
+    callback,
+    currentServer,
+    username,
+    profileImage,
+}) {
     const [message, setMessage] = useState('')
     const [openEmojis, setOpenEmojis] = useState(false)
+    const [openGifs, setOpenGifs] = useState(false)
+    const [randomGifs, setRandomGifs] = useState([])
 
     const inputId = useId()
     let ref = useRef()
@@ -25,7 +33,14 @@ export default function InputArea({ callback }) {
         if (e.keyCode == 13 && e.shiftKey == false) {
             e.preventDefault()
             ref.requestSubmit()
+        } else if (e.keyCode == 8) {
+            setMessage(message.substring(0, 254))
         }
+    }
+
+    async function getRandomGifs() {
+        const { data } = await axios.get(`/api/randomgifs`)
+        setRandomGifs(data)
     }
 
     return (
@@ -53,30 +68,44 @@ export default function InputArea({ callback }) {
                 ])}
                 value={message}
                 onChange={(event) => {
-                    setMessage(event.target.value)
+                    const str = event.target.value
+                    if (message.length < 255) setMessage(str)
+                    else setMessage(str.substring(0, 254) + str[255])
                 }}
                 onKeyDown={onEnterPress}
             />
-            <button
-                type="button"
-                style={{
-                    height: 40,
-                    width: 40,
-                    borderRadius: '50%',
-                    border: '2px solid green',
-                }}
-                onClick={() => {
-                    setOpenEmojis(!openEmojis)
-                }}
-            >
-                😁
-            </button>
-            <EmojiContainer
-                openEmojis={openEmojis}
-                message={message}
-                setMessage={setMessage}
+            <div className="input-area-controls">
+                <Button
+                    variant="yellow"
+                    type="button"
+                    action={() => {
+                        setOpenEmojis(!openEmojis)
+                    }}
+                    children="😍"
+                />
+                <EmojiContainer
+                    openEmojis={openEmojis}
+                    message={message}
+                    setMessage={setMessage}
+                />
+                <Button
+                    variant="pink"
+                    type="button"
+                    action={() => {
+                        setOpenGifs(!openGifs)
+                        getRandomGifs(randomGifs)
+                    }}
+                    children="GIF"
+                />
+                <Button variant="primary" type="submit" children="Send" />
+            </div>
+            <GifContainer
+                openGifs={openGifs}
+                randomGifs={randomGifs}
+                currentServer={currentServer}
+                username={username}
+                profileImage={profileImage}
             />
-            <Button variant="primary" type="submit" children="Send" />
         </form>
     )
 }
