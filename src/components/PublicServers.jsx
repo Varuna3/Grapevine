@@ -1,27 +1,17 @@
 import { useState, useRef, useEffect } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
 import axios from 'axios'
 
 import Button from './Button'
+import Modal from './Modal'
+
 import '../styles/public-servers.scss'
-import { toast, ToastContainer } from 'react-toastify'
 
 const PublicServers = ({
     showAllServersModal,
     setShowAllServersModal,
     publicServers,
 }) => {
-    const modalRef = useRef()
-
-    useEffect(() => {
-        if (!modalRef.current) return
-
-        if (showAllServersModal) {
-            modalRef.current.showModal()
-        } else {
-            modalRef.current.close()
-        }
-    }, [showAllServersModal])
-
     async function handleJoin(name) {
         const { data } = await axios.post(`/api/server/addUser`, {
             serverName: name,
@@ -37,16 +27,12 @@ const PublicServers = ({
     }
 
     return (
-        <>
-            <dialog ref={modalRef} className="public-servers">
-                <button
-                    className="public-servers-close"
-                    onClick={() => {
-                        setShowAllServersModal(false)
-                    }}
-                >
-                    &times;
-                </button>
+        <Modal
+            open={showAllServersModal}
+            setOpen={setShowAllServersModal}
+            title="Public Servers"
+        >
+            <div className="public-servers">
                 {showAllServersModal && (
                     <ToastContainer
                         position="top-center"
@@ -61,7 +47,6 @@ const PublicServers = ({
                         theme="dark"
                     />
                 )}
-                <h1>Public Servers</h1>
                 {publicServers &&
                     publicServers.map((server) => (
                         <div key={server.id} className="public-servers-item">
@@ -77,8 +62,8 @@ const PublicServers = ({
                             </Button>
                         </div>
                     ))}
-            </dialog>
-        </>
+            </div>
+        </Modal>
     )
 }
 

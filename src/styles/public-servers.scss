@@ -3,51 +3,6 @@
 @use "members" as *;
 
 .public-servers {
-    position: fixed;
-    inset: 0;
-    display: block;
-    width: 100%;
-    min-height: 100%;
-    max-height: 100%;
-    border: none;
-    background-color: transparent;
-    padding: 0;
-    margin: 0;
-    overflow: auto;
-    transition: opacity 500ms ease;
-    &::backdrop {
-        backdrop-filter: blur(24px);
-        @include color-schemes using ($color) {
-            background-color: rgba($color, 0.25);
-        }
-    }
-    @include viewport {
-        @include modular-scale(3, padding);
-    }
-    @include container(public-server-modal);
-    &:not([open]) {
-        pointer-events: none;
-        opacity: 0;
-    }
-    &-close {
-        position: fixed;
-        top: 0; right: 0;
-        display: block;
-        width: 32px;
-        height: 32px;
-        border-radius: 9999px;
-        border: none;
-        margin: size(-3);
-        cursor: pointer;
-        &:active {
-            transform: scale(0.9);
-        }
-        @include font-size(1);
-        @include color-schemes using ($color) {
-            background-color: contrast-color($danger, $color, a11y(aa ui));
-            color: high-contrast($white $black, $danger);
-        }
-    }
     &-item {
         display: flex;
         flex-flow: row nowrap;
