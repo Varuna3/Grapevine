@@ -37,7 +37,7 @@
         padding: size(-3) 0;
         overflow: hidden;
         @include color-schemes using ($color) {
-            border-bottom: 1px solid color-shift($color, 10%);
+            border-bottom: 1px solid color-shift($color, 20%);
         }
     }
     &-pfp {
@@ -60,6 +60,22 @@
         position: static;
         left: calc(100% - 100px);
         bottom: calc(50% + 10px);
+    }
+}
+
+.messages-welcome {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    text-align: center;
+    width: 100%;
+    @include modular-scale(1, padding);
+    h1 {
+        @include font-size(3);
+    }
+    strong {
+        display: inline-block;
+        @include font-size(4);
     }
 }
 
