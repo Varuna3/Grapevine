@@ -37,7 +37,7 @@
         padding: size(-3) 0;
         overflow: hidden;
         @include color-schemes using ($color) {
-            border-bottom: 1px solid color-shift($color, 10%);
+            border-bottom: 1px solid color-shift($color, 20%);
         }
     }
     &-pfp {
