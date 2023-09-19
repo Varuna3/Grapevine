@@ -16,7 +16,7 @@ export default function Dock({
         <nav className="dock">
             <div className="dock-server-container">
                 {anchors.map((e, index) => {
-                    const { name, image, isServer = true } = e
+                    const { name, imageURL, isServer = true } = e
                     return (
                         <a
                             key={index}
@@ -27,10 +27,10 @@ export default function Dock({
                                 setCurrentServer(e)
                             }}
                         >
-                            {image && (
+                            {imageURL && (
                                 <img
                                     className="dock-item-image"
-                                    src={image}
+                                    src={imageURL}
                                     alt={name}
                                 />
                             )}
