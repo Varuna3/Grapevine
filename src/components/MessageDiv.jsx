@@ -7,7 +7,7 @@ import axios from 'axios'
 // import { EMOJIS } from '../assets/Emojis.json'
 import { VALID_CHARS } from '../assets/ValidChars.json'
 
-export default function MessageDiv({ e, messageId, serverId }) {
+export default function MessageDiv({ e, messageId, serverId, user }) {
     const [showDelete, setShowDelete] = useState(false)
     const [deleted, setDeleted] = useState(false)
 
@@ -61,7 +61,7 @@ export default function MessageDiv({ e, messageId, serverId }) {
                     }}
                 />
             </div>
-            {!deleted ? (
+            {!deleted && user === e.username ? (
                 <div
                     className="messages-delete-button"
                     style={showDelete ? {} : { display: 'none' }}

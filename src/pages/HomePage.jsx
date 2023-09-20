@@ -199,6 +199,7 @@ export default function HomePage({
                 server={currentServer}
                 showSettings={showSettings}
                 setShowSettings={setShowSettings}
+                user={username}
             />
             {currentServer.id ? (
                 <InputArea
