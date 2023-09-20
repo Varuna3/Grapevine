@@ -2,28 +2,33 @@ import { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
+import Grid from './Grid'
 import TextField from './TextField'
 import Button from './Button'
 
 const EditUser = ({
-    username, 
-    imageURL, 
-    email, 
-    setUsername, 
-    setProfileImage, 
+    username,
+    imageURL,
+    email,
+    setUsername,
+    setProfileImage,
     setProfileEmail,
-    setIsEditing  }) => {
-
-    const [password, setPassword] = useState('');
+    setIsEditing,
+}) => {
+    const [password, setPassword] = useState('')
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         await axios
-            .put('/api/update', { username, imageURL, email, password } , {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                  }
-            })
+            .put(
+                '/api/update',
+                { username, imageURL, email, password },
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            )
             .then((res) => {
                 if (res.data.Success) {
                     setProfileImage(res.data.Success.imageURL)
@@ -35,42 +40,49 @@ const EditUser = ({
             })
     }
 
-    function cancelEdit(){
+    function cancelEdit() {
         setIsEditing(false)
     }
 
     return (
-        <>
-        <TextField
-            type="file"
-            label="Upload Image:"
-            callback={setProfileImage}
-        />
-        <TextField
-            type="text"
-            label="Username:"
-            placeholder=""
-            value={username}
-            callback={setUsername}
-        />
-        <TextField
-            type="password"
-            label="Password:"
-            placeholder=""
-            value={password}
-            callback={setPassword}
-        />
-        <TextField
-            type="text"
-            label="Email:"
-            placeholder=""
-            value={email}
-            callback={setProfileEmail}
-        />
-        <Button variant="danger" action={cancelEdit}>Cancel</Button>
-        <Button variant="primary" type="submit" action={handleSubmit}>Save</Button>
-        </>
+        <Grid>
+            <TextField
+                type="text"
+                label="Username:"
+                placeholder=""
+                value={username}
+                callback={setUsername}
+            />
+            <TextField
+                type="password"
+                label="Password:"
+                placeholder=""
+                value={password}
+                callback={setPassword}
+            />
+            <TextField
+                type="text"
+                label="Email:"
+                placeholder=""
+                value={email}
+                callback={setProfileEmail}
+            />
+            <TextField
+                type="file"
+                label="Upload Image:"
+                callback={setProfileImage}
+            />
+
+            <Grid align="end">
+                <Button variant="danger" action={cancelEdit}>
+                    Cancel
+                </Button>
+                <Button variant="success" type="submit" action={handleSubmit}>
+                    Save
+                </Button>
+            </Grid>
+        </Grid>
     )
 }
 
-export default EditUser;
+export default EditUser

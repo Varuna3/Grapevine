@@ -80,7 +80,11 @@ const LoginModal = ({
                         </div>
                         <Grid align="end">
                             <Button variant="success">Login</Button>
-                            <Button variant="info" action={register}>
+                            <Button
+                                type="button"
+                                variant="info"
+                                action={register}
+                            >
                                 Register
                             </Button>
                         </Grid>
