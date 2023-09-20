@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Button from './Button'
 
 export default function Logout({
     setShowModal,
@@ -7,8 +8,9 @@ export default function Logout({
     setServerList,
 }) {
     return (
-        <button
-            onClick={async () => {
+        <Button
+            variant="danger"
+            action={async () => {
                 await axios.post('/api/logout')
                 setShowModal(true)
                 setMessages([])
@@ -17,6 +19,6 @@ export default function Logout({
             }}
         >
             Logout
-        </button>
+        </Button>
     )
 }
