@@ -3,6 +3,8 @@
 @use 'members' as *;
 
 .text-field {
+    display: flex;
+    flex-flow: row wrap;
     &-label,
     &-input {
         font-family: $sans-serif;
@@ -18,10 +20,13 @@
         background-color: transparent;
         border-radius: size(-3);
         padding: size(-4) size(-2);
-        margin: 2px 0;
+        margin: 0;
         color: inherit;
-        appearance: none;
         outline: none;
+        &[type="checkbox"], &[type="radio"] {
+            width: auto;
+            margin: 4px;
+        }
         &:not(:hover) {
             transition: background-color 150ms linear;
         }

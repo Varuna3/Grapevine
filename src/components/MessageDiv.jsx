@@ -63,8 +63,11 @@ export default function MessageDiv({ e, messageId, serverId }) {
             </div>
             {!deleted ? (
                 <div
-                    className="messages-delete-button"
-                    style={showDelete ? {} : { display: 'none' }}
+                    style={
+                        showDelete
+                            ? { marginBottom: '1em' }
+                            : { display: 'none' }
+                    }
                 >
                     <Button
                         variant="danger"

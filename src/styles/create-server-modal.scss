@@ -1,0 +1,20 @@
+// Create Server Modal: Styles for the create server modal.
+
+@use 'members' as *;
+
+.create-server-modal {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: size(-3);
+    & > * {
+        flex: 1 0 auto;
+    }
+    fieldset {
+        width: 100%;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+}

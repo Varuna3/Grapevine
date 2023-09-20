@@ -8,7 +8,6 @@
     justify-content: flex-end;
     align-items: flex-start;
     border-radius: size(-3);
-    gap: size(-1);
     padding: size(0);
     margin: size(0);
     @include color-schemes using ($color) {
@@ -52,6 +51,7 @@
         flex-flow: row wrap;
         align-items: center;
         gap: size(-3);
+        margin-bottom: size(-2);
         & > * {
             flex: 1 1 auto;
         }
