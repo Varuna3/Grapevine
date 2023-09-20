@@ -14,6 +14,7 @@ export default function Messages({
     server,
     showSettings,
     setShowSettings,
+    user,
 }) {
     //state array for all current "message" elements (user image, username, message)
     const [messageDivs, setMessageDivs] = useState([])
@@ -73,7 +74,15 @@ export default function Messages({
     // given an object formatted like this: {username, message} spit out a "e div" that we can display
     function createMessageDiv(e, id) {
         // const [showDelete, setShowDelete] = useState(false)
-        return <MessageDiv e={e} key={id} messageId={id} serverId={server.id} />
+        return (
+            <MessageDiv
+                e={e}
+                key={id}
+                messageId={id}
+                serverId={server.id}
+                user={user}
+            />
+        )
     }
 
     // return a "messages" container holding out "messageDivs" state array filled with message elements
