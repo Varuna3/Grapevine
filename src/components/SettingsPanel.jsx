@@ -33,78 +33,92 @@ export default function SettingsPanel(props) {
     const [invites, setInvites] = useState([])
 
     return (
-        <>
+        <div className="settings-panel">
             <Sidebar open={showSettings} setOpen={setShowSettings} align="end">
-                <CreateInvite name={currentServer.name} />
-                <button
-                    onClick={async () => {
-                        if (currentServer.id) {
-                            setShowInvitesModal(true)
-                            const { data } = await axios.get(
-                                `/api/invites/${currentServer.id}`
-                            )
-                            setInvites(data.Success)
-                        } else {
-                            toast.error('Please select a server.')
-                        }
-                    }}
-                >
-                    Show Invites
-                </button>
-                <button
-                    style={{ color: 'red' }}
-                    onClick={async () => {
-                        if (currentServer.name) {
-                            const { data } = await axios.delete('/api/server', {
-                                data: { id: currentServer.id },
-                            })
-                            if (data.Success) {
-                                toast.success(
-                                    `Server '${currentServer.name}' deleted. Refresh to see it disappear.`
-                                )
-                            } else {
-                                toast.error('Something went wrong.')
-                            }
-                        } else {
-                            toast.error('Please select a server.')
-                        }
-                    }}
-                >
-                    Delete Server
-                </button>
-                <h1>User Settings</h1>
-                {isEditing ? (
-                    <>
-                        <EditUser
-                            username={username}
-                            imageURL={imageURL}
-                            email={email}
-                            setUsername={setUsername}
-                            setProfileImage={setProfileImage}
-                            setProfileEmail={setProfileEmail}
-                            setIsEditing={setIsEditing}
-                        />
-                    </>
-                ) : (
-                    <>
-                        <img src={imageURL} />
-                        {username}
-                        <br />
-                        {email}
+                {currentServer.name && (
+                    <div className="settings-panel-server">
+                        <h1>{currentServer.name} Settings</h1>
                         <Button
-                            action={() => {
-                                setIsEditing(true)
+                            variant="info"
+                            action={async () => {
+                                if (currentServer.id) {
+                                    setShowInvitesModal(true)
+                                    const { data } = await axios.get(
+                                        `/api/invites/${currentServer.id}`
+                                    )
+                                    setInvites(data.Success)
+                                } else {
+                                    toast.error('Please select a server.')
+                                }
                             }}
                         >
-                            Edit Profile
+                            Show Invites
                         </Button>
-                        <Logout
-                            setShowModal={setShowModal}
-                            setMessages={setMessages}
-                            setCurrentServer={setCurrentServer}
-                            setServerList={setServerList}
-                        />
-                    </>
+                        <CreateInvite name={currentServer.name} />
+                        <Button
+                            variant="danger"
+                            action={async () => {
+                                if (currentServer.name) {
+                                    const { data } = await axios.delete(
+                                        '/api/server',
+                                        {
+                                            data: { id: currentServer.id },
+                                        }
+                                    )
+                                    if (data.Success) {
+                                        toast.success(
+                                            `Server '${currentServer.name}' deleted. Refresh to see it disappear.`
+                                        )
+                                    } else {
+                                        toast.error('Something went wrong.')
+                                    }
+                                } else {
+                                    toast.error('Please select a server.')
+                                }
+                            }}
+                        >
+                            Delete Server
+                        </Button>
+                    </div>
+                )}
+                <div className="settings-panel-user">
+                    <h1>User Settings</h1>
+                    <div className="settings-panel-profile">
+                        <img className="settings-panel-pfp" src={imageURL} />
+                        <div>
+                            <strong className="settings-panel-username">
+                                {username}
+                            </strong>
+                            <strong className="settings-panel-email">
+                                {email}
+                            </strong>
+                        </div>
+                    </div>
+                    <Logout
+                        setShowModal={setShowModal}
+                        setMessages={setMessages}
+                        setCurrentServer={setCurrentServer}
+                        setServerList={setServerList}
+                    />
+                    <Button
+                        variant="warning"
+                        action={() => {
+                            setIsEditing(!isEditing)
+                        }}
+                    >
+                        Edit Profile
+                    </Button>
+                </div>
+                {isEditing && (
+                    <EditUser
+                        username={username}
+                        imageURL={imageURL}
+                        email={email}
+                        setUsername={setUsername}
+                        setProfileImage={setProfileImage}
+                        setProfileEmail={setProfileEmail}
+                        setIsEditing={setIsEditing}
+                    />
                 )}
             </Sidebar>
             <ShowInvites
@@ -114,6 +128,6 @@ export default function SettingsPanel(props) {
                 invites={invites}
                 setInvites={setInvites}
             />
-        </>
+        </div>
     )
 }

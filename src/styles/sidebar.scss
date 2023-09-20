@@ -7,10 +7,11 @@
     inset: 0 auto 0 0;
     z-index: 1;
     display: block;
-    width: $sm;
+    width: $md;
     backdrop-filter: blur(24px);
     box-shadow: 0 0 8px -4px $black;
     transition: transform 300ms ease;
+    overflow: auto;
     @include container(sidebar);
     @include color-schemes using ($color) {
         background-color: rgba($color, 0.66);
@@ -26,7 +27,6 @@
     }
     &-content {
         @include modular-scale(3, padding);
-        overflow: auto;
     }
     &-close {
         position: absolute;

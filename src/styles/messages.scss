@@ -43,6 +43,7 @@
     &-pfp {
         display: block;
         border-radius: 9999px;
+        object-fit: cover;
         @include font-size(2, width, height);
     }
     &-username {

@@ -15,6 +15,7 @@
     margin: auto;
     overflow: auto;
     transition: opacity 500ms ease;
+    backdrop-filter: blur(16px);
     @include color-schemes using ($color) {
         border: 1px solid contrast-color($secondary, $color, a11y(aa ui));
         background-color: rgba($color, 0.66);
