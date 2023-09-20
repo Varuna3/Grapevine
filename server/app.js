@@ -101,10 +101,16 @@ io.on('connection', (socket) => {
     socket.on('secret', async (data) => {
         const { secret } = data
         if (secret === 'kyle') {
-            const { data } = await axios.get('http://localhost:5000/kyle')
-            io.emit('secret', {
-                secret: data,
-            })
+            try {
+                const { data } = await axios.get('http://localhost:5000/kyle')
+                io.emit('secret', {
+                    secret: data,
+                })
+            } catch {
+                io.emit('secret error', {
+                    error: 'Classified.',
+                })
+            }
         } else {
             io.emit('secret error', {
                 error: 'Classified',
