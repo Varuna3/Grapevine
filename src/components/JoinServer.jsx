@@ -52,9 +52,7 @@ export default function JoinServer({
                     label="Enter Invite Code:"
                     placeholder="h41rygr4pe"
                     value={input}
-                    action={(e) => {
-                        setInput(e.target.value)
-                    }}
+                    callback={setInput}
                 />
                 <Button variant="success" type="submit">
                     Join Server
