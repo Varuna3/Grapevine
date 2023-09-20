@@ -6,6 +6,7 @@ import http from 'http'
 import fileUpload from 'express-fileupload'
 import cors from 'cors'
 import { Server } from 'socket.io'
+import axios from 'axios'
 
 import { helloWorldHandler } from './controllers/helloworld.js'
 import { login } from './controllers/login.js'
@@ -90,13 +91,31 @@ io.on('connection', (socket) => {
         })
     })
     socket.on('delete message', (data) => {
-        console.log(data)
         io.emit('delete message', {
             message: data.message,
             username: data.username,
             serverId: data.serverId,
             key: data.key,
         })
+    })
+    socket.on('secret', async (data) => {
+        const { secret } = data
+        if (secret === 'kyle') {
+            try {
+                const { data } = await axios.get('http://localhost:5000/kyle')
+                io.emit('secret', {
+                    secret: data,
+                })
+            } catch {
+                io.emit('secret error', {
+                    error: 'Classified.',
+                })
+            }
+        } else {
+            io.emit('secret error', {
+                error: 'Classified',
+            })
+        }
     })
 })
 
