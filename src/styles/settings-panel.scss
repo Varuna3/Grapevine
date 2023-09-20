@@ -3,26 +3,50 @@
 @use 'members' as *;
 
 .settings-panel {
-    position: absolute;
-    z-index: 10;
-    inset: auto size(0) size(0);
-    display: block;
-    max-width: $md;
-    height: $sm;
-    max-height: 66vh;
-    backdrop-filter: blur(16px);
-    border-radius: size(-1);
-    padding: size(1) size(2);
-    margin: 0 auto;
-    overflow: auto;
-    transform: translateY(100%) translateY(size(0));
-    transition: transform 300ms ease;
-    &[data-open="true"] {
-        transform: translateY(0);
+    h1 {
+        display: block;
+        flex-basis: 100%;
     }
-    @include container(settings-panel);
-    @include color-schemes using ($color) {
-        box-shadow: 0 0 8px -4px contrast-color($secondary, $color, a11y(aa ui));
-        background-color: rgba(color-shift($color, 5%), 0.8);
+    &-server, &-user {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        gap: size(0) size(-1);
+        margin: size(-3) 0;
+        & > * {
+            flex: 1 1 $xs;
+        }
+    }
+    &-profile {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        width: 100%;
+        gap: size(-1);
+        flex: 0 1 auto;
+    }
+    &-pfp {
+        display: block;
+        width: 3.5em;
+        height: 3.5em;
+        border-radius: 9999px;
+        border: 2px solid $white;
+    }
+    &-username, &-email {
+        display: block;
+        line-height: 1.25;
+    }
+    &-username {
+        font-family: $display-alt;
+        @include font-size(1);
+    }
+    &-email {
+        font-style: italic;
+        @include font-size(-1);
+        @include color-schemes using ($color) {
+            @include contrast using ($ratio) {
+                color: contrast-color($gray, $color, $ratio);
+            }
+        }
     }
 }
