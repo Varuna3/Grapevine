@@ -14,10 +14,10 @@ const RandomGifList = ({
         <>
             {randomGifs ? (
                 <>
-                    {randomGifs.map((g) => {
+                    {randomGifs.map((g, index) => {
                         return (
                             <img
-                                key={g.id}
+                                key={index}
                                 crossOrigin="anonymous"
                                 src={g.images.downsized.url}
                                 onClick={async () => {
