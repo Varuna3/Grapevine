@@ -1,0 +1,28 @@
+// Invites: Container for copying and deleting invites.
+
+@use "members" as *;
+
+.invites {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: size(0);
+    &-item {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        gap: inherit; 
+        span {
+            flex: 1 1 auto;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .button {
+            line-height: 1;
+            flex: 0 0 auto;
+            padding: 0.5em 0.25em;
+            border: none;
+            border-radius: 3px;
+        }
+    }
+}

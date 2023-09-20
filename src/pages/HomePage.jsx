@@ -156,6 +156,7 @@ export default function HomePage({
             )}
             <SettingsPanel
                 showSettings={showSettings}
+                setShowSettings={setShowSettings}
                 setShowModal={setShowModal}
                 setMessages={setMessages}
                 setCurrentServer={setCurrentServer}

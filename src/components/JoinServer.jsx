@@ -1,6 +1,10 @@
 import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
+import TextField from './TextField'
+import Button from './Button'
+import '../styles/join-server.scss'
+import Modal from './Modal'
 
 export default function JoinServer({
     showJoinServerModal,
@@ -8,21 +12,13 @@ export default function JoinServer({
 }) {
     const [input, setInput] = useState('')
 
-    const modalRef = useRef()
-
-    useEffect(() => {
-        if (!modalRef.current) return
-
-        if (showJoinServerModal) {
-            modalRef.current.showModal()
-        } else {
-            modalRef.current.close()
-        }
-    })
-
     return (
-        <dialog ref={modalRef}>
-            {showJoinServerModal ? (
+        <Modal
+            open={showJoinServerModal}
+            setOpen={setShowJoinServerModal}
+            title="Join Server"
+        >
+            {showJoinServerModal && (
                 <ToastContainer
                     position="top-center"
                     autoClose={2500}
@@ -35,10 +31,9 @@ export default function JoinServer({
                     pauseOnHover={false}
                     theme="dark"
                 />
-            ) : (
-                <></>
             )}
             <form
+                className="join-server"
                 onSubmit={async (e) => {
                     e.preventDefault()
                     const { data } = await axios.post('/api/server/join', {
@@ -51,28 +46,18 @@ export default function JoinServer({
                     }
                 }}
             >
-                <h2>Invite:</h2>
-                <label htmlFor="input"></label>
-                <input
+                <TextField
                     id="input"
                     type="text"
+                    label="Enter Invite Code:"
                     placeholder="h41rygr4pe"
-                    autoComplete="off"
                     value={input}
-                    onChange={(e) => {
-                        setInput(e.target.value)
-                    }}
+                    callback={setInput}
                 />
-                <button>Join Server</button>
+                <Button variant="success" type="submit">
+                    Join Server
+                </Button>
             </form>
-            <button
-                onClick={() => {
-                    setShowJoinServerModal(false)
-                    setInput('')
-                }}
-            >
-                Close
-            </button>
-        </dialog>
+        </Modal>
     )
 }

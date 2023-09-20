@@ -1,5 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
+import '../styles/create-server-modal.scss'
+import TextField from './TextField'
+import Button from './Button'
+import Modal from './Modal'
 
 const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
     const [name, setServerName] = useState('')
@@ -9,25 +13,19 @@ const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
 
     const modalRef = useRef()
 
-    useEffect(() => {
-        if (!modalRef.current) return
-
-        if (showServerModal) {
-            modalRef.current.showModal()
-        } else {
-            modalRef.current.close()
-        }
-    }, [showServerModal])
-
     const submitHandler = async (e) => {
         e.preventDefault()
 
         await axios
-            .put('/api/server', { name, imageURL, isPrivate, serverImage } , {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                  }
-            })
+            .put(
+                '/api/server',
+                { name, imageURL, isPrivate, serverImage },
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            )
             .then((res) => {
                 if (res.data.Success) {
                     // setServerName('')
@@ -55,37 +53,39 @@ const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
     }
 
     return (
-        <dialog ref={modalRef}>
-            <form onSubmit={submitHandler}>
-                <label htmlFor="name">Server Name:</label>
-                <input
-                    onChange={(e) => setServerName(e.target.value)}
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={name}
-                />
-                <label htmlFor="imageURL">Image URL:</label>
-                <input
-                    onChange={(e) => setImageURL(e.target.value)}
-                    type="text"
-                    id="imageURL"
-                    name="imageURL"
-                    value={imageURL}
-                />
-                <label htmlFor="isPrivate">Is the server private?:</label>
-                <input
-                    onChange={(e) => setIsPrivate(!isPrivate)}
-                    type="checkbox"
-                    id="isPrivate"
-                    name="isPrivate"
-                    value={isPrivate}
-                />
-                <input type="file" id="serverImage" name="serverImage" onChange={(e) => setServerImage(e.target.files[0])}/>
-                <button type="submit">Create Server</button>
+        <Modal
+            open={showServerModal}
+            setOpen={setShowServerModal}
+            title="Create Le Server"
+        >
+            <form onSubmit={submitHandler} className="create-server-modal">
+                <fieldset>
+                    <TextField
+                        type="text"
+                        label="Server Name:"
+                        value={name}
+                        callback={setServerName}
+                        required={true}
+                    />
+                    <TextField
+                        label="Upload Image"
+                        type="file"
+                        id="serverImage"
+                        callback={setServerImage}
+                    />
+                    <TextField
+                        label="Is the server private?:"
+                        type="checkbox"
+                        id="isPrivate"
+                        value={isPrivate}
+                        callback={setIsPrivate}
+                    />
+                </fieldset>
+                <Button variant="success" type="submit">
+                    Create Server
+                </Button>
             </form>
-            <button onClick={handleCancel}>Cancel</button>
-        </dialog>
+        </Modal>
     )
 }
 

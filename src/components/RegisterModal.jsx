@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify'
 
 import TextField from './TextField'
 import Button from './Button'
+import Modal from './Modal'
 
 import '../styles/register-modal.scss'
 
@@ -16,26 +17,20 @@ const RegisterModal = ({
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [imageURL, setImageURL] = useState()
-    const modalRef = useRef()
-
-    useEffect(() => {
-        if (!modalRef.current) return
-        if (showRegisterModal) {
-            modalRef.current.showModal()
-        } else {
-            modalRef.current.close()
-        }
-    }, [showRegisterModal])
 
     const submitHandler = (e) => {
         e.preventDefault()
 
         axios
-            .put('/api/account/', { username, password, email, imageURL },{
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                  }
-            })
+            .put(
+                '/api/account/',
+                { username, password, email, imageURL },
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            )
             .then((res) => {
                 if (res.data.Success) {
                     toast.success('Registration Success!')
@@ -49,7 +44,11 @@ const RegisterModal = ({
     }
 
     return (
-        <dialog ref={modalRef} className="register-modal">
+        <Modal
+            open={showRegisterModal}
+            setOpen={setShowRegisterModal}
+            title="Register for Grapevine!"
+        >
             <ToastContainer
                 position="top-center"
                 autoClose={2500}
@@ -62,17 +61,8 @@ const RegisterModal = ({
                 pauseOnHover={false}
                 theme="dark"
             />
-            <div className="register-modal-wrapper">
+            <div className="register-modal">
                 <form onSubmit={submitHandler} className="register-modal-form">
-                    <a
-                        className="link"
-                        onClick={() => setShowRegisterModal(false)}
-                    >
-                        &#10094; Login
-                    </a>
-                    <h2 className="register-modal-heading">
-                        Register for Grapevine!
-                    </h2>
                     <fieldset className="register-modal-fields">
                         <TextField
                             type="text"
@@ -105,7 +95,7 @@ const RegisterModal = ({
                     <Button variant="success">Register</Button>
                 </form>
             </div>
-        </dialog>
+        </Modal>
     )
 }
 

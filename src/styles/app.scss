@@ -11,6 +11,12 @@
     max-width: 100%;
 }
 
+.Toastify__toast {
+    backdrop-filter: blur(16px);
+    #{--toastify-color-light}: rgba($light, 0.66);
+    #{--toastify-color-dark}: rgba($dark, 0.66);
+}
+
 :root,
 #root {
     position: absolute;

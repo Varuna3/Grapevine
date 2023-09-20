@@ -9,10 +9,12 @@ import CreateInvite from './CreateInvite'
 import ShowInvites from './ShowInvites'
 import EditUser from './EditUser'
 import Button from './Button'
+import Sidebar from './Sidebar'
 
 export default function SettingsPanel(props) {
     const {
         showSettings,
+        setShowSettings,
         setShowModal,
         setMessages,
         setCurrentServer,
@@ -32,8 +34,7 @@ export default function SettingsPanel(props) {
 
     return (
         <>
-            <div className="settings-panel" data-open={showSettings}>
-                <h1>Server Settings</h1>
+            <Sidebar open={showSettings} setOpen={setShowSettings} align="end">
                 <CreateInvite name={currentServer.name} />
                 <button
                     onClick={async () => {
@@ -50,13 +51,6 @@ export default function SettingsPanel(props) {
                 >
                     Show Invites
                 </button>
-                <ShowInvites
-                    showInvitesModal={showInvitesModal}
-                    setShowInvitesModal={setShowInvitesModal}
-                    serverId={currentServer.id}
-                    invites={invites}
-                    setInvites={setInvites}
-                />
                 <button
                     style={{ color: 'red' }}
                     onClick={async () => {
@@ -112,7 +106,14 @@ export default function SettingsPanel(props) {
                         />
                     </>
                 )}
-            </div>
+            </Sidebar>
+            <ShowInvites
+                showInvitesModal={showInvitesModal}
+                setShowInvitesModal={setShowInvitesModal}
+                serverId={currentServer.id}
+                invites={invites}
+                setInvites={setInvites}
+            />
         </>
     )
 }

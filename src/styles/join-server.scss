@@ -1,0 +1,17 @@
+// Join Server Modal: Styles for the joining a server modal.
+
+@use 'members' as *;
+
+.join-server {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: size(-3);
+    & > * {
+        flex: 1 0 auto;
+    }
+    .button {
+        flex-grow: 0;
+    }
+}

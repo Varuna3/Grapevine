@@ -9,6 +9,7 @@
     max-height: $xxl;
     gap: size(-3);
     overflow: hidden;
+    margin-top: size(-3);
     transition: max-height 750ms ease;
     &:not([data-open="true"]) {
         max-height: 0px;
