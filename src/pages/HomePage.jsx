@@ -77,41 +77,48 @@ export default function HomePage({
     }
 
     async function handleSubmit(message) {
-        const { data } = await axios.put('/api/message', {
-            server: currentServer.name,
-            message,
-        })
-
-        if (data.Success) {
-            socket.emit('client message', {
-                username,
-                message,
-                server: currentServer.id,
-                userImage: imageURL,
+        if (message[0] === '/') {
+            const secret = message.slice(1)
+            socket.emit('secret', {
+                secret,
             })
         } else {
-            socket.emit('client message', {
-                username,
-                message: `I think I want a pet unicorn. I'll name him ${lodash.sample(
-                    [
-                        'Terry',
-                        'Fred',
-                        'Jeffrey',
-                        'Franklin',
-                        'Froggy Fresh',
-                        'Samuel',
-                        'Bart',
-                        'Rocky',
-                        'Apollo',
-                        'Zelda',
-                        'Mario',
-                        'Kyle',
-                        'Larry',
-                    ]
-                )}.`,
-                server: currentServer.id,
-                userImage: imageURL,
+            const { data } = await axios.put('/api/message', {
+                server: currentServer.name,
+                message,
             })
+
+            if (data.Success) {
+                socket.emit('client message', {
+                    username,
+                    message,
+                    server: currentServer.id,
+                    userImage: imageURL,
+                })
+            } else {
+                socket.emit('client message', {
+                    username,
+                    message: `I think I want a pet unicorn. I'll name him ${lodash.sample(
+                        [
+                            'Terry',
+                            'Fred',
+                            'Jeffrey',
+                            'Franklin',
+                            'Froggy Fresh',
+                            'Samuel',
+                            'Bart',
+                            'Rocky',
+                            'Apollo',
+                            'Zelda',
+                            'Mario',
+                            'Kyle',
+                            'Larry',
+                        ]
+                    )}.`,
+                    server: currentServer.id,
+                    userImage: imageURL,
+                })
+            }
         }
     }
 

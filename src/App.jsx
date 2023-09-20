@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import lodash from 'lodash'
+import { toast } from 'react-toastify'
 
 import HomePage from './pages/HomePage'
 
@@ -18,6 +19,12 @@ export default function App() {
         })
         socket.on('delete message', (data) => {
             if (data.serverId === currentServer.id) handleDeleteMessage(data)
+        })
+        socket.on('secret', (data) => {
+            toast(data.secret)
+        })
+        socket.on('secret error', (data) => {
+            toast.error(data.error)
         })
         return () => socket.disconnect()
     }, [messages])

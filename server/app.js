@@ -6,6 +6,7 @@ import http from 'http'
 import fileUpload from 'express-fileupload'
 import cors from 'cors'
 import { Server } from 'socket.io'
+import axios from 'axios'
 
 import { helloWorldHandler } from './controllers/helloworld.js'
 import { login } from './controllers/login.js'
@@ -79,6 +80,20 @@ app.get('/api/server/getpubservers', getAllPublicServers)
 app.get('/api/getgiphy/:searchterm', cors(), getGiphy)
 app.get('/api/randomgifs', cors(), randomGifs)
 
+// app.post('/secret', async (req, res) => {
+//     if (req.session.user) {
+//         const { secret } = req.body
+//         if (secret === 'kyle') {
+//             const { data } = await axios.get('http://localhost:5000/kyle')
+//             res.json({ Secret: data })
+//         } else {
+//             res.json({ Error: 'Classified.' })
+//         }
+//     } else {
+//         res.json({ Error: 'Classified.' })
+//     }
+// })
+
 io.on('connection', (socket) => {
     socket.on('disconnect', () => {})
     socket.on('client message', (data) => {
@@ -90,13 +105,25 @@ io.on('connection', (socket) => {
         })
     })
     socket.on('delete message', (data) => {
-        console.log(data)
         io.emit('delete message', {
             message: data.message,
             username: data.username,
             serverId: data.serverId,
             key: data.key,
         })
+    })
+    socket.on('secret', async (data) => {
+        const { secret } = data
+        if (secret === 'kyle') {
+            const { data } = await axios.get('http://localhost:5000/kyle')
+            io.emit('secret', {
+                secret: data,
+            })
+        } else {
+            io.emit('secret error', {
+                error: 'Classified',
+            })
+        }
     })
 })
 
