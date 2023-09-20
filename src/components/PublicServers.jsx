@@ -47,7 +47,7 @@ const PublicServers = ({
                         theme="dark"
                     />
                 )}
-                {publicServers &&
+                {publicServers.length > 0 ? (
                     publicServers.map((server) => (
                         <div key={server.id} className="public-servers-item">
                             <img src={server.imageURL} />
@@ -61,7 +61,10 @@ const PublicServers = ({
                                 Join
                             </Button>
                         </div>
-                    ))}
+                    ))
+                ) : (
+                    <strong>Currently no public servers.</strong>
+                )}
             </div>
         </Modal>
     )
