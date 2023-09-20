@@ -71,22 +71,36 @@ export default function MessageDiv({ e, messageId, serverId, user }) {
                 >
                     <Button
                         variant="danger"
-                        action={async () => {
-                            setDeleted(true)
-                            await axios.delete('/api/message', {
-                                data: {
-                                    username: e.username,
-                                    serverId,
-                                    message: e.message,
-                                },
-                            })
-                            socket.emit('delete message', {
-                                message: e.message,
-                                username: e.username,
-                                serverId,
-                                key: messageId,
-                            })
-                        }}
+                        action={
+                            !e.message.includes(
+                                "I think I want a pet unicorn. I'll name him"
+                            )
+                                ? async () => {
+                                      setDeleted(true)
+                                      await axios.delete('/api/message', {
+                                          data: {
+                                              username: e.username,
+                                              serverId,
+                                              message: e.message,
+                                          },
+                                      })
+                                      socket.emit('delete message', {
+                                          message: e.message,
+                                          username: e.username,
+                                          serverId,
+                                          key: messageId,
+                                      })
+                                  }
+                                : async () => {
+                                      setDeleted(true)
+                                      socket.emit('delete message', {
+                                          message: e.message,
+                                          username: e.username,
+                                          serverId,
+                                          key: messageId,
+                                      })
+                                  }
+                        }
                     >
                         Delete Message
                     </Button>
