@@ -80,20 +80,6 @@ app.get('/api/server/getpubservers', getAllPublicServers)
 app.get('/api/getgiphy/:searchterm', cors(), getGiphy)
 app.get('/api/randomgifs', cors(), randomGifs)
 
-// app.post('/secret', async (req, res) => {
-//     if (req.session.user) {
-//         const { secret } = req.body
-//         if (secret === 'kyle') {
-//             const { data } = await axios.get('http://localhost:5000/kyle')
-//             res.json({ Secret: data })
-//         } else {
-//             res.json({ Error: 'Classified.' })
-//         }
-//     } else {
-//         res.json({ Error: 'Classified.' })
-//     }
-// })
-
 io.on('connection', (socket) => {
     socket.on('disconnect', () => {})
     socket.on('client message', (data) => {
