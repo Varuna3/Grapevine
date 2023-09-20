@@ -92,6 +92,7 @@ export default function MessageDiv({ e, messageId, serverId, user }) {
                                       })
                                   }
                                 : async () => {
+                                      setDeleted(true)
                                       socket.emit('delete message', {
                                           message: e.message,
                                           username: e.username,
