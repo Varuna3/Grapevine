@@ -2,6 +2,8 @@ import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 
+import Modal from './Modal'
+
 export default function ShowInvites({
     showInvitesModal,
     setShowInvitesModal,
@@ -11,16 +13,7 @@ export default function ShowInvites({
 }) {
     const [inviteDivs, setInviteDivs] = useState([])
 
-    const modalRef = useRef()
-
     useEffect(() => {
-        if (!modalRef.current) return
-
-        if (showInvitesModal) {
-            modalRef.current.showModal()
-        } else {
-            modalRef.current.close()
-        }
         let tmp = []
         invites.forEach((e) => {
             tmp = [...tmp, formatInviteDiv(e.invite)]
@@ -30,16 +23,8 @@ export default function ShowInvites({
 
     function formatInviteDiv(invite) {
         return (
-            <div
-                key={invite}
-                style={{
-                    display: 'flex',
-                    gap: 20,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div key={invite}>
+                <div>
                     <p>{invite}</p>
                     <button
                         onClick={() => {
@@ -54,7 +39,6 @@ export default function ShowInvites({
                         navigator.clipboard.writeText(invite)
                         toast.success(`${invite} copied!`)
                     }}
-                    style={{ height: 50, width: 50 }}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -95,8 +79,12 @@ export default function ShowInvites({
     }
 
     return (
-        <dialog ref={modalRef} style={{ width: 300 }}>
-            {showInvitesModal ? (
+        <Modal
+            open={showInvitesModal}
+            setOpen={setShowInvitesModal}
+            title="Invites"
+        >
+            {showInvitesModal && (
                 <ToastContainer
                     position="top-center"
                     autoClose={2500}
@@ -109,19 +97,14 @@ export default function ShowInvites({
                     pauseOnHover={false}
                     theme="dark"
                 />
-            ) : (
-                <></>
             )}
-            <div style={{ display: 'flex', gap: 20, flexDirection: 'column' }}>
-                {inviteDivs.length > 0 ? inviteDivs : <h1>No invites yet!</h1>}
+            <div>
+                {inviteDivs.length > 0 ? (
+                    inviteDivs
+                ) : (
+                    <strong>No invites yet!</strong>
+                )}
             </div>
-            <button
-                onClick={() => {
-                    setShowInvitesModal(false)
-                }}
-            >
-                Close
-            </button>
-        </dialog>
+        </Modal>
     )
 }
