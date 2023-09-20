@@ -17,7 +17,6 @@
     @include color-schemes using ($bg) {
         @each $name, $color in map.merge($colors, $color-palette) {
             &.#{$name} {
-                border-color: contrast-color($color, $bg, a11y(aa ui));
                 @include contrast using ($ratio) {
                     color: contrast-color($color, $bg, $ratio);
                 }
