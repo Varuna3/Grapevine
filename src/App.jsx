@@ -26,7 +26,13 @@ export default function App() {
         socket.on('secret error', (data) => {
             toast.error(data.error)
         })
-        return () => socket.disconnect()
+        return () => {
+            socket.off('new message')
+            socket.off('delete message')
+            socket.off('secret')
+            socket.off('secret error')
+            socket.disconnect()
+        }
     }, [messages])
 
     function handleNewMessage(data) {
