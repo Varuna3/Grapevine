@@ -100,14 +100,18 @@ export default function SettingsPanel(props) {
                         setCurrentServer={setCurrentServer}
                         setServerList={setServerList}
                     />
-                    <Button
-                        variant="warning"
-                        action={() => {
-                            setIsEditing(!isEditing)
-                        }}
-                    >
-                        Edit Profile
-                    </Button>
+                    {username === 'Demo' ? (
+                        <></>
+                    ) : (
+                        <Button
+                            variant="warning"
+                            action={() => {
+                                setIsEditing(!isEditing)
+                            }}
+                        >
+                            Edit Profile
+                        </Button>
+                    )}
                 </div>
                 {isEditing && (
                     <EditUser

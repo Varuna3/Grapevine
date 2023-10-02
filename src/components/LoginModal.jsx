@@ -98,7 +98,7 @@ const LoginModal = ({
                                         setPassword('')
                                     } else {
                                         toast.error(
-                                            'The dev for this site is a fucking moron'
+                                            "The dev for this site isn't very bright."
                                         )
                                     }
                                 }}
