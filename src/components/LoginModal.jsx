@@ -87,6 +87,24 @@ const LoginModal = ({
                             >
                                 Register
                             </Button>
+                            <Button
+                                action={async (e) => {
+                                    const { data } = await axios.post(
+                                        '/api/login',
+                                        { username: 'Demo', password: 'demo' }
+                                    )
+                                    if (data.Success) {
+                                        setShowModal(false)
+                                        setPassword('')
+                                    } else {
+                                        toast.error(
+                                            'The dev for this site is a fucking moron'
+                                        )
+                                    }
+                                }}
+                            >
+                                Demo
+                            </Button>
                         </Grid>
                     </Grid>
                 </form>
