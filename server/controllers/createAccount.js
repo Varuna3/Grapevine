@@ -1,69 +1,27 @@
-// Create Account: Endpoint for creating a user account.
-
 import bcrypt from 'bcrypt'
 import { User } from '../database/seed.js'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
-import sharp from 'sharp'
-import dotenv from 'dotenv'
-dotenv.config()
-
-const bucketName = process.env.AWS_BUCKET_NAME
-const bucketRegion = process.env.AWS_BUCKET_REGION
-const accessKey = process.env.ACCESS_KEY
-const secretAccessKey = process.env.SECRET_ACCESS_KEY
-
-const s3 = new S3Client({
-    credentials: {
-        accessKeyId: accessKey,
-        secretAccessKey: secretAccessKey,
-    },
-    region: bucketRegion,
-})
 
 export default async function createAccount(req, res) {
-    // Get all new user data from request body:
-    let { username, password, email, imageURL } = req.body
+    let { username, password, email } = req.body
 
-    // Try to create a new user:
     try {
-        // Create password hash using data with whitespace trimmed:
+        // trimming here because we want to be quirky and different
         const passwordHash = bcrypt.hashSync(password.trim(), 10)
-        let profileImageUrl = ''
-        // Create placeholder image using first character of username when imageURL is falsy:
-        imageURL ||= 'https://placehold.co/256x256?text=' + username.charAt(0)
+        const imageURL =
+            'https://placehold.co/256x256?text=' + username.charAt(0)
 
-
-        if (req.files && req.files.imageURL) {
-            var file = req.files.imageURL
-            var optimized = await sharp(file.data)
-                .resize(60, 60, { fit: 'inside', withoutEnlargement: true })
-                .toBuffer()
-            const profileimage = {
-                Bucket: bucketName,
-                Key: file.name,
-                Body: optimized,
-                ContentType: file.mimetype,
-            }
-            const comm = new PutObjectCommand(profileimage)
-    
-            await s3.send(comm)
-            profileImageUrl = `https://grapevinedev.s3.us-west-2.amazonaws.com/${file.name}`
-        }
-
-        // Create new user in the database table:
         await User.create({
+            // again - we are so quirky and cool (sunglasses emoji)
             username: username.trim(),
             passwordHash,
             email,
-            imageURL: req.files ? profileImageUrl : imageURL,
+            imageURL,
         })
 
-        // Respond with Success JSON data:
         res.json({
             Success: `User ${username} successfully created.`,
         })
     } catch (error) {
-        // Otherwise respond with error message:
         res.json({
             Error: `Account creation failed: ${error}`,
         })

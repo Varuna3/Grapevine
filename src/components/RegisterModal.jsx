@@ -24,7 +24,7 @@ const RegisterModal = ({
         axios
             .put(
                 '/api/account/',
-                { username, password, email, imageURL },
+                { username, password, email },
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -39,6 +39,7 @@ const RegisterModal = ({
                     setShowRegisterModal(false)
                 } else {
                     toast.error('Registration failed.')
+                    console.log(res.data)
                 }
             })
     }
@@ -85,12 +86,18 @@ const RegisterModal = ({
                             callback={setEmail}
                             required={true}
                         />
-                        <TextField
-                            type="file"
-                            label="Upload Image:"
-                            callback={setImageURL}
-                            required={true}
-                        />
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            <p>There was an image upload here.</p>
+                            <p>
+                                I can't afford s3. Now there is not an image
+                                upload here.
+                            </p>
+                        </div>
                     </fieldset>
                     <Button variant="success">Register</Button>
                 </form>
