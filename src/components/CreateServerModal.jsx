@@ -19,7 +19,7 @@ const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
         await axios
             .put(
                 '/api/server',
-                { name, imageURL, isPrivate, serverImage },
+                { name, isPrivate },
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -56,7 +56,7 @@ const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
         <Modal
             open={showServerModal}
             setOpen={setShowServerModal}
-            title="Create Le Server"
+            title="Create Server"
         >
             <form onSubmit={submitHandler} className="create-server-modal">
                 <fieldset>
@@ -67,18 +67,16 @@ const CreateServerModal = ({ showServerModal, setShowServerModal }) => {
                         callback={setServerName}
                         required={true}
                     />
-                    <TextField
-                        label="Upload Image"
-                        type="file"
-                        id="serverImage"
-                        callback={setServerImage}
-                    />
-                    <TextField
-                        label="Is the server private?:"
+                    <div>
+                        <p>There used to be an image upload here....</p>
+                    </div>
+                    <label htmlFor="server-is-private">Private: </label>
+                    <input
+                        id="server-is-private"
                         type="checkbox"
-                        id="isPrivate"
-                        value={isPrivate}
-                        callback={setIsPrivate}
+                        onClick={() => {
+                            setIsPrivate(!isPrivate)
+                        }}
                     />
                 </fieldset>
                 <Button variant="success" type="submit">
