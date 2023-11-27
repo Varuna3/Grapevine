@@ -7,7 +7,6 @@
     inset: 0;
     display: flex;
     flex-flow: column nowrap;
-    @include container(home-page);
     & > * {
         flex: 0 0 auto;
         overflow: auto;
